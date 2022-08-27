@@ -40,11 +40,11 @@ dashboard.section.buttons.val = {
 }
 
 -- Set footer
-local fortune = require 'alpha.fortune' 
+local fortune = require 'alpha.fortune'
 dashboard.section.footer.val = fortune()
 
 -- Send config to alpha
-alpha.setup(dashboard.opts) 
+alpha.setup(dashboard.opts)
 
 -- Disable folding on alpha buffer
 vim.cmd [[

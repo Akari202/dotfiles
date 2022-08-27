@@ -2,7 +2,7 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
     vim.o.runtimepath = vim.fn.stdpath('data') .. '/site/pack/*/start/*,' .. vim.o.runtimepath
 end
 
@@ -23,6 +23,7 @@ packer.init({
     },
 })
 
+-- TODO set plugin dependencies
 -- FIX set order so that plugins that depend on eachother dont error
 return require('packer').startup(function(use)
     -- Impatient to make loading faster
@@ -30,11 +31,11 @@ return require('packer').startup(function(use)
     require 'impatient'
 
     -- Packer can manage itself
-    use 'wbthomason/packer.nvim'  
-   
+    use 'wbthomason/packer.nvim'
+
     -- Colorscheme
     use {
-        'dracula/vim', 
+        'dracula/vim',
         as = 'dracula'
     }
 
@@ -46,7 +47,7 @@ return require('packer').startup(function(use)
         end
     }
 
-    -- LSP, treesitter, autocomplete
+    -- Treesitter
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
@@ -64,6 +65,9 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use 'nvim-treesitter/nvim-treesitter-context'
+
+    -- Mason for LSP, DAP, and formatter management
     use {
         'williamboman/mason.nvim',
         config = function()
@@ -74,7 +78,7 @@ return require('packer').startup(function(use)
         'williamboman/mason-lspconfig.nvim',
        config = function()
             require('mason-lspconfig').setup {
-                ensure_installed = { 
+                ensure_installed = {
                     'clangd',
                     'cssls',
                     'gopls',
@@ -85,28 +89,62 @@ return require('packer').startup(function(use)
                     'tsserver',
                     'kotlin_language_server',
                     'texlab',
+                    'rust-analyzer',
                     'sumneko_lua',
                     'marksman',
                     'pylsp',
                     'solargraph',
-                    'rust_analyzer',
                     'sqlls',
                     'taplo',
                     'lemminx',
-                    'yamlls'
+                    'yamlls',
+                    'luaformatter',
+                    'autopep8',
+                    'clang-format',
+                    'goimports'
                 }
             }
         end
     }
-    use 'neovim/nvim-lspconfig' 
-    use 'nvim-treesitter/nvim-treesitter-context'
+    use 'neovim/nvim-lspconfig'
+    use 'nvim-treesitter/playground'
+
+    -- Debug
     use 'mfussenegger/nvim-dap'
+
+    -- Formatter
+    use {
+        'mhartington/formatter.nvim',
+        config = function()
+            require 'formatter'.setup {}
+        end
+    }
+
+    -- Inlay hints
+    use {
+        'simrat39/inlay-hints.nvim',
+        config = function()
+            require 'inlay-hints'.setup {}
+        end
+    }
+
+    -- Rust tools
+    use {
+        'simrat39/rust-tools.nvim',
+        config = function()
+            require 'rust-tools'.setup {}
+        end
+    }
+
+    -- Smooth scrolling
+    use 'psliwka/vim-smoothie'
 
     -- TODO look into cmp
     -- Coq
     use {
         'ms-jpq/coq_nvim',
-        branch = 'coq'
+        branch = 'coq',
+        run = 'python3 -m coq deps'
     }
     use {
         'ms-jpq/coq.artifacts',
@@ -116,7 +154,7 @@ return require('packer').startup(function(use)
         'ms-jpq/coq.thirdparty',
         branch = '3p'
     }
-    
+
     -- Auto pair brackes and stuff
     use {
         'windwp/nvim-autopairs',
@@ -128,25 +166,15 @@ return require('packer').startup(function(use)
     -- Javap
     use 'udalov/javap-vim'
 
+    -- Editorconfig
+    use 'editorconfig/editorconfig-vim'
+
     -- File tree
     use {
         'ms-jpq/chadtree',
         branch = 'chad',
         run = 'python3 -m chadtree deps'
     }
-    -- use {
-    --     'kyazdani42/nvim-tree.lua',
-    --     config = function()
-    --         require 'nvim-tree'.setup {
-    --             open_on_setup = true,
-    --             rederer = {
-    --                 trash = {
-    --                     cmd = 'trash'
-    --                 }
-    --             }
-    --         }
-    --     end
-    -- }
 
     -- Trouble
     use {
@@ -158,7 +186,7 @@ return require('packer').startup(function(use)
 
     -- Fancy icons
     use 'kyazdani42/nvim-web-devicons'
-   
+
     -- Fast commenting
     use {
         'numToStr/Comment.nvim',
@@ -186,27 +214,27 @@ return require('packer').startup(function(use)
 
     -- Minimap
     use 'wfxr/minimap.vim'
-    
+
     -- Crate management
     use {
         'saecki/crates.nvim',
         event = {'BufRead Cargo.toml'},
         config = function()
-            require('crates').setup()
+            require 'crates'.setup {}
         end
     }
 
     -- Tagbar
     use 'preservim/tagbar'
 
-    -- TODO configure airline
     -- Airline statusbar
     use 'vim-airline/vim-airline'
+    -- use 'edkolev/tmuxline.vim'
 
     -- Telescope
     use 'nvim-lua/plenary.nvim'
     use {
-        'nvim-telescope/telescope-fzf-native.nvim', 
+        'nvim-telescope/telescope-fzf-native.nvim',
         run = 'make'
     }
     use {
@@ -234,19 +262,25 @@ return require('packer').startup(function(use)
             }
         end
     }
-    
+
     -- CSV files
     use 'chrisbra/csv.vim'
 
     -- Indent lines
     use 'Yggdroot/indentLine'
 
+    -- Nabla
+    use 'jbyuki/nabla.nvim'
+
     -- Discord rich presence
     use 'andweeb/presence.nvim'
 
+    -- Copilot is terrifying
+    -- use 'github/copilot.vim'
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
-    if packer_bootstrap then
+    if PACKER_BOOTSTRAP then
         require('packer').sync()
     end
 end)

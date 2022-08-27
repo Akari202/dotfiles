@@ -5,10 +5,10 @@ Keybinds:
 * - toggle trouble <F6>
 * - open telescope <F5>
 * - open telescope oldfiles <F4>
-* commenting?
+* commenting? meh just use gcc
 * save
 * focus chad
-* if rust dap
+* rust dap
     * toggle breakpoint?
     * step code?
     * launch debug sesh?
