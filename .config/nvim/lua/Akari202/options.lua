@@ -13,3 +13,15 @@ vim.opt.shiftwidth = 4
 vim.opt.fileencoding = 'utf-8'
 vim.opt.termguicolors = true
 
+-- Highlight yanked text
+vim.highlight.on_yank()
+
+-- Automatically trim trailing whitespace
+vim.cmd [[
+    autocmd BufWritePre * :%s/\s\+$//e
+]]
+
+-- Automatically source tmux config
+vim.cmd [[
+    autocmd BufWritePost tmux.conf :!tmux source-file ~/.config/tmux/tmux.conf
+]]

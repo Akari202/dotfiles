@@ -1,8 +1,19 @@
 # Dotfiles
 (I'll add links here eventually™)
 
+## Fun things
+
 ## Neovim
+<img
+    style="display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;"
+    src="Screenshots/nvim rice 2022-08-07.png">
+</img>
+
 External Requirements:
+
 * venv
 * universal ctags
 * ripgrep

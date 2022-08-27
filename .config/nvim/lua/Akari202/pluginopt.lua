@@ -1,9 +1,9 @@
 -- Indent Lines
 vim.g.indentLine_char = '│'
-vim.g.indentLine_fileTypeExclude = {'alpha'}
+vim.g.indentLine_fileTypeExclude = {'alpha', 'CHADTree'}
 
 -- FIX make minimap and chad not fight for space
-vim.g.minimap_auto_start = 0 
+vim.g.minimap_auto_start = 0
 vim.g.minimap_width = 10
 
 -- coq
@@ -14,11 +14,17 @@ vim.g.coq_settings = {
 -- Chad
 local chadtree_settings = {
     ['view.width'] = 30,
-    ['view.window_options.wrap'] = true
+    ['view.window_options.wrap'] = true,
+    -- ['options.version_control'] = true
 }
 vim.g.chadtree_settings = chadtree_settings
 vim.cmd [[
     autocmd UIEnter * CHADopen
+]]
+
+-- Nabla config
+vim.cmd [[
+    nnoremap <leader>p :lua require("nabla").popup()<CR>
 ]]
 
 -- Airline
@@ -29,3 +35,5 @@ vim.cmd [[
     let g:airline_section_c_only_filename = 1
 ]]
 
+-- Tmuxline
+-- vim.g.tmuxline_preset = 'full'
