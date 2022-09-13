@@ -23,8 +23,8 @@ packer.init({
     },
 })
 
--- TODO set plugin dependencies
--- FIX set order so that plugins that depend on eachother dont error
+-- TODO: set plugin dependencies
+-- FIX: set order so that plugins that depend on eachother dont error
 return require('packer').startup(function(use)
     -- Impatient to make loading faster
     use 'lewis6991/impatient.nvim'
@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
     use {
         'goolord/alpha-nvim',
         config = function()
-            require 'config.alpha'.setup()
+            require 'config.alpha'
         end
     }
 
@@ -139,7 +139,6 @@ return require('packer').startup(function(use)
     -- Smooth scrolling
     use 'psliwka/vim-smoothie'
 
-    -- TODO look into cmp
     -- Coq
     use {
         'ms-jpq/coq_nvim',
@@ -162,6 +161,9 @@ return require('packer').startup(function(use)
             require 'nvim-autopairs'.setup {}
         end
     }
+
+    -- Sudoa
+    use 'lambdalisue/suda.vim'
 
     -- Javap
     use 'udalov/javap-vim'
@@ -195,18 +197,17 @@ return require('packer').startup(function(use)
         end
     }
 
-    -- FIX its not working for some reason
     -- Fancy todo
     use {
         'folke/todo-comments.nvim',
         config = function()
             require 'todo-comments'.setup {
                 colors = {
-                    error = {'DiagnosticError', 'ErrorMsg', '#ff5555'},
-                    warning = {'DiagnosticWarning', 'WarningMsg', '#ffb86c'},
-                    info = {'DiagnosticInfo', '#8be9fd'},
-                    hint = {'DiagnosticHint', '#50fa7b'},
-                    default = {'Identifier', '#bd93f9'}
+                    error = {'#ff5555'},
+                    warning = {'#ffb86c'},
+                    info = {'#8be9fd'},
+                    hint = {'#50fa7b'},
+                    default = {'#bd93f9'}
                 }
             }
         end

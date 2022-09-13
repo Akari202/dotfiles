@@ -36,7 +36,7 @@ end
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button('c', footer(), ':CHADopen<CR>')
-    -- TODO add a quit thing
+    -- TODO: add a quit thing
 }
 
 -- Set footer
