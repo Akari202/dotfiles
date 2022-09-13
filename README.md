@@ -1,7 +1,8 @@
 # Dotfiles
 (I'll add links here eventually™)
 
-## Fun things
+## Tmux
+i modified some of the plugins i am using so i just killed the submodule and included it. its not idea but no one is looking at this anyway
 
 ## Neovim
 <img

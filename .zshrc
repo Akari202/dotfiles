@@ -11,9 +11,25 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# TODO replace " with '
+
 export HISTORY_IGNORE="(ls|cd|pwd|exit|vim|sudo reboot|history|cd -|cd ..)"
 
-PROMPT='%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}'
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+    PROMPT='%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}'
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    export PATH=$PATH:/Users/ellie/.spicetify
+    alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/ && nvim"
+fi
+
+if [[ "$OSTYPE" =~ ^linux ]]; then
+    PROMPT='%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}'
+    alias dotfiles="cd /home/akari/Downloads/util/dotfiles/ && nvim"
+    alias trash='trash-put'
+fi
+
 
 alias neo="neofetch | lolcat"
 alias one="onefetch | lolcat"
@@ -22,13 +38,7 @@ alias sl="sl | lolcat && fortune | uwuify | cowsay | lolcat"
 alias ls="ls -a --color=auto"
 alias vim="nvim"
 alias vi="nvim"
-# TODO make this not an absolute path so it works on both my computers
-alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/ && nvim"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH=$PATH:/Users/ellie/.spicetify
 
 sha256() {
     printf '%s %s\n' "$1" "$2" | sha256sum --check
@@ -60,6 +70,8 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+export EDITOR=nvim
 
 # use emplace to sync package
 # eval "$(emplace init zsh)"
