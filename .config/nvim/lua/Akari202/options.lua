@@ -13,6 +13,7 @@ vim.opt.shiftwidth = 4
 vim.opt.fileencoding = 'utf-8'
 vim.opt.termguicolors = true
 vim.opt.whichwrap='b,s,<,>,[,]'
+vim.opt.guifont = {'ComicCode Nerd Font', 'h12'}
 
 -- Highlight yanked text
 vim.highlight.on_yank()
