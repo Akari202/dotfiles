@@ -34,8 +34,8 @@ fi
 alias neo="neofetch | lolcat"
 alias one="onefetch | lolcat"
 alias fort="fortune | uwuify | cowsay | lolcat"
-alias sl="sl | lolcat && fortune | uwuify | cowsay | lolcat"
-alias ls="ls -a --color=auto"
+alias sl="sl | lolcat && fortune | uwuify | cowsay | lolcat && ls -A --color=auto --group-directories-first"
+alias ls="ls -A --color=auto --group-directories-first"
 alias vim="nvim"
 alias vi="nvim"
 

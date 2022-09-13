@@ -18,9 +18,9 @@ local chadtree_settings = {
     -- ['options.version_control'] = true
 }
 vim.g.chadtree_settings = chadtree_settings
-vim.cmd [[
-    autocmd UIEnter * CHADopen
-]]
+-- vim.cmd [[
+--     autocmd UIEnter * CHADopen
+-- ]]
 
 -- Nabla config
 vim.cmd [[
