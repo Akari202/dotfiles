@@ -22,6 +22,11 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
 ]]
 
+-- Format json
+vim.cmd [[
+    autocmd BufWritePre *.json :%!jq .
+]]
+
 -- Automatically source tmux config
 vim.cmd [[
     autocmd BufWritePost tmux.conf :!tmux source-file ~/.config/tmux/tmux.conf

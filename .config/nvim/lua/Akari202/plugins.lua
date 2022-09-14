@@ -101,7 +101,8 @@ return require('packer').startup(function(use)
                     'luaformatter',
                     'autopep8',
                     'clang-format',
-                    'goimports'
+                    'goimports',
+                    'jq'
                 }
             }
         end
@@ -112,13 +113,15 @@ return require('packer').startup(function(use)
     -- Debug
     use 'mfussenegger/nvim-dap'
 
+    -- TODO figure out formatter
     -- Formatter
-    use {
-        'mhartington/formatter.nvim',
-        config = function()
-            require 'formatter'.setup {}
-        end
-    }
+    -- use {
+    --     'jose-elias-alvarez/null-ls.nvim',
+    --     config = function()
+    --         require 'null-ls'.setup {
+    --         }
+    --     end
+    -- }
 
     -- Inlay hints
     use {
