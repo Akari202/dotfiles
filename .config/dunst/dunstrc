@@ -1,3 +1,5 @@
+# NOTE: this is a fairly minimal config, i would like to put more though into it at some point
+
 [global]
     transparency = 0
     frame_color = "#282a36"
@@ -6,17 +8,17 @@
     separator_color = "#6272a4"
     separator_height = 2
 
-    font = Comic Code 9
+    font = ComicCode Nerd Font 9
     line_height = 10
     markup = full
-    
+
     format = "<b>%s</b>\n%b"
     sort = yes
     indicate_hidden = yes
     max_icon_size = 48
 
     mouse_middle_click = do_action
-    
+
 [spotify]
     appname = Spotify
     foreground = "#50fa7b"
@@ -28,7 +30,7 @@
     foreground = "#bd93f9"
     history_ignore = yes
     timeout = 3
-    
+
 [urgency_low]
     foreground = "#6272a4"
 
