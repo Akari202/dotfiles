@@ -28,6 +28,14 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     PROMPT='%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}'
     alias dotfiles="cd /home/akari/Downloads/util/dotfiles/ && nvim"
     alias trash='trash-put'
+    export GPG_TTY=$(tty)
+    export EDITOR=nvim
+    export VISUAL=neovide
+
+    # pnpm
+    export PNPM_HOME="/home/akari/.local/share/pnpm"
+    export PATH="$PNPM_HOME:$PATH"
+    # pnpm end
 fi
 
 
@@ -71,10 +79,9 @@ ex ()
   fi
 }
 
-export EDITOR=nvim
-
 # use emplace to sync package
 # eval "$(emplace init zsh)"
 
 neofetch | lolcat
 fortune
+
