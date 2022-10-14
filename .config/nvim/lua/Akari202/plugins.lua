@@ -168,6 +168,9 @@ return require('packer').startup(function(use)
     -- Javap
     use 'udalov/javap-vim'
 
+    -- Arduino
+    use 'stevearc/vim-arduino'
+
     -- Editorconfig
     use 'editorconfig/editorconfig-vim'
 
