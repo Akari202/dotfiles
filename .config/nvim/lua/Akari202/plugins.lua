@@ -113,7 +113,7 @@ return require('packer').startup(function(use)
     -- Debug
     use 'mfussenegger/nvim-dap'
 
-    -- TODO figure out formatter
+    -- TODO: figure out formatter
     -- Formatter
     -- use {
     --     'jose-elias-alvarez/null-ls.nvim',
