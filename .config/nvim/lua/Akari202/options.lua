@@ -13,9 +13,16 @@ vim.opt.shiftwidth = 4
 vim.opt.fileencoding = 'utf-8'
 vim.opt.termguicolors = true
 vim.opt.whichwrap='b,s,<,>,[,]'
+vim.opt.ignorecase = true
+vim.opt.hlsearch = true
 
 -- Highlight yanked text
 vim.highlight.on_yank()
+
+-- Change leader key
+vim.cmd [[
+    let mapleader = "'"
+]]
 
 -- Automatically trim trailing whitespace
 vim.cmd [[
@@ -27,7 +34,14 @@ vim.cmd [[
     autocmd BufWritePre *.json :%!jq .
 ]]
 
+-- TODO: move this to editorconfig
+-- Format python
+vim.cmd [[
+    autocmd BufWritePre dyno/*.py :%!python3 -m black .
+]]
+
 -- Automatically source tmux config
 vim.cmd [[
     autocmd BufWritePost tmux.conf :!tmux source-file ~/.config/tmux/tmux.conf
 ]]
+
