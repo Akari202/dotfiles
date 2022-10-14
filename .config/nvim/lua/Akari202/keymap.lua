@@ -14,3 +14,6 @@ vim.keymap.set('n', '<F4>', ':Telescope oldfiles<CR>')
 -- Show alpha
 vim.keymap.set('n', '<F1>', ':Alpha<CR>')
 
+-- Open Cargo.toml
+vim.keymap.set('n', '<F2>', ':RustOpenCargo<CR>')
+
