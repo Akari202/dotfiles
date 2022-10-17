@@ -195,7 +195,7 @@ return require('packer').startup(function(use)
     -- Fancy icons
     use 'kyazdani42/nvim-web-devicons'
 
-    -- Fast commenting
+    -- Comment tool
     use {
         'numToStr/Comment.nvim',
         config = function()
@@ -236,20 +236,27 @@ return require('packer').startup(function(use)
 
     -- Airline statusbar
     use 'vim-airline/vim-airline'
-    -- use 'edkolev/tmuxline.vim'
 
     -- Telescope
     use 'nvim-lua/plenary.nvim'
     use {
         'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make'
+        run = 'make',
+        requires = {{
+                'nvim-lua/plenary.nvim'
+            }
+        }
     }
     use {
         'nvim-telescope/telescope.nvim',
         config = function()
             require 'telescope'.setup {}
             require 'telescope'.load_extension('fzf')
-        end
+        end,
+        requires = {{
+                'nvim-lua/plenary.nvim'
+            }
+        }
     }
 
     -- Git
@@ -282,12 +289,11 @@ return require('packer').startup(function(use)
     -- Discord rich presence
     use 'andweeb/presence.nvim'
 
-    -- Copilot is terrifying
-    -- use 'github/copilot.vim'
-
-    -- Automatically set up your configuration after cloning packer.nvim
+    -- Automatically set up config after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
-        require('packer').sync()
+        require 'packer'.sync()
+        require 'packer'.compile()
     end
 end)
+
