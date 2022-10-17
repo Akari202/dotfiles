@@ -1,33 +1,33 @@
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=5000
 SAVEHIST=5000
 bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/Users/ellie/.zshrc'
-
+zstyle :compinstall filename "/Users/ellie/.zshrc"
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
 
-# TODO replace " with '
-
-export HISTORY_IGNORE="(ls|cd|pwd|exit|vim|sudo reboot|history|cd -|cd ..)"
+export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-    PROMPT='%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}'
+    # Prompt
+    PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
+
+    # Load nvm
     export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+    # TODO: fix path variable
     export PATH=$PATH:/Users/ellie/.spicetify
-    alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/ && nvim"
+
+    # Aliases
+    alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/"
 fi
 
 if [[ "$OSTYPE" =~ ^linux ]]; then
-    PROMPT='%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}'
-    alias dotfiles="cd /home/akari/Downloads/util/dotfiles/ && nvim"
-    alias trash='trash-put'
+    PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
+    alias dotfiles="cd /home/akari/Downloads/util/dotfiles/"
+    alias trash="trash-put"
     export GPG_TTY=$(tty)
     export EDITOR=nvim
     export VISUAL=neovide
@@ -49,7 +49,7 @@ alias vi="nvim"
 
 
 sha256() {
-    printf '%s %s\n' "$1" "$2" | sha256sum --check
+    printf "%s %s\n" "$1" "$2" | sha256sum --check
 }
 
 ### ARCHIVE EXTRACTION

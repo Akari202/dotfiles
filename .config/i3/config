@@ -17,8 +17,8 @@ font comiccode:monospace 8
 exec --no-startup-id dex --autostart --environment i3
 
 # Lock screen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/Dotfiles/lock.sh
-bindsym Home exec sh ~/Downloads/util/Dotfiles/lock.sh
+exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/Dotfiles/i3lock/lock.sh
+bindsym Home exec sh ~/Downloads/util/Dotfiles/i3lock/lock.sh
 
 # Set media keys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -159,11 +159,12 @@ exec_always --no-startup-id numlockx on
 # Start picom compositor
 exec_always --no-startup-id picom
 
+# NOTE: relies on config files being symlinked to the proper directory, even when not strictly neccissary
 # Start top bar
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 
 # Start wallpaper with feh
-exec_always --no-startup-id feh --bg-fill /home/akari/Downloads/util/wallpaper.png
+exec_always --no-startup-id feh --bg-fill /home/akari/Downloads/util/Wallpapers/current.png
 
 # Start notifications with dunst
 exec_always --no-startup-id dunst ~/.config/dunst/dunstrc
