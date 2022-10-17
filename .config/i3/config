@@ -18,7 +18,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # Lock screen
 exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/Dotfiles/lock.sh
-bindsym $mod+l exec sh ~/Downloads/util/Dotfiles/lock.sh
+bindsym Home exec sh ~/Downloads/util/Dotfiles/lock.sh
 
 # Set media keys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -56,7 +56,7 @@ bindsym $mod+Shift+l move right
 
 # TODO: try these out someday
 # Horizontal and vertical split
-bindsym $mod+h split h
+bindsym $mod+b split h
 bindsym $mod+v split v
 
 # Enter fullscreen mode for the focused container
