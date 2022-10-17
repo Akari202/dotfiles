@@ -23,9 +23,9 @@ vim.g.chadtree_settings = chadtree_settings
 -- ]]
 
 -- Nabla config
-vim.cmd [[
-    nnoremap <leader>p :lua require("nabla").popup()<CR>
-]]
+-- vim.cmd [[
+--     nnoremap <leader>p :lua require("nabla").popup()<CR>
+-- ]]
 
 -- Airline
 vim.cmd [[
@@ -35,5 +35,3 @@ vim.cmd [[
     let g:airline_section_c_only_filename = 1
 ]]
 
--- Tmuxline
--- vim.g.tmuxline_preset = 'full'
