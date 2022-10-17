@@ -1,3 +1,4 @@
+# ZSH settings
 HISTFILE=~/.histfile
 HISTSIZE=5000
 SAVEHIST=5000
@@ -5,9 +6,9 @@ bindkey -v
 zstyle :compinstall filename "/Users/ellie/.zshrc"
 autoload -Uz compinit
 compinit
-
 export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
 
+# macOS specific tasks
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     # Prompt
     PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
@@ -24,10 +25,16 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/"
 fi
 
+# Linux specific tasks
 if [[ "$OSTYPE" =~ ^linux ]]; then
+    # Prompt
     PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
+
+    # Aliases
     alias dotfiles="cd /home/akari/Downloads/util/dotfiles/"
     alias trash="trash-put"
+
+    # ENV veriables
     export GPG_TTY=$(tty)
     export EDITOR=nvim
     export VISUAL=neovide
@@ -35,10 +42,9 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     # pnpm
     export PNPM_HOME="/home/akari/.local/share/pnpm"
     export PATH="$PNPM_HOME:$PATH"
-    # pnpm end
 fi
 
-
+# General aliases
 alias neo="neofetch | lolcat"
 alias one="onefetch | lolcat"
 alias fort="fortune | uwuify | cowsay | lolcat"
@@ -47,15 +53,14 @@ alias ls="ls -A --color=auto --group-directories-first"
 alias vim="nvim"
 alias vi="nvim"
 
-
+# Sha checker
 sha256() {
     printf "%s %s\n" "$1" "$2" | sha256sum --check
 }
 
 ### ARCHIVE EXTRACTION
 # usage: ex <file>
-ex ()
-{
+ex () {
   if [ -f $1 ] ; then
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
@@ -79,9 +84,7 @@ ex ()
   fi
 }
 
-# use emplace to sync package
-# eval "$(emplace init zsh)"
-
+# Greeting for new terminal windows
 neofetch | lolcat
 fortune
 

@@ -1,9 +1,7 @@
 # NOTE: all arrow keybinds are currently disabled
 # i am trying to force myself to stick to vim-like keybinds for nearly everything
-
 # NOTE: i am opting for macOS parity rather than following i3 convention
 
-# WARN: I may have incorrect syntax on for_window[] and assign[]
 
 # Set mod to be windows key
 set $mod Mod4
@@ -17,8 +15,8 @@ font comiccode:monospace 8
 exec --no-startup-id dex --autostart --environment i3
 
 # Lock screen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/Dotfiles/i3lock/lock.sh
-bindsym Home exec sh ~/Downloads/util/Dotfiles/i3lock/lock.sh
+exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/dotfiles/i3lock/lock.sh
+bindsym Home exec sh ~/Downloads/util/dotfiles/i3lock/lock.sh
 
 # Set media keys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -147,7 +145,7 @@ bindsym Control+Print exec escrotum -s ~/Downloads/Screenshots/%Y-%m-%d-%H%M%S_$
 bindsym Print exec escrotum ~/Downloads/Screenshots/%Y-%m-%d-%H%M%S_$wx$h_Screenshot.png
 
 # Hide window borders
-for_window[class=".*"] border pixel 0
+for_window [class=".*"] border pixel 0
 
 # Set window padding
 gaps inner 12
@@ -175,12 +173,12 @@ workspace 9 output DVI-D-0
 workspace 1 output DP-2
 
 # Assign apps to workspaces
-assign[class="spotify"] → 10
-assign[class="mullvad"] → 10
-assign[class="discord"] → 9
+assign [class="spotify"] → 10
+assign [class="mullvad"] → 10
+assign [class="discord"] → 9
 
 # Move apps to specific workspaces
-for_window[class="spotify"] move to 10
+for_window [class="spotify"] move to 10
 
 # Autostart apps
 exec brave → 1
