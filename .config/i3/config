@@ -155,14 +155,14 @@ gaps top 42
 exec_always --no-startup-id numlockx on
 
 # Start picom compositor
-exec_always --no-startup-id picom
+exec_always --no-startup-id picom --config /home/akari/Downloads/util/dotfiles/.config/picom.conf
 
 # NOTE: relies on config files being symlinked to the proper directory, even when not strictly neccissary
 # Start top bar
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 
 # Start wallpaper with feh
-exec_always --no-startup-id feh --bg-fill /home/akari/Downloads/util/Wallpapers/current.png
+exec_always --no-startup-id feh --bg-fill /home/akari/Downloads/util/dotfiles/Wallpapers/current.png
 
 # Start notifications with dunst
 exec_always --no-startup-id dunst ~/.config/dunst/dunstrc
