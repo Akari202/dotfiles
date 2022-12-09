@@ -1,6 +1,8 @@
 # Dotfiles
 I'll add links here eventually™
 
+I really dont want to remake my nvim config for helix...
+
 ## Tmux
 Its a real shitshow the way i have the plugins, its a pile of TODOs
 
