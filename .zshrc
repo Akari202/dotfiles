@@ -1,57 +1,22 @@
 # ZSH settings
 HISTFILE=~/.histfile
-HISTSIZE=5000
-SAVEHIST=5000
-bindkey -v
-zstyle :compinstall filename "/Users/ellie/.zshrc"
-autoload -Uz compinit
-compinit
+HISTSIZE=1000
+SAVEHIST=1000
+# bindkey v
+# autoload -Uz compinit
+# compinit
 export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
 
-# macOS specific tasks
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-    # Prompt
-    PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
+PROMPT="%n%f@%M%f %B%~%b%f %# "
+# PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2} %{$reset_color%}%% "
 
-    # Load nvm
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-    # TODO: fix path variable
-    export PATH=$PATH:/Users/ellie/.spicetify
-
-    # Aliases
-    alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/"
-fi
-
-# Linux specific tasks
-if [[ "$OSTYPE" =~ ^linux ]]; then
-    # Prompt
-    PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
-
-    # Aliases
-    alias dotfiles="cd /home/akari/Downloads/util/dotfiles/"
-    alias trash="trash-put"
-
-    # ENV veriables
-    export GPG_TTY=$(tty)
-    export EDITOR=nvim
-    export VISUAL=neovide
-
-    # pnpm
-    export PNPM_HOME="/home/akari/.local/share/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
-fi
-
-# General aliases
-alias neo="neofetch | lolcat"
-alias one="onefetch | lolcat"
-alias fort="fortune | uwuify | cowsay | lolcat"
-alias sl="sl | lolcat && fortune | uwuify | cowsay | lolcat && ls -A --color=auto --group-directories-first"
+# Aliases
 alias ls="ls -A --color=auto --group-directories-first"
-alias vim="nvim"
-alias vi="nvim"
+
+# ENV veriables
+export GPG_TTY=$(tty)
+export EDITOR=vim
+export TERM=xterm-256color
 
 # Sha checker
 sha256() {
@@ -83,8 +48,4 @@ ex () {
     echo "'$1' is not a valid file"
   fi
 }
-
-# Greeting for new terminal windows
-neofetch | lolcat
-fortune
 
