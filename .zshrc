@@ -33,6 +33,7 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     # Aliases
     alias dotfiles="cd /home/akari/Downloads/util/dotfiles/"
     alias trash="trash-put"
+    alias watch_something="python3 /home/akari/Downloads/sort/movies_to_sort/what_to_watch/main.py"
 
     # ENV veriables
     export GPG_TTY=$(tty)
@@ -52,6 +53,7 @@ alias sl="sl | lolcat && fortune | uwuify | cowsay | lolcat && ls -A --color=aut
 alias ls="ls -A --color=auto --group-directories-first"
 alias vim="nvim"
 alias vi="nvim"
+alias polaris="ssh haradajm@polaris.clarkson.edu"
 
 # Sha checker
 sha256() {
@@ -85,6 +87,7 @@ ex () {
 }
 
 # Greeting for new terminal windows
+echo
 neofetch | lolcat
 fortune
 

@@ -1,4 +1,5 @@
 */nvim/plugin
 */site
 Comic Code*/
-.config/tmux/plugins/*
+.config/tmux/plugins/
+target/
