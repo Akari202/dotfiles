@@ -1,0 +1,73 @@
+@use 'colors';
+
+* {
+    font-family: "ComicCode Nerd Font";
+    font-size: 16;
+    font-weight: 600;
+    border: none;
+    border-radius: 8;
+
+    // border-width: 1;
+    // border-style: dotted;
+}
+
+window#waybar {
+    background: scale-color(colors.$bg, $alpha: -30%, $lightness: -35%);
+    color: colors.$fg;
+    border-radius: 0;
+}
+
+#workspaces {
+    margin-left: 5;
+}
+
+#workspaces button {
+    color: colors.$purple;
+    background: colors.$bg;
+    padding: 3 10;
+    margin: 8 5;
+}
+
+#workspaces button.focused {
+    background: colors.$purple;
+    color: colors.$bg;
+}
+
+
+.modules-center {
+    color: colors.$white-text;
+
+}
+
+#custom-splitter {
+    color: colors.$red
+}
+
+
+
+#cpu {
+    color: colors.$yellow;
+}
+
+#memory {
+    color: colors.$blue;
+}
+
+#disk {
+    color: colors.$orange;
+}
+
+#wireplumber {
+    color: colors.$red;
+}
+
+.modules-right {
+    background: colors.$bg;
+    border-width: 2;
+    border-style: solid;
+    border-color: colors.$purple;
+    padding: 3 10;
+    margin: 8 5;
+    margin-right: 10;
+}
+

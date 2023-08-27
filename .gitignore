@@ -3,3 +3,4 @@
 Comic Code*/
 .config/tmux/plugins/
 target/
+.vscode/
