@@ -53,7 +53,7 @@ return require('packer').startup(function(use)
         run = ':TSUpdate',
         config = function()
             require 'nvim-treesitter.configs'.setup {
-                ensure_installed = 'all',
+                -- ensure_installed = 'all',
                 sync_install = true,
                 auto_install = true,
                 highlight = {
@@ -80,28 +80,13 @@ return require('packer').startup(function(use)
             require('mason-lspconfig').setup {
                 ensure_installed = {
                     'clangd',
-                    'cssls',
-                    'gopls',
-                    'groovyls',
-                    'html',
-                    'jsonls',
-                    'jdtls',
-                    'tsserver',
-                    'kotlin_language_server',
-                    'texlab',
                     'rust-analyzer',
-                    'sumneko_lua',
-                    'marksman',
+                    'lua_ls',
                     'pylsp',
-                    'solargraph',
-                    'sqlls',
-                    'taplo',
-                    'lemminx',
                     'yamlls',
                     'luaformatter',
                     'autopep8',
                     'clang-format',
-                    'goimports',
                     'jq'
                 }
             }
@@ -287,7 +272,7 @@ return require('packer').startup(function(use)
     use 'jbyuki/nabla.nvim'
 
     -- Discord rich presence
-    use 'andweeb/presence.nvim'
+    -- use 'andweeb/presence.nvim'
 
     -- Automatically set up config after cloning packer.nvim
     -- Put this at the end after all plugins

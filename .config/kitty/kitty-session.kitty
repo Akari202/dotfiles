@@ -1,0 +1,48 @@
+
+
+new_tab ~
+layout fat
+cd /home/akari
+title ~
+launch --env KITTY_WINDOW_ID=1 /usr/bin/zsh
+focus
+
+
+new_tab …/Code/Baja/magnolia_rs
+layout fat
+cd /home/akari/Code/Baja/magnolia_rs
+title …/Code/Baja/magnolia_rs
+launch --env KITTY_WINDOW_ID=2 /usr/bin/zsh
+focus
+
+
+new_tab ~/Code/Baja
+layout fat
+cd /home/akari/Code/Baja
+title ~/Code/Baja
+launch --env KITTY_WINDOW_ID=3 /usr/bin/zsh
+focus
+
+
+new_tab ~/Code/Baja
+layout fat
+cd /home/akari/Code/Baja
+title ~/Code/Baja
+launch --env KITTY_WINDOW_ID=4 /usr/bin/zsh
+focus
+
+
+new_tab ~/Code/Baja
+layout fat
+cd /home/akari/Code/Baja
+title ~/Code/Baja
+launch --env KITTY_WINDOW_ID=5 /usr/bin/zsh
+focus
+
+
+new_tab kitty @ ls > kitty-dump.json
+layout fat
+cd /home/akari/Code/kitty-save-session
+title kitty @ ls > kitty-dump.json
+launch --env KITTY_WINDOW_ID=6 kitten @ ls
+focus
