@@ -35,12 +35,9 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     # Aliases
     alias dotfiles="cd /home/akari/Downloads/util/dotfiles/"
     alias trash="trash-put"
-<<<<<<< Updated upstream
     alias watch_something="python3 /home/akari/Downloads/sort/movies_to_sort/what_to_watch/main.py"
-=======
     alias ls="ls -A --color=auto --group-directories-first"
     alias sl="sl | lolcat && fortune | uwuify | cowsay && ls -A --color=auto --group-directories-first"
->>>>>>> Stashed changes
 
     # ENV veriables
     export GPG_TTY=$(tty)
@@ -59,11 +56,6 @@ alias fort="fortune | uwuify | cowsay"
 alias vim="nvim"
 alias vi="nvim"
 alias polaris="ssh haradajm@polaris.clarkson.edu"
-<<<<<<< Updated upstream
-=======
-alias magnolia="ssh baja@192.168.1.17"
-alias magnoliap="ssh baja@128.153.12.233"
->>>>>>> Stashed changes
 
 # Sha checker
 sha256() {
