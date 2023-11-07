@@ -1,0 +1,6 @@
+set multicursor
+
+set showmode
+set history=1000
+set clipboard+=ideaput
+" set clipboard+=unnamed
