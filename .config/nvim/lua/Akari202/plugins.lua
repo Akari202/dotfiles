@@ -49,7 +49,7 @@ return require('packer').startup(function(use)
 
     -- Treesitter
     use {
-        'nvim-treesitter/nvim-treesitter',
+       'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
         config = function()
             require 'nvim-treesitter.configs'.setup {
@@ -78,25 +78,21 @@ return require('packer').startup(function(use)
         'williamboman/mason-lspconfig.nvim',
        config = function()
             require('mason-lspconfig').setup {
+                automatic_installation = true,
                 ensure_installed = {
                     'clangd',
-                    'rust-analyzer',
+                    'rust_analyzer',
                     'lua_ls',
-                    'pylsp',
-                    'yamlls',
-                    'luaformatter',
-                    'autopep8',
-                    'clang-format',
-                    'jq'
+                    'pylsp'
                 }
             }
         end
     }
     use 'neovim/nvim-lspconfig'
-    use 'nvim-treesitter/playground'
+    -- use 'nvim-treesitter/playground'
 
     -- Debug
-    use 'mfussenegger/nvim-dap'
+    -- use 'mfussenegger/nvim-dap'
 
     -- TODO: figure out formatter
     -- Formatter
@@ -154,13 +150,13 @@ return require('packer').startup(function(use)
     use 'lambdalisue/suda.vim'
 
     -- Javap
-    use 'udalov/javap-vim'
+    -- use 'udalov/javap-vim'
 
     -- Arduino
-    use 'stevearc/vim-arduino'
+    -- use 'stevearc/vim-arduino'
 
     -- Editorconfig
-    use 'editorconfig/editorconfig-vim'
+    -- use 'editorconfig/editorconfig-vim'
 
     -- File tree
     use {
@@ -170,12 +166,12 @@ return require('packer').startup(function(use)
     }
 
     -- Trouble
-    use {
-        'folke/trouble.nvim',
-        config = function()
-            require 'trouble'.setup {}
-        end
-    }
+    -- use {
+    --     'folke/trouble.nvim',
+    --     config = function()
+    --         require 'trouble'.setup {}
+    --     end
+    -- }
 
     -- Fancy icons
     use 'kyazdani42/nvim-web-devicons'
@@ -205,44 +201,44 @@ return require('packer').startup(function(use)
     }
 
     -- Minimap
-    use 'wfxr/minimap.vim'
+    -- use 'wfxr/minimap.vim'
 
     -- Crate management
-    use {
-        'saecki/crates.nvim',
-        event = {'BufRead Cargo.toml'},
-        config = function()
-            require 'crates'.setup {}
-        end
-    }
+    -- use {
+    --     'saecki/crates.nvim',
+    --     event = {'BufRead Cargo.toml'},
+    --     config = function()
+    --         require 'crates'.setup {}
+    --     end
+    -- }
 
     -- Tagbar
-    use 'preservim/tagbar'
+    -- use 'preservim/tagbar'
 
     -- Airline statusbar
     use 'vim-airline/vim-airline'
 
     -- Telescope
-    use 'nvim-lua/plenary.nvim'
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make',
-        requires = {{
-                'nvim-lua/plenary.nvim'
-            }
-        }
-    }
-    use {
-        'nvim-telescope/telescope.nvim',
-        config = function()
-            require 'telescope'.setup {}
-            require 'telescope'.load_extension('fzf')
-        end,
-        requires = {{
-                'nvim-lua/plenary.nvim'
-            }
-        }
-    }
+    -- use 'nvim-lua/plenary.nvim'
+    -- use {
+    --     'nvim-telescope/telescope-fzf-native.nvim',
+    --     run = 'make',
+    --     requires = {{
+    --             'nvim-lua/plenary.nvim'
+    --         }
+    --     }
+    -- }
+    -- use {
+    --     'nvim-telescope/telescope.nvim',
+    --     config = function()
+    --         require 'telescope'.setup {}
+    --         require 'telescope'.load_extension('fzf')
+    --     end,
+    --     requires = {{
+    --             'nvim-lua/plenary.nvim'
+    --         }
+    --     }
+    -- }
 
     -- Git
     use {
@@ -263,16 +259,16 @@ return require('packer').startup(function(use)
     }
 
     -- CSV files
-    use 'chrisbra/csv.vim'
+    -- use 'chrisbra/csv.vim'
 
     -- Indent lines
     use 'Yggdroot/indentLine'
 
     -- Nabla
-    use 'jbyuki/nabla.nvim'
+    -- use 'jbyuki/nabla.nvim'
 
     -- Discord rich presence
-    -- use 'andweeb/presence.nvim'
+    use 'andweeb/presence.nvim'
 
     -- Automatically set up config after cloning packer.nvim
     -- Put this at the end after all plugins
