@@ -82,7 +82,7 @@ return require('packer').startup(function(use)
                 ensure_installed = {
                     'clangd',
                     'rust_analyzer',
-                    'lua_ls',
+                    -- 'lua_ls',
                     'pylsp'
                 }
             }
