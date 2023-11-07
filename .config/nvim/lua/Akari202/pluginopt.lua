@@ -3,8 +3,8 @@ vim.g.indentLine_char = '│'
 vim.g.indentLine_fileTypeExclude = {'alpha', 'CHADTree'}
 
 -- FIX make minimap and chad not fight for space
-vim.g.minimap_auto_start = 0
-vim.g.minimap_width = 10
+-- vim.g.minimap_auto_start = 0
+-- vim.g.minimap_width = 10
 
 -- coq
 vim.g.coq_settings = {

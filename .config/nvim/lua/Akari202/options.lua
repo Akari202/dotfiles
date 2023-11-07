@@ -35,14 +35,13 @@ vim.cmd [[
     autocmd BufWritePre *.json :%!jq .
 ]]
 
--- TODO: move this to editorconfig
 -- Format python
 vim.cmd [[
-    autocmd BufWritePre dyno/*.py :%!python3 -m black .
+    autocmd BufWritePre *.py :%!python3 -m black .
 ]]
 
 -- Automatically source tmux config
-vim.cmd [[
-    autocmd BufWritePost tmux.conf :!tmux source-file ~/.config/tmux/tmux.conf
-]]
+-- vim.cmd [[
+--     autocmd BufWritePost tmux.conf :!tmux source-file ~/.config/tmux/tmux.conf
+-- ]]
 

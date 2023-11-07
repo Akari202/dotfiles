@@ -8,8 +8,8 @@ vim.keymap.set('n', '<F7>', ':CHADopen<CR>')
 vim.keymap.set('n', '<F6>', ':TroubleToggle<CR>')
 
 -- Open telescope
-vim.keymap.set('n', '<F5>', ':Telescope<CR>')
-vim.keymap.set('n', '<F4>', ':Telescope oldfiles<CR>')
+-- vim.keymap.set('n', '<F5>', ':Telescope<CR>')
+-- vim.keymap.set('n', '<F4>', ':Telescope oldfiles<CR>')
 
 -- Show alpha
 vim.keymap.set('n', '<F1>', ':Alpha<CR>')
