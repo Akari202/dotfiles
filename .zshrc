@@ -95,3 +95,5 @@ fortune
 
 
 [ -f "/Users/ellie/.ghcup/env" ] && source "/Users/ellie/.ghcup/env" # ghcup-env
+
+eval "$(zoxide init zsh)"

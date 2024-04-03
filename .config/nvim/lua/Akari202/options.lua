@@ -36,9 +36,9 @@ vim.cmd [[
 ]]
 
 -- Format python
-vim.cmd [[
-    autocmd BufWritePre *.py :%!python3 -m black .
-]]
+-- vim.cmd [[
+--     autocmd BufWritePre *.py :%!python3 -m black .
+-- ]]
 
 -- Automatically source tmux config
 -- vim.cmd [[
