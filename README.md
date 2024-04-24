@@ -15,3 +15,5 @@ Its a real shitshow the way i have the plugins, its a pile of TODOs
     src="Screenshots/nvim rice 2022-08-07.png">
 </img>
 
+## Notes to myself
+* debug building is disabled in /etc/makepkg.conf under OPTIONS. !debug can be changed to debug
