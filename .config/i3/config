@@ -15,16 +15,16 @@ font comiccode:monospace 8
 exec --no-startup-id dex --autostart --environment i3
 
 # Lock screen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/dotfiles/i3lock/lock.sh
-bindsym Home exec sh ~/Downloads/util/dotfiles/i3lock/lock.sh
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- sh ~/Downloads/util/dotfiles/i3lock/lock.sh
+# bindsym Home exec sh ~/Downloads/util/dotfiles/i3lock/lock.sh
 
 # Set default pipewire sink
 exec --no-startup-id pactl set-default-sink alsa_output.usb-Razer_Razer_Nari_Ultimate-00.analog-game
 
 # Set media keys
-bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && wpctl set-mute 95 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume $(wpctl status | rg "Sinks" --after-context 3 -m 1 | rg "Family" | cut -c 11-12) 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume $(wpctl status | rg "Sinks" --after-context 3 -m 1 | rg "Family" | cut -c 11-12) 5%-
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute $(wpctl status | rg "Sinks" --after-context 3 -m 1 | rg "Family" | cut -c 11-12) toggle && wpctl set-mute $(wpctl status | rg "Sinks" --after-context 3 -m 1 | rg "Nari Ultimate Game" | cut -c 11-12) toggle
 bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
@@ -165,7 +165,7 @@ exec_always --no-startup-id picom --config /home/akari/Downloads/util/dotfiles/.
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 
 # Start wallpaper with feh
-exec_always --no-startup-id feh --bg-fill /home/akari/Downloads/util/dotfiles/Wallpapers/current.png
+exec_always --no-startup-id feh --bg-fill /home/akari/Downloads/util/dotfiles/Wallpapers/current/current.png
 
 # Start notifications with dunst
 exec_always --no-startup-id dunst ~/.config/dunst/dunstrc
@@ -175,19 +175,6 @@ exec_always --no-startup-id dunst ~/.config/dunst/dunstrc
 workspace 9 output DVI-D-0
 workspace 1 output DP-2
 
-# Assign apps to workspaces
-assign [class="spotify"] → 10
-assign [class="mullvad"] → 10
-assign [class="discord"] → 9
-
-# Move apps to specific workspaces
-for_window [class="spotify"] move to 10
-
-# Autostart apps
-exec brave → 1
-exec --no-startup-id spotify → 10
-exec --no-startup-id discord → 9
-exec --no-startup-id mullvad-vpn → 10
 
 # TODO: revaluate what colors i want
 # class                 border  bground text    indicator child_border
