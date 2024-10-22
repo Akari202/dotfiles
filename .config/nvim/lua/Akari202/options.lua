@@ -11,6 +11,7 @@ vim.opt.expandtab = true
 vim.opt.tabstop =  4
 vim.opt.shiftwidth = 4
 vim.opt.fileencoding = 'utf-8'
+vim.opt.encoding = 'utf-8'
 vim.opt.termguicolors = true
 vim.opt.whichwrap='b,s,<,>,[,]'
 vim.opt.guifont = {'ComicCode Nerd Font', 'h12'}
@@ -19,11 +20,6 @@ vim.opt.hlsearch = true
 
 -- Highlight yanked text
 vim.highlight.on_yank()
-
--- Change leader key
-vim.cmd [[
-    let mapleader = "'"
-]]
 
 -- Automatically trim trailing whitespace
 vim.cmd [[
