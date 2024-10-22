@@ -19,12 +19,15 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
     # TODO: fix path variable
-    export PATH=$PATH:/Users/ellie/.spicetify:/Users/ellie/.local/bin
+    export PATH=$PATH:/Users/ellie/.spicetify:/Users/ellie/.local/bin:/usr/local/opt/ccache/libexec
+    export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
 
     # Aliases
     alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/"
     alias ls="ls -A --color=auto"
+    alias doas="sudo"
     alias sl="sl | lolcat && fortune | uwuify | cowsay && ls -A --color=auto"
+    alias polaris="ssh -t -i /Users/ellie/.ssh/id_ed25519_polaris haradajm@polaris.clarkson.edu"
 fi
 
 # Linux specific tasks
@@ -47,6 +50,8 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     # pnpm
     export PNPM_HOME="/home/akari/.local/share/pnpm"
     export PATH="$PNPM_HOME:$PATH"
+
+    alias polaris="ssh haradajm@polaris.clarkson.edu"
 fi
 
 # General aliases
@@ -54,8 +59,6 @@ alias neo="neofetch | lolcat"
 alias one="onefetch | lolcat"
 alias fort="fortune | uwuify | cowsay"
 alias vim="nvim"
-alias vi="nvim"
-alias polaris="ssh haradajm@polaris.clarkson.edu"
 
 # Sha checker
 sha256() {
@@ -88,6 +91,13 @@ ex () {
   fi
 }
 
+### Make and enter a director
+# usage: mz <dir>
+mz () {
+    mkdir $1
+    cd ./$1
+}
+
 # Greeting for new terminal windows
 echo
 # neofetch | lolcat
@@ -97,3 +107,4 @@ fortune
 [ -f "/Users/ellie/.ghcup/env" ] && source "/Users/ellie/.ghcup/env" # ghcup-env
 
 eval "$(zoxide init zsh)"
+
