@@ -30,12 +30,13 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
 ]]
 
--- Format json
-vim.cmd [[
-    autocmd BufWritePre *.json :%!jq .
-]]
 
--- Format python
+-- -- Format json
+-- vim.cmd [[
+--     autocmd BufWritePre *.json :%!jq .
+-- ]]
+--
+-- -- Format python
 -- vim.cmd [[
 --     autocmd BufWritePre *.py :%!python3 -m black .
 -- ]]

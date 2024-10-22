@@ -39,6 +39,9 @@ return require('packer').startup(function(use)
         as = 'dracula'
     }
 
+    -- Ipython
+    use 'ivanov/vim-ipython'
+
     -- Startup dashboard
     use {
         'goolord/alpha-nvim',
@@ -55,7 +58,7 @@ return require('packer').startup(function(use)
             require 'nvim-treesitter.configs'.setup {
                 -- ensure_installed = 'all',
                 sync_install = true,
-                auto_install = true,
+                auto_install = false,
                 highlight = {
                     enable = true,
                 },
