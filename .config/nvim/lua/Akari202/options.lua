@@ -26,7 +26,6 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
 ]]
 
-
 -- -- Format json
 -- vim.cmd [[
 --     autocmd BufWritePre *.json :%!jq .

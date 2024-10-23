@@ -1,5 +1,7 @@
+[
 {
     "layer": "top",
+    "output": "DP-2",
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["custom/spotify", "custom/splitter", "clock"],
     "modules-right": ["cpu", "memory", "disk", "wireplumber", "custom/power"],
@@ -60,4 +62,69 @@
             -b 'Suspend' 'swaymsg exec systemctl suspend'
             -b 'shutdown' 'systemctl shutdown'"
     }
+},
+{
+    "layer": "top",
+    "output": "DVI-D-1",
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": [],
+    "modules-right": ["custom/spotify", "custom/splitter", "clock"],
+
+
+    "custom/splitter": {
+        "format": " | "
+    },
+
+
+    "sway/workspaces": {
+        "format": "{icon}: {name}",
+        "format-icons": {
+            "Browser": "",
+            "Browser 2": "",
+            "IDE": "",
+            "Terminal": "",
+            "Discord": "",
+            "Music": "",
+            "default": ""
+        }
+    },
+
+
+    "custom/spotify": {
+        "format": "{}",
+        "exec": "/home/akari/.config/waybar/spotify-scroll.sh"
+    },
+    "clock": {
+        "format": "{:%A, %d %B %H:%M}"
+    },
+
+
+    "cpu": {
+        "format": " {usage}% <span color='#bd93f9'>|</span> "
+    },
+    "memory": {
+        "format": "🐏 {used}G <span color='#bd93f9'>|</span> "
+    },
+    "disk": {
+        "path": "/",
+        "format": "{free} free <span color='#bd93f9'>|</span> "
+    },
+    "wireplumber": {
+        "format": "{icon} {volume}% <span color='#bd93f9'>|</span> ",
+        "format-muted": "",
+        "on-click": "qpwgraph",
+        "max-volume": 150,
+        "scroll-step": 0.2,
+        "format-icons": ["", "", ""]
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "swaynag
+            -t warning
+            -m 'Power Menu Options'
+            -b 'Logout' 'swaymsg exit'
+            -b 'Suspend' 'swaymsg exec systemctl suspend'
+            -b 'shutdown' 'systemctl shutdown'"
+    }
 }
+]

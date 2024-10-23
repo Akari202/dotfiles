@@ -49,9 +49,10 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
 
     # pnpm
     export PNPM_HOME="/home/akari/.local/share/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
 
     alias polaris="ssh haradajm@polaris.clarkson.edu"
+    export PATH="$PNPM_HOME:$PATH:/home/akari/.local/share/gem/ruby/3.0.0/bin"
+    export LFS="/media/orisson"
 fi
 
 # General aliases
@@ -79,6 +80,7 @@ ex () {
       *.tbz2)      tar xjf $1   ;;
       *.tgz)       tar xzf $1   ;;
       *.zip)       unzip $1     ;;
+      *.jar)       unzip $1     ;;
       *.Z)         uncompress $1;;
       *.7z)        7z x $1      ;;
       *.deb)       ar x $1      ;;
