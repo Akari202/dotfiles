@@ -14,7 +14,7 @@
   "nvim-treesitter-context": { "branch": "master", "commit": "e7fdb4cdf0942cd6e63dd822110a93c0ec777fe5" },
   "nvim-web-devicons": { "branch": "master", "commit": "19d257cf889f79f4022163c3fbb5e08639077bd8" },
   "rustaceanvim": { "branch": "master", "commit": "6eb1c41463a0ad02a4fe799321cc7f651b87e576" },
-  "vim": { "branch": "master", "commit": "65f4225e0526516a67d56c8ac09925a209138e53" },
   "vim-airline": { "branch": "master", "commit": "81eca994860645acbb58442285cdd70df5c71d2b" },
+  "vim-one": { "branch": "master", "commit": "187f5c85b682c1933f8780d4d419c55d26a82e24" },
   "vimtex": { "branch": "master", "commit": "4dd3be5cc4e8f6ee7401e303a8211efb4d91bcf6" }
 }
