@@ -34,7 +34,8 @@ fi
 # Linux specific tasks
 if [[ "$OSTYPE" =~ ^linux ]]; then
     # Prompt
-    PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
+    # PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
+    PROMPT="%F{#30612f}%n%f%F{#A626A4}@%F{#30612f}%M%f %F{#A626A4}%B%~%b%f %F{#A626A4}%# %F{#383A42}"
 
     # Aliases
     alias dotfiles="cd /home/akari/Downloads/util/dotfiles/"
