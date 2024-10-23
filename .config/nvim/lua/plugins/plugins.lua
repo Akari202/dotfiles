@@ -1,10 +1,21 @@
 return {
+    -- {
+    --     "dracula/vim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd.colorscheme("dracula")
+    --     end
+    -- },
     {
-        "dracula/vim",
+        "rakr/vim-one",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme("dracula")
+            vim.cmd([[
+                set background=light
+            ]])
+            vim.cmd.colorscheme("one")
         end
     },
     {
@@ -45,7 +56,8 @@ return {
         "vim-airline/vim-airline",
         -- lazy = false,
         init = function()
-            vim.g.airline_theme = "dracula"
+            vim.g.airline_theme = "one"
+            -- vim.g.airline_theme = "dracula"
             vim.cmd([[
                 let g:airline#extensions#tabline#enabled = 1
                 let g:airline#extensions#tabline#formatter = "unique_tail"
