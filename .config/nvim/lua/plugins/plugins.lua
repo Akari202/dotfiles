@@ -8,13 +8,13 @@ return {
     --     end
     -- },
     {
-        "rakr/vim-one",
+        -- "rakr/vim-one",
+        "laggardkernel/vim-one",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd([[
-                set background=light
-            ]])
+            vim.o.termguicolors = true
+            vim.o.background = "light"
             vim.cmd.colorscheme("one")
         end
     },
@@ -72,6 +72,13 @@ return {
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true
+        config = function()
+            local Rule = require("nvim-autopairs.rule")
+            local npairs = require("nvim-autopairs")
+            npairs.setup({
+                enable_check_bracket_line = true
+            })
+            npairs.add_rule(Rule("\\[", "\\]", {"tex", "latex"}))
+        end
     }
 }

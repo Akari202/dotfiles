@@ -38,20 +38,20 @@ return {
             require("nvim-treesitter.configs").setup({
                 sync_install = false,
                 auto_install = false,
-                -- ensure_installed = {
-                --     "c",
-                --     "lua",
-                --     "vim",
-                --     "vimdoc",
-                --     "query",
-                --     "markdown",
-                --     "markdown_inline",
-                --     "rust",
-                --     "latex",
-                --     "json",
-                --     "toml",
-                --     "wgsl"
-                -- }
+                ensure_installed = {
+                    "c",
+                    "lua",
+                    "vim",
+                    "vimdoc",
+                    "query",
+                    "markdown",
+                    "markdown_inline",
+                    "rust",
+                    "latex",
+                    "json",
+                    "toml",
+                    "wgsl"
+                }
             })
         end
     },
