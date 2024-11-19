@@ -1,0 +1,21 @@
+snippet figure
+    \\begin{figure}
+        \\centering
+        \\includegraphics[width=0.5\\linewidth]{${1:image path}}
+        \\caption{${2:caption}}
+        \\label{fig:${3:label}}
+    \\end{figure}
+
+snippet problem
+    \\begin{homeworkProblem}
+        ${1:problem statement}
+
+        \\solution
+
+
+    \\end{homeworkProblem}
+
+snippet begin
+    \\begin{${1:environment}}
+        ${2}
+    \\end{${1:environment}}
