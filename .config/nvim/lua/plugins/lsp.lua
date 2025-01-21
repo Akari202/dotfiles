@@ -74,7 +74,7 @@ return {
                 math_delimiters = 0,
                 math_fracs = 0,
                 math_super_sub = 0,
-                math_symbols = 1,
+                math_symbols = 0,
                 sections = 0,
                 styles = 1
             }

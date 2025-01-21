@@ -80,5 +80,8 @@ return {
             })
             npairs.add_rule(Rule("\\[", "\\]", {"tex", "latex"}))
         end
+    },
+    {
+        "jbyuki/nabla.nvim"
     }
 }
