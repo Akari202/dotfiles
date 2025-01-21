@@ -21,6 +21,8 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
 
     # TODO: fix path variable
     export PATH=$PATH:/Users/ellie/.spicetify:/Users/ellie/.local/bin:/usr/local/opt/ccache/libexec
+    export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+    export PATH=$JAVA_HOME/bin:$PATH
 
     # Aliases
     alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/"
@@ -28,8 +30,6 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     alias doas="sudo"
     alias sl="sl | lolcat && fortune | uwuify | cowsay && ls -A --color=auto"
     alias polaris="ssh -t -i /Users/ellie/.ssh/id_ed25519_polaris haradajm@polaris.clarkson.edu"
-
-    source "/Users/ellie/Downloads/School/Homework/compile_homework_completion.zsh"
 fi
 
 # Linux specific tasks

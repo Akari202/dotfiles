@@ -23,4 +23,8 @@ vim.keymap.set('n', 'gj', 'j')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', 'gk', 'k')
 
+vim.cmd([[
+    nnoremap <leader>p :lua require("nabla").popup()<CR>
+]])
+
 
