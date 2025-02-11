@@ -68,7 +68,7 @@ return {
                 ligatures = 0,
                 cites = 1,
                 fancy = 0,
-                spacing = 1,
+                spacing = 0,
                 greek = 1,
                 math_bounds = 0,
                 math_delimiters = 0,
@@ -76,7 +76,7 @@ return {
                 math_super_sub = 0,
                 math_symbols = 0,
                 sections = 0,
-                styles = 1
+                styles = 0
             }
         end
     },
