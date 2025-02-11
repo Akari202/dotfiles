@@ -6,6 +6,7 @@ SAVEHIST=1000
 # autoload -Uz compinit
 # compinit
 export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
+export PATH="$PATH:/home/haradajm/main/install/bin:/home/haradajm/.cargo/bin"
 
 PROMPT="%n%f@%M%f %B%~%b%f %# "
 # PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2} %{$reset_color%}%% "
@@ -49,3 +50,10 @@ ex () {
   fi
 }
 
+# Trash
+trash () {
+    mv $1 /home/haradajm/main/.trash/
+
+eval "$(zoxide init zsh)"
+
+neofetch | lolcat
