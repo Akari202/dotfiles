@@ -23,6 +23,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     export PATH=$PATH:/Users/ellie/.spicetify:/Users/ellie/.local/bin:/usr/local/opt/ccache/libexec
     export JAVA_HOME=$(/usr/libexec/java_home -v 21)
     export PATH=$JAVA_HOME/bin:$PATH
+    export HOMEBREW_NO_AUTO_UPDATE=1
 
     # Aliases
     alias dotfiles="cd /Users/ellie/Downloads/Utility/dotfiles/"
@@ -63,6 +64,7 @@ alias neo="neofetch | lolcat"
 alias one="onefetch | lolcat"
 alias fort="fortune | uwuify | cowsay"
 alias vim="nvim"
+alias git-tree="git log --oneline --graph --color --all --decorate"
 
 # Sha checker
 sha256() {
