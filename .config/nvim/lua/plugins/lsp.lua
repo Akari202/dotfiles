@@ -3,6 +3,8 @@ return {
         "neovim/nvim-lspconfig",
         lazy = false,
         dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
             {
                 "ms-jpq/coq_nvim",
                 branch = "coq",
@@ -16,15 +18,6 @@ return {
                 auto_start = true
             }
         end,
-        config = function()
-        end
-    },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim"
-        },
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup()
@@ -50,7 +43,7 @@ return {
                     "latex",
                     "json",
                     "toml",
-                    "wgsl"
+                    "wgsl",
                 }
             })
         end
@@ -66,10 +59,10 @@ return {
             vim.g.vimtex_syntax_conceal = {
                 accents = 0,
                 ligatures = 0,
-                cites = 1,
+                cites = 0,
                 fancy = 0,
                 spacing = 0,
-                greek = 1,
+                greek = 0,
                 math_bounds = 0,
                 math_delimiters = 0,
                 math_fracs = 0,
@@ -84,5 +77,14 @@ return {
         "mrcjkb/rustaceanvim",
         version = "^5",
         lazy = false
+    },
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "LspAttach",
+        priority = 1000,
+        config = function()
+            require("tiny-inline-diagnostic").setup()
+            vim.diagnostic.config({ virtual_text = false })
+        end
     }
 }
