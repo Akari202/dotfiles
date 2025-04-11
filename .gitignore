@@ -1,4 +1,5 @@
 */nvim/plugin
+.config/nvim/lazy-lock.json
 */site
 Comic Code*/
 .config/tmux/plugins/

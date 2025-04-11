@@ -19,6 +19,14 @@ return {
         end
     },
     {
+        "epwalsh/obsidian.nvim",
+        lazy = true,
+        ft = "markdown",
+        dependencies = {
+            "nvim-lua/plenary.nvim"
+        }
+    },
+    {
         "ms-jpq/chadtree",
         config = function()
             vim.g.chadtree_settings = {
