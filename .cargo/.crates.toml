@@ -37,6 +37,8 @@
 "onehistory 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)" = ["onehistory"]
 "ravedude 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)" = ["ravedude"]
 "ripgrep 14.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = ["rg"]
+"rustowl 0.2.1 (path+file:///Users/ellie/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rustowl-0.2.1/.tmp)" = ["rustowlc"]
+"rustowl 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = ["rustowl"]
 "svdtools 0.4.4 (registry+https://github.com/rust-lang/crates.io-index)" = ["svdtools"]
 "tauri-cli 2.2.7 (registry+https://github.com/rust-lang/crates.io-index)" = ["cargo-tauri"]
 "trunk 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)" = ["trunk"]
