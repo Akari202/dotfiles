@@ -27,4 +27,5 @@ vim.cmd([[
     nnoremap <leader>p :lua require("nabla").popup()<CR>
 ]])
 
-
+vim.keymap.set("n", "]e", vim.diagnostic.goto_next)
+vim.keymap.set("n", "[e", vim.diagnostic.goto_prev)

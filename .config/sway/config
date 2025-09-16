@@ -73,6 +73,9 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# lizard
+bindsym End exec --no-startup-id mpg123 /home/akari/Downloads/lizard_meme.mp3
+
 # Set screenshot shrotcuts (mac like)
 bindsym Shift+Print exec grim - | wl-copy
 bindsym Shift+Control+Print exec grim -g "$(slurp)" - | wl-copy
