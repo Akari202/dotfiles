@@ -40,3 +40,18 @@ require("lazy").setup({
         notify = false
     }
 })
+
+require("conform").setup({
+    formatters_by_ft = {
+        rust = { "rustfmt" },
+        python = { "isort", "black" },
+        toml = { "tombi" },
+        json = { "jq" },
+        lua = { "stylelua" }
+
+    },
+    format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback"
+    }
+})

@@ -29,8 +29,8 @@ return {
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                sync_install = false,
-                auto_install = false,
+                sync_install = true,
+                auto_install = true,
                 ensure_installed = {
                     "c",
                     "lua",
@@ -86,5 +86,9 @@ return {
             require("tiny-inline-diagnostic").setup()
             vim.diagnostic.config({ virtual_text = false })
         end
+    },
+    {
+        "stevearc/conform.nvim",
+        opts = {}
     }
 }
