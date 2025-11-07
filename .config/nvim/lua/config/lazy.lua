@@ -52,7 +52,6 @@ require("conform").setup({
 		fortran = { "fprettify" },
 		tex = { "tex-fmt" },
 		bib = { "tex-fmt" },
-		sty = { "tex-fmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
