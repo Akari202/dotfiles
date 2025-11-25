@@ -44,7 +44,7 @@ require("lazy").setup({
 require("conform").setup({
 	formatters_by_ft = {
 		rust = { "rustfmt" },
-		python = { "isort", "black" },
+		python = { "black", "usort" },
 		toml = { "tombi" },
 		json = { "jq" },
 		lua = { "stylua" },
@@ -52,9 +52,22 @@ require("conform").setup({
 		fortran = { "fprettify" },
 		tex = { "tex-fmt" },
 		bib = { "tex-fmt" },
+		-- ps1 = { "powershell_es" },
+		["*"] = { "codespell" },
+		["_"] = { "trim_whitespace" },
 	},
 	format_on_save = {
-		timeout_ms = 500,
+		timeout_ms = 2000,
 		lsp_format = "fallback",
+		-- lsp_fallback = true,
+	},
+	log_level = vim.log.levels.DEBUG,
+	formatters = {
+		rustfmt = {
+			options = {
+				nightly = true,
+				default_edition = "2024",
+			},
+		},
 	},
 })
