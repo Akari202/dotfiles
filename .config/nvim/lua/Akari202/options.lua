@@ -18,11 +18,3 @@ vim.opt.guifont = { "ComicCode Nerd Font", "h12" }
 vim.opt.ignorecase = true
 vim.opt.hlsearch = true
 vim.lsp.inlay_hint.enable()
-
--- Highlight yanked text
-vim.highlight.on_yank()
-
--- Automatically trim trailing whitespace
-vim.cmd([[
-    autocmd BufWritePre * :%s/\s\+$//e
-]])

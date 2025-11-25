@@ -85,9 +85,10 @@ return {
 			local npairs = require("nvim-autopairs")
 			npairs.setup({
 				-- enable_check_bracket_line = true,
-				map_cr = false,
+				-- map_cr = false,
 			})
 			npairs.add_rule(Rule("\\[", "\\]", { "tex", "latex" }))
+			npairs.add_rule(Rule("$", "$", { "tex", "latex" }))
 		end,
 	},
 	{

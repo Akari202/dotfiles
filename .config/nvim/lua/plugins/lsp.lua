@@ -20,8 +20,21 @@ return {
 		end,
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup()
-			local lspconfig = require("lspconfig")
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"basedpyright",
+					"clangd",
+					"fortls",
+					"lua_ls",
+					"matlab_ls",
+					"powershell_es",
+					"stylua",
+					"tombi",
+				},
+			})
+			vim.lsp.config("powershell_es", {
+				init_options = { enableProfileLoading = false },
+			})
 		end,
 	},
 	{
@@ -105,5 +118,11 @@ return {
 	{
 		"stevearc/conform.nvim",
 		opts = {},
+	},
+	{
+		"TheLeoP/powershell.nvim",
+		opts = {
+			bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+		},
 	},
 }
