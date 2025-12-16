@@ -49,6 +49,7 @@ require("conform").setup({
 		json = { "jq" },
 		lua = { "stylua" },
 		c = { "clang-format" },
+		cpp = { "clang-format" },
 		fortran = { "fprettify" },
 		tex = { "tex-fmt" },
 		bib = { "tex-fmt" },
