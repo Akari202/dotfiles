@@ -1,0 +1,5 @@
+snippet corefm
+    #[cfg(not(feature = "std"))]
+    return ${1:no std};
+    #[cfg(feature = "std")]
+    return ${2:std};
