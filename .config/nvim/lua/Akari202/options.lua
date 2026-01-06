@@ -14,10 +14,15 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 vim.opt.termguicolors = true
 vim.opt.whichwrap = "b,s,<,>,[,]"
-vim.opt.guifont = { "ComicCode Nerd Font", "h12" }
 vim.opt.ignorecase = true
 vim.opt.hlsearch = true
 vim.lsp.inlay_hint.enable()
 
 -- Highlight yanked text
 vim.highlight.on_yank()
+
+local hostname = vim.loop.os_gethostname()
+
+if hostname == "thrawn" or hostname == "mac-hostname" then
+	vim.opt.guifont = { "ComicCode Nerd Font" }
+end
