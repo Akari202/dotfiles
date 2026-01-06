@@ -37,16 +37,6 @@ return {
 		end,
 		build = "python3 -m chadtree deps",
 	},
-	-- {
-	--     "MysticalDevil/inlay-hints.nvim",
-	--     event = "LspAttach",
-	--     dependencies = {
-	--         "neovim/nvim-lspconfig"
-	--     },
-	--     config = function()
-	--         require("inlay-hints").setup()
-	--     end
-	-- },
 	{
 		"Yggdroot/indentLine",
 		config = function()
