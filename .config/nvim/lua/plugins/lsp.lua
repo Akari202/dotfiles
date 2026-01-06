@@ -22,14 +22,16 @@ return {
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"basedpyright",
+					"pyrefly",
 					"clangd",
 					"fortls",
 					"lua_ls",
 					"matlab_ls",
+					"jsonls",
 					"powershell_es",
 					"stylua",
 					"tombi",
+					"wgsl_analyzer",
 				},
 			})
 			vim.lsp.config("powershell_es", {
