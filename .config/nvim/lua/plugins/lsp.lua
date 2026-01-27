@@ -32,10 +32,22 @@ return {
 					"stylua",
 					"tombi",
 					"wgsl_analyzer",
+					"tinymist",
 				},
 			})
 			vim.lsp.config("powershell_es", {
 				init_options = { enableProfileLoading = false },
+			})
+			vim.lsp.config("tinymist", {
+				cmd = { "tinymist" },
+				filetypes = { "typst" },
+				settings = {
+					formatterMode = "typstyle",
+					formatterPrintWidth = 100,
+					formatterProseWrap = true,
+					exportPdf = "onSave",
+					semanticTokens = "enable",
+				},
 			})
 		end,
 	},
@@ -135,5 +147,10 @@ return {
 		opts = {
 			bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
 		},
+	},
+	{
+		"chomosuke/typst-preview.nvim",
+		ft = "typst",
+		opts = {},
 	},
 }

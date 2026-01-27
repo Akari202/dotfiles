@@ -54,19 +54,19 @@ require("conform").setup({
 		bib = { "tex-fmt" },
 		ron = { "fmtron" },
 		matlab = { "mh_style" },
-		-- ps1 = { "powershell_es" },
 		["*"] = { "codespell" },
-		["_"] = { "trim_whitespace" },
+		["_"] = { "trim_whitespace", lsp_format = "last" },
+	},
+	default_format_opts = {
+		lsp_format = "fallback",
 	},
 	format_on_save = function(bufnr)
-		-- Disable with a global or buffer-local variable
 		if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
 			return
 		end
 		return {
+			-- The python based formatters take a while to spinup
 			timeout_ms = 2000,
-			lsp_format = "fallback",
-			-- lsp_fallback = true,
 		}
 	end,
 	log_level = vim.log.levels.DEBUG,
@@ -81,6 +81,7 @@ require("conform").setup({
 			append_args = { "-w", "80" },
 		},
 	},
+	notify_no_formatters = true,
 })
 
 vim.api.nvim_create_user_command("FormatDisable", function(args)
