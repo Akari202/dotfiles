@@ -23,6 +23,6 @@ vim.highlight.on_yank()
 
 local hostname = vim.loop.os_gethostname()
 
-if hostname == "thrawn" or hostname == "mac-hostname" then
+if (hostname == "thrawn" or hostname == "mac-hostname") and not vim.g.neovide then
 	vim.opt.guifont = { "ComicCode Nerd Font" }
 end
