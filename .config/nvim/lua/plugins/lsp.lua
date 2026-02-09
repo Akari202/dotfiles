@@ -15,15 +15,15 @@ return {
 		},
 		init = function()
 			vim.g.coq_settings = {
-				auto_start = true,
+				auto_start = "shut-up",
 			}
 		end,
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"pyrefly",
-					"clangd",
+					-- "clangd",
+					-- "pyrefly",
 					"fortls",
 					"lua_ls",
 					"matlab_ls",
@@ -45,10 +45,12 @@ return {
 					formatterMode = "typstyle",
 					formatterPrintWidth = 100,
 					formatterProseWrap = true,
-					exportPdf = "onSave",
+					exportPdf = "never",
 					semanticTokens = "enable",
 				},
 			})
+			vim.lsp.enable("pyrefly")
+			vim.lsp.enable("clangd")
 		end,
 	},
 	{
@@ -141,6 +143,52 @@ return {
 	{
 		"stevearc/conform.nvim",
 		opts = {},
+		config = function()
+			require("conform").setup({
+				formatters_by_ft = {
+					rust = { "rustfmt" },
+					python = { "black", "usort" },
+					toml = { "tombi" },
+					json = { "jq" },
+					lua = { "stylua" },
+					c = { "clang-format" },
+					cpp = { "clang-format" },
+					fortran = { "fprettify" },
+					tex = { "tex-fmt" },
+					go = { "gofmt" },
+					bib = { "tex-fmt" },
+					ron = { "fmtron" },
+					matlab = { "mh_style" },
+					["*"] = { "codespell" },
+					["_"] = { "trim_whitespace", lsp_format = "last" },
+				},
+				default_format_opts = {
+					lsp_format = "fallback",
+				},
+				format_on_save = function(bufnr)
+					if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+						return
+					end
+					return {
+						-- The python based formatters take a while to spinup
+						timeout_ms = 2000,
+					}
+				end,
+				log_level = vim.log.levels.DEBUG,
+				formatters = {
+					rustfmt = {
+						options = {
+							nightly = true,
+							default_edition = "2024",
+						},
+					},
+					fmtron = {
+						append_args = { "-w", "80" },
+					},
+				},
+				notify_no_formatters = true,
+			})
+		end,
 	},
 	{
 		"TheLeoP/powershell.nvim",
