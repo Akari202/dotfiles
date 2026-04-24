@@ -17,6 +17,8 @@ vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.ignorecase = true
 vim.opt.hlsearch = true
 vim.lsp.inlay_hint.enable()
+vim.opt.concealcursor = ""
+vim.opt.conceallevel = 1
 
 -- Highlight yanked text
 vim.highlight.on_yank()

@@ -78,10 +78,14 @@ return {
 				-- map_cr = false,
 			})
 			npairs.add_rule(Rule("\\[", "\\]", { "tex", "latex" }))
-			npairs.add_rule(Rule("$", "$", { "tex", "latex" }))
+			npairs.add_rule(Rule("$", "$", { "tex", "latex", "typst" }))
 		end,
 	},
 	{
 		"jbyuki/nabla.nvim",
+	},
+	{
+		"mcauley-penney/visual-whitespace.nvim",
+		event = "ModeChanged *:[vV\22]",
 	},
 }
