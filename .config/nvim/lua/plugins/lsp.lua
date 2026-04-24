@@ -104,7 +104,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^6",
+		version = "^9",
 		lazy = false,
 		config = function()
 			vim.g.rustaceanvim = {
@@ -161,6 +161,7 @@ return {
 					matlab = { "mh_style" },
 					html = { "oxfmt" },
 					css = { "oxfmt" },
+					yaml = { "oxfmt" },
 					scss = { "oxfmt" },
 					["*"] = { "codespell" },
 					["_"] = { "trim_whitespace", lsp_format = "last" },
@@ -202,6 +203,8 @@ return {
 	{
 		"chomosuke/typst-preview.nvim",
 		ft = "typst",
-		opts = {},
+		opts = {
+			extra_args = { "--input=compile-host=preview" },
+		},
 	},
 }
