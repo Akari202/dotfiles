@@ -1,3 +1,7 @@
+-- Leader
+vim.g.mapleader = "'"
+vim.g.maplocalleader = "\\"
+
 -- Toggle chad
 vim.keymap.set("n", "<F7>", ":CHADopen<CR>")
 
@@ -13,22 +17,35 @@ vim.keymap.set("n", "gj", "j")
 vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "gk", "k")
 
-vim.cmd([[
-    nnoremap <leader>p :lua require("nabla").popup()<CR>
-]])
+-- Keep cursor centered
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
-vim.keymap.set("n", "]e", vim.diagnostic.goto_next)
-vim.keymap.set("n", "[e", vim.diagnostic.goto_prev)
+-- Clear highlights
+vim.keymap.set("n", "<leader>h", "<cmd>noh<CR>")
 
--- <CR> for both autopairs and coq completion
-vim.keymap.set("i", "<CR>", function()
-	if vim.fn.pumvisible() ~= 0 then
-		if vim.fn.complete_info({ "selected" }).selected ~= 0 then
-			return require("nvim-autopairs").esc("<c-y>")
-		else
-			return require("nvim-autopairs").esc("<c-e>") .. require("nvim-autopairs").autopairs_cr()
-		end
-	else
-		return require("nvim-autopairs").autopairs_cr()
-	end
-end, { expr = true, silent = true })
+-- Stay in visual mode while indenting
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+-- Put clipboard on a new line
+vim.keymap.set("n", "<leader>P", "<cmd>put +<CR>")
+vim.keymap.set("n", "<leader>O", "<cmd>put! +<CR>")
+
+-- Go to definition
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+
+-- Open nabla math preview
+vim.keymap.set("n", "<leader>p", function()
+	require("nabla").popup()
+end)
+
+-- Jump to next and previous errors (use ]d and [d for all diagnostics)
+vim.keymap.set("n", "]e", function()
+	vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+end)
+vim.keymap.set("n", "[e", function()
+	vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
+end)
