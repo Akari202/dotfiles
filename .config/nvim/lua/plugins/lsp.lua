@@ -22,19 +22,61 @@ return {
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					-- "clangd",
-					-- "pyrefly",
-					"fortls",
 					"lua_ls",
 					"matlab_ls",
 					"jsonls",
 					"powershell_es",
+					"oxfmt",
 					"stylua",
 					"tombi",
-					"wgsl_analyzer",
 					"tinymist",
 				},
 			})
+			-- "clangd",
+			-- "pyrefly",
+
+			-- ◍ lua-language-server lua_ls
+			-- ◍ basedpyright
+			-- ◍ black
+			-- ◍ codespell
+			-- ◍ fortls
+			-- ◍ fprettify
+			-- ◍ jq
+			-- ◍ json-lsp jsonls
+			-- ◍ matlab-language-server matlab_ls
+			-- ◍ miss_hit
+			-- ◍ powershell-editor-services powershell_es
+			-- ◍ ruff
+			-- ◍ stylua
+			-- ◍ tex-fmt
+			-- ◍ tinymist
+			-- ◍ tombi
+			-- ◍ typos
+			-- ◍ usort
+			-- ◍ wgsl-analyzer wgsl_analyzer
+
+			-- ◍ oxfmt
+			-- ◍ woke
+			-- rust = { "rustfmt" },
+			-- python = { "black", "usort" },
+			-- toml = { "tombi" },
+			-- json = { "jq" },
+			-- lua = { "stylua" },
+			-- c = { "clang-format" },
+			-- cpp = { "clang-format" },
+			-- fortran = { "fprettify" },
+			-- tex = { "tex-fmt" },
+			-- go = { "gofmt" },
+			-- bib = { "tex-fmt" },
+			-- ron = { "fmtron" },
+			-- matlab = { "mh_style" },
+			-- html = { "oxfmt" },
+			-- css = { "oxfmt" },
+			-- yaml = { "oxfmt" },
+			-- scss = { "oxfmt" },
+			-- vim.lsp.default_config =
+			-- 	vim.tbl_deep_extend("force", vim.lsp.default_config, require("coq").lsp_ensure_capabilities())
+
 			vim.lsp.config("powershell_es", {
 				init_options = { enableProfileLoading = false },
 			})
@@ -49,31 +91,29 @@ return {
 					semanticTokens = "enable",
 				},
 			})
+
 			vim.lsp.enable("pyrefly")
 			vim.lsp.enable("clangd")
 		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				sync_install = true,
-				auto_install = true,
-				ensure_installed = {
-					"c",
-					"lua",
-					"vim",
-					"vimdoc",
-					"query",
-					"markdown",
-					"markdown_inline",
-					"rust",
-					"latex",
-					"json",
-					"toml",
-					"wgsl",
-				},
+			require("nvim-treesitter").install({
+				"c",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"rust",
+				"python",
+				"html",
+				"latex",
+				"json",
+				"toml",
+				"typst",
+				"wgsl",
 			})
 		end,
 	},
@@ -82,7 +122,7 @@ return {
 	},
 	{
 		"lervag/vimtex",
-		lazy = false,
+		-- lazy = false,
 		-- tag = "v2.15",
 		config = function()
 			vim.g.vimtex_syntax_conceal = {
@@ -109,28 +149,42 @@ return {
 		config = function()
 			vim.g.rustaceanvim = {
 				server = {
+					on_attach = function(client, buf)
+						local opts = { silent = true, buffer = buf }
+
+						-- Hover actions
+						vim.keymap.set("n", "K", function()
+							vim.cmd.RustLsp({ "hover", "actions" })
+						end, opts)
+
+						-- Code actions
+						vim.keymap.set("n", "<leader>a", function()
+							vim.cmd.RustLsp("codeAction")
+						end, opts)
+					end,
 					default_settings = {
-						["rust-analyzer.cargo.features"] = { "all" },
+						["rust-analyzer"] = {
+							cargo = {
+								allFeatures = true,
+							},
+							check = {
+								command = "clippy",
+							},
+							procMacro = {
+								enable = true,
+							},
+							completion = {
+								autoimport = {
+									enable = true,
+								},
+							},
+						},
 					},
 				},
 			}
 		end,
 	},
-	{
-		"wassup05/fortran.nvim",
-		lazy = true,
-		ft = {
-			"fortran",
-		},
-		opts = {
-			formatter_opts = {
-				enabled = false,
-				path = "fprettify",
-				format_on_save = false,
-				args = {},
-			},
-		},
-	},
+
 	{
 		"rachartier/tiny-inline-diagnostic.nvim",
 		event = "LspAttach",
@@ -174,7 +228,7 @@ return {
 						return
 					end
 					return {
-						-- The python based formatters take a while to spinup
+						-- The python based formatters take a while
 						timeout_ms = 2000,
 					}
 				end,
