@@ -2,9 +2,6 @@
 vim.g.mapleader = "'"
 vim.g.maplocalleader = "\\"
 
--- Toggle chad
-vim.keymap.set("n", "<F7>", ":CHADopen<CR>")
-
 -- Disable Arrow Keys
 vim.keymap.set("n", "<Left>", ':echoe "Use h"<CR>')
 vim.keymap.set("n", "<Right>", ':echoe "Use l"<CR>')

@@ -30,9 +30,9 @@ vim.opt.termguicolors = true
 vim.o.background = "light"
 
 -- Concealcursor is just awful
--- NOTE: for some reason i can't get this to work
+-- Its a text editor and shouldn't be hiding stuff
 vim.opt.concealcursor = ""
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
 
 -- Inlay hints
 vim.lsp.inlay_hint.enable()
