@@ -16,21 +16,46 @@ return {
 				-- ["view.window_options.wrap"] = true,
 				-- ["options.version_control"] = true,
 			}
+			vim.keymap.set("n", "<F7>", function()
+				vim.cmd("CHADopen")
+
+				-- This is very annoying
+				vim.defer_fn(function()
+					if vim.bo.filetype == "CHADTree" then
+						vim.wo.winfixbuf = true
+					else
+						print("oops")
+					end
+				end, 100)
+			end)
 		end,
 		build = "python3 -m chadtree deps",
 	},
 	{
-		"Yggdroot/indentLine",
+		"lukas-reineke/indent-blankline.nvim",
 		config = function()
-			vim.g.indentLine_char = "│"
-			vim.g.indentLine_fileTypeExclude = { "CHADTree", "mason" }
+			require("ibl").setup({
+				indent = {
+					char = "│",
+				},
+				exclude = { filetypes = { "mason", "CHADTree" } },
+				scope = {
+					enabled = true,
+					show_start = false,
+					show_end = false,
+					injected_languages = true,
+					highlight = { "Function", "Label" },
+					priority = 500,
+				},
+			})
+			require("ibl.hooks").register(
+				require("ibl.hooks").type.WHITESPACE,
+				require("ibl.hooks").builtin.hide_first_space_indent_level
+			)
 		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup()
-		end,
 	},
 	{
 		"vim-airline/vim-airline",
