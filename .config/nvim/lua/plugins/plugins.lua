@@ -24,9 +24,9 @@ return {
 					if vim.bo.filetype == "CHADTree" then
 						vim.wo.winfixbuf = true
 					else
-						print("oops")
+						print("CHADTree not locked")
 					end
-				end, 100)
+				end, 200)
 			end)
 		end,
 		build = "python3 -m chadtree deps",

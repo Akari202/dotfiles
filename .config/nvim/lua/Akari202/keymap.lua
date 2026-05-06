@@ -2,12 +2,6 @@
 vim.g.mapleader = "'"
 vim.g.maplocalleader = "\\"
 
--- Disable Arrow Keys
-vim.keymap.set("n", "<Left>", ':echoe "Use h"<CR>')
-vim.keymap.set("n", "<Right>", ':echoe "Use l"<CR>')
-vim.keymap.set("n", "<Up>", ':echoe "Use k"<CR>')
-vim.keymap.set("n", "<Down>", ':echoe "Use j"<CR>')
-
 -- Reverse use of gj and gk with j and k
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "gj", "j")
@@ -22,6 +16,9 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- Clear highlights
 vim.keymap.set("n", "<leader>h", "<cmd>noh<CR>")
+
+-- Kill buffer without closing
+vim.keymap.set("n", "<leader>bd", ":bp<bar>bd #<CR>")
 
 -- Stay in visual mode while indenting
 vim.keymap.set("v", "<", "<gv")

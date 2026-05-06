@@ -1,0 +1,125 @@
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+  allow-hardware-repeat no
+)
+
+(defsrc
+  0 caps
+  q w e r t y u i o p
+  a s d f g h j k l ;
+  z x c v b n m
+  spc
+)
+
+(defalias
+  ;; Tap for escape and hold for navigation layer
+  nav_c (tap-hold-press 200 200 esc (layer-while-held navigation_colemak))
+  nav_q (tap-hold-press 200 200 esc (layer-while-held navigation_qwerty))
+
+  ;; Lock navigation on space
+  lck_c (layer-switch navigation_locked_colemak)
+  lck_q (layer-switch navigation_locked_qwerty)
+
+  ;; Switch to layout
+  to_qwr (layer-switch qwerty)
+  to_clm (layer-switch tarmak_one)
+)
+
+(deflayer qwerty
+  (fork 0 @to_clm (lctl rctl)) @nav_q
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _
+  _
+)
+
+;; https://dreymar.colemak.org/tarmak-steps.html#tmk-dh
+(deflayer tarmak_one
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ j _ _ _ _ _ _ _
+  _ _ _ _ _ _ n e _ _
+  _ _ _ _ _ k _
+  _
+)
+
+(deflayer tarmak_two
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ j _ _ _ _ _ _ _
+  _ _ _ _ _ m n e _ _
+  _ _ _ _ _ k h
+  _
+)
+
+(deflayer tarmak_three
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ j _ _ _ _ _ _ _
+  _ _ _ _ _ m n e _ _
+  x c b _ z k h
+  _
+)
+
+(deflayer tarmak_four
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ f _ b _ _ _ _ _
+  _ _ _ t _ m n e _ _
+  x c j _ z k h
+  _
+)
+
+(deflayer tarmak_five
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ f j b _ _ _ _ _
+  _ r s t _ m n e _ _
+  x c d _ z k h
+  _
+)
+
+(deflayer tarmak_six
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ f p b j _ _ y ;
+  _ r s t _ m n e _ o
+  x c d _ z k h
+  _
+)
+
+(deflayer colemak
+  (fork 0 @to_qwr (lctl rctl)) @nav_c
+  _ _ f p b j l u y ;
+  _ r s t _ m n e i o
+  x c d _ z k h
+  _
+)
+
+(deflayer navigation_qwerty
+  _ _
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ left down up right _
+  _ _ _ _ _ _ _
+  @lck_q
+)
+
+(deflayer navigation_locked_qwerty
+  (fork 0 @lck_c (lctl rctl)) @to_qwr
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ left down up right _
+  _ _ _ _ _ _ _
+  @to_qwr
+)
+
+(deflayer navigation_colemak
+  _ _
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ left down up right _
+  _ _ _ _ _ _ _
+  @lck_c
+)
+
+(deflayer navigation_locked_colemak
+  (fork 0 @lck_q (lctl rctl)) @to_clm
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ left down up right _
+  _ _ _ _ _ _ _
+  @to_clm
+)
+
