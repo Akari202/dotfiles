@@ -1,5 +1,5 @@
 # Start keyed spplication stuff
-exec keyd-application-mapper -d
+# exec keyd-application-mapper -d
 
 # Set mod to be windows key
 set $mod Mod4
