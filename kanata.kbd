@@ -23,7 +23,7 @@
 
   ;; Switch to layout
   to_qwr (layer-switch qwerty)
-  to_clm (layer-switch tarmak_one)
+  to_clm (layer-switch colemak)
 )
 
 (deflayer qwerty
