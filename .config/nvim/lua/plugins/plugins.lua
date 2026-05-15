@@ -9,6 +9,11 @@ return {
 		end,
 	},
 	{
+		"chentoast/marks.nvim",
+		event = "VeryLazy",
+		opts = {},
+	},
+	{
 		"ms-jpq/chadtree",
 		config = function()
 			vim.g.chadtree_settings = {
