@@ -17,3 +17,5 @@ Its a real shitshow the way i have the plugins, its a pile of TODOs
 
 ## Notes to myself
 * debug building is disabled in /etc/makepkg.conf under OPTIONS. !debug can be changed to debug
+
+
