@@ -1,0 +1,11 @@
+--verbose=1
+--target=~/
+--restow
+--ignore=apply
+--ignore=nixvim
+--ignore=.DS_Store
+--ignore=.*\.nix
+--ignore=.*\.lock
+--ignore=.*\.log
+# --adopt
+# --no-folding

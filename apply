@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+cd ~/dotfiles
+STOW_LOG_FILE="stow.log"
+
+run_sandboxed_tasks() {
+    set -e
+    echo "Running gnu stow"
+    stow . 2>&1 | tee $STOW_LOG_FILE
+
+    echo "Formatting nix files"
+    nixfmt **/*.nix
+}
+export -f run_sandboxed_tasks
+
+echo "Initializing nix shell environment"
+nix-shell -p stow nixfmt-rfc-style --run "bash -c run_sandboxed_tasks"
+echo "Exiting nix shell environment"
+
+echo "Updating nixvim flake"
+nix flake update my-nixvim
+echo "Rebuilding nix darwin"
+darwin-rebuild switch --flake .#Thalias
+
