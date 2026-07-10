@@ -10,17 +10,17 @@ compinit
 export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
 
 
-if [ -f "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
-    source "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-fi
-
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
-export ZSH_AUTOSUGGEST_STRATEGY=(history)
-
-# "Shift + Tab" to accept the whole suggestion
-bindkey '^[[Z' autosuggest-accept
-# "Right Arrow" to accept one word at a time
-bindkey '^[[C' autosuggest-forward-word
+# if [ -f "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+#     source "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# fi
+#
+# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+# export ZSH_AUTOSUGGEST_STRATEGY=(history)
+#
+# # "Shift + Tab" to accept the whole suggestion
+# bindkey '^[[Z' autosuggest-accept
+# # "Right Arrow" to accept one word at a time
+# bindkey '^[[C' autosuggest-forward-word
 
 
 # macOS specific tasks
@@ -41,53 +41,53 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     # Aliases
     alias trash="trash-put"
 
-    # ENV veriables
+    # ENV variables
     # export GPG_TTY=$(tty)
 
     alias polaris="ssh haradajm@polaris.clarkson.edu"
     export LFS="/media/orisson"
 fi
 
-# Sha checker
-sha256() {
-    printf "%s %s\n" "$1" "$2" | sha256sum --check
-}
-
-### ARCHIVE EXTRACTION
-# usage: ex <file>
+# Extract archive
 ex () {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.jar)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   unzstd $1    ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
+    if [ -z "$1" ]; then
+        echo "Usage: ex <file>"
+        return 1
+    fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1   ;;
+            *.tar.gz)    tar xzf $1   ;;
+            *.bz2)       bunzip2 $1   ;;
+            *.rar)       unrar x $1   ;;
+            *.gz)        gunzip $1    ;;
+            *.tar)       tar xf $1    ;;
+            *.tbz2)      tar xjf $1   ;;
+            *.tgz)       tar xzf $1   ;;
+            *.zip)       unzip $1     ;;
+            *.jar)       unzip $1     ;;
+            *.Z)         uncompress $1;;
+            *.7z)        7z x $1      ;;
+            *.deb)       ar x $1      ;;
+            *.tar.xz)    tar xf $1    ;;
+            *.tar.zst)   unzstd $1    ;;
+            *)           echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 
-### Make and enter a director
-# usage: mz <dir>
+# Make and enter a director
 mz () {
+    if [ -z "$1" ]; then
+        echo "Usage: mz <directory_name>"
+        return 1
+    fi
+
     mkdir $1
     cd ./$1
 }
-
-
 
 # Copy a file's content or a tree of a directory to clipboard
 clip() {
@@ -99,7 +99,6 @@ clip() {
     local target="$1"
     local copy_cmd=""
 
-    # 1. Detect the operating system clipboard utility engine
     if [[ "$OSTYPE" =~ ^darwin ]]; then
         copy_cmd="pbcopy"
     else
@@ -122,7 +121,6 @@ clip() {
 }
 
 
-# Change cursor shape based on Vi mode
 function zle-keymap-select () {
     case $KEYMAP in
         vicmd) echo -ne "\e[2l\e[1 q" ;;      # Block cursor
