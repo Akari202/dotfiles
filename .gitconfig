@@ -1,0 +1,19 @@
+[user]
+	name = Akari202
+	email = akaritwo0two@gmail.com
+[includeIf "gitdir:~/"]
+    path = ~/.gitconfig.local
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	excludesfile = ~/.gitignore
+	autocrlf = input
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	program = /run/current-system/sw/bin/gpg

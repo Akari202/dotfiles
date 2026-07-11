@@ -5,6 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixvim-unstable.url = "github:nix-community/nixvim";
+    nixvim-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
@@ -12,6 +16,8 @@
       self,
       nixpkgs,
       nixvim,
+      nixpkgs-unstable,
+      nixvim-unstable,
       ...
     }@inputs:
     let
@@ -30,20 +36,37 @@
       packages = forAllSystems (
         system:
         let
-          pkgs = import nixpkgs {
+          pkgsStable = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
           };
+          nixvimPackagesStable = nixvim.legacyPackages.${system};
 
-          nixvimPackages = nixvim.legacyPackages.${system};
+          hasUnstableSystem = nixpkgs.lib.hasAttr system nixvim-unstable.legacyPackages;
 
-          nixvimModule = {
-            inherit pkgs;
-            module = import ./config.nix;
-          };
+          pkgsUnstable =
+            if hasUnstableSystem then
+              import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+              }
+            else
+              null;
+
+          nixvimPackagesUnstable =
+            if hasUnstableSystem then nixvim-unstable.legacyPackages.${system} else null;
         in
         {
-          default = nixvimPackages.makeNixvimWithModule nixvimModule;
+          default = nixvimPackagesStable.makeNixvimWithModule {
+            pkgs = pkgsStable;
+            module = import ./config.nix;
+          };
+        }
+        // nixpkgs.lib.optionalAttrs hasUnstableSystem {
+          unstable = nixvimPackagesUnstable.makeNixvimWithModule {
+            pkgs = pkgsUnstable;
+            module = import ./config.nix;
+          };
         }
       );
     };

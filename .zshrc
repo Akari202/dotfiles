@@ -129,7 +129,7 @@ function zle-keymap-select () {
 }
 
 alias vim="nvim"
-alias tree="tree -a -C -I '.git'"
+alias tree="tree -a -C -I '.git|venv|cmake-build-debug|.idea'"
 alias git-tree="git log --oneline --graph --color --all --decorate"
 alias dotfiles="cd ~/dotfiles"
 alias ls="uutils-ls -A --color=auto --group-directories-first"
