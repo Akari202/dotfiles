@@ -7,31 +7,28 @@
 }:
 let
   helpers = pkgs.nixvim or config.lib.nixvim or { mkRaw = r: { __raw = r; }; };
-  hasOpt = path: lib.hasAttrByPath path options;
 
-  hasOxfmt = lib.hasAttr "oxfmt" pkgs;
-  hasTombi = lib.hasAttr "tombi" pkgs;
+  formatterBinaries = [
+    pkgs.stylua
+    pkgs.clang-tools
+    pkgs.jq
+    pkgs.tex-fmt
+    pkgs.codespell
+    pkgs.python3Packages.black
+    pkgs.python3Packages.usort
+    # pkgs.nixfmt
+    pkgs.nixfmt-rfc-style
+    # pkgs.tombi
+    # pkgs.oxfmt
+  ];
 
-  formatterBinaries =
-    [
-      pkgs.stylua
-      pkgs.clang-tools
-      pkgs.jq
-      pkgs.nixfmt-rfc-style
-      pkgs.tex-fmt
-      pkgs.codespell
-      pkgs.python3Packages.black
-      pkgs.python3Packages.usort
-    ]
-    ++ lib.optional hasOxfmt pkgs.oxfmt
-    ++ lib.optional hasTombi pkgs.tombi;
+  keybinds = import ./keybinds.nix { inherit pkgs helpers; };
 in
 {
-  options = { };
-
   config = {
     package = pkgs.neovim-unwrapped;
     extraPackages = formatterBinaries;
+    keymaps = keybinds;
 
     globals = {
       mapleader = "'";
@@ -68,144 +65,25 @@ in
       conceallevel = 0;
     };
 
-    keymaps = [
-      {
-        mode = "n";
-        key = "j";
-        action = "gj";
-      }
-      {
-        mode = "n";
-        key = "gj";
-        action = "j";
-      }
-      {
-        mode = "n";
-        key = "k";
-        action = "gk";
-      }
-      {
-        mode = "n";
-        key = "gk";
-        action = "k";
-      }
-
-      {
-        mode = "n";
-        key = "<C-d>";
-        action = "<C-d>zz";
-      }
-      {
-        mode = "n";
-        key = "<C-u>";
-        action = "<C-u>zz";
-      }
-      {
-        mode = "n";
-        key = "n";
-        action = "nzzzv";
-      }
-      {
-        mode = "n";
-        key = "N";
-        action = "Nzzzv";
-      }
-
-      {
-        mode = "n";
-        key = "<leader>h";
-        action = "<cmd>noh<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>bd";
-        action = ":bp<bar>bd #<CR>";
-      }
-
-      {
-        mode = "v";
-        key = "<";
-        action = "<gv";
-      }
-      {
-        mode = "v";
-        key = ">";
-        action = ">gv";
-      }
-
-      {
-        mode = "n";
-        key = "<leader>P";
-        action = "<cmd>put +<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>O";
-        action = "<cmd>put! +<CR>";
-      }
-
-      {
-        mode = "n";
-        key = "]e";
-        action = helpers.mkRaw "function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end";
-      }
-      {
-        mode = "n";
-        key = "[e";
-        action = helpers.mkRaw "function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end";
-      }
-      {
-        mode = "n";
-        key = "<F7>";
-        action = helpers.mkRaw ''
-          function()
-            local sidebar_win = nil
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-              local buf = vim.api.nvim_win_get_buf(win)
-              if vim.bo[buf].filetype == "oil" then
-                sidebar_win = win
-                break
-              end
-            end
-
-            if sidebar_win then
-              vim.api.nvim_win_close(sidebar_win, true)
-            else
-              vim.cmd("topleft vsplit")
-              vim.cmd("vertical resize 30")
-              
-              require("oil").open()
-              
-              local buf = vim.api.nvim_get_current_buf()
-              local win = vim.api.nvim_get_current_win()
-              vim.wo[win].winfixwidth = true
-              vim.wo[win].winfixbuf = true
-            end
-          end
-        '';
-      }
-    ];
-
-    # diagnostic = lib.mkIf (hasOpt [ "diagnostic" ]) {
-    #   virtual_text =
-    #     !(hasOpt [
-    #       "plugins"
-    #       "tiny-inline-diagnostic-nvim"
-    #     ]);
-    # };
+    # diagnostic.virtual_text = false;
 
     plugins = {
       marks.enable = true;
       gitsigns.enable = true;
       web-devicons.enable = true;
-      airline = {
+      lualine = {
         enable = true;
         settings = {
-          theme = "one";
-          powerline_fonts = 1;
-          extensions_tabline_enabled = true;
-          extensions_tabline_formatter = "unique_tail";
-          section_c_only_filename = 1;
+          options.theme = "onelight";
+          tabline = {
+            lualine_a = [
+              {
+                __unkeyed-1 = "buffers";
+                mode = 2;
+              }
+            ];
+            lualine_z = [ "tabs" ];
+          };
         };
       };
       treesitter = {
@@ -260,12 +138,11 @@ in
         enable = true;
         settings = {
           formatters_by_ft = {
-            toml = if hasTombi then [ "tombi" ] else [ ];
-            html = if hasOxfmt then [ "oxfmt" ] else [ ];
-            css = if hasOxfmt then [ "oxfmt" ] else [ ];
-            yaml = if hasOxfmt then [ "oxfmt" ] else [ ];
-            scss = if hasOxfmt then [ "oxfmt" ] else [ ];
-
+            # toml = [ "tombi" ];
+            # html = [ "oxfmt" ];
+            # css = [ "oxfmt" ];
+            # yaml = [ "oxfmt" ];
+            # scss = [ "oxfmt" ];
             rust = [ "rustfmt" ];
             python = [
               "black"
@@ -305,20 +182,18 @@ in
       lsp = {
         enable = true;
         servers = {
-          lua_ls.enable = true;
+          nixd.enable = true;
+          lua_ls = {
+            enable = true;
+            settings.Lua = {
+              diagnostics = {
+                globals = [ "vim" ];
+              };
+            };
+          };
           clangd.enable = true;
-          # pyright.enable = hasOpt [
-          #   "plugins"
-          #   "lsp"
-          #   "servers"
-          #   "pyright"
-          # ];
-          # tombi.enable = hasOpt [
-          #   "plugins"
-          #   "lsp"
-          #   "servers"
-          #   "tombi"
-          # ];
+          # pyright.enable = true;
+          # tombi.enable = true;
           tinymist = {
             enable = true;
             settings = {
@@ -336,13 +211,7 @@ in
         };
       };
 
-      # indent-blankline-nvim =
-      #   lib.mkIf
-      #     (hasOpt [
-      #       "plugins"
-      #       "indent-blankline-nvim"
-      #     ])
-      #     {
+      # indent-blankline-nvim = {
       #       enable = true;
       #       settings = {
       #         indent.char = "│";
@@ -361,32 +230,11 @@ in
       #       };
       #     };
       #
-      # nvim-treesitter-context =
-      #   lib.mkIf
-      #     (hasOpt [
-      #       "plugins"
-      #       "nvim-treesitter-context"
-      #     ])
-      #     {
-      #       enable = true;
-      #     };
-      #
-      # tiny-inline-diagnostic-nvim =
-      #   lib.mkIf
-      #     (hasOpt [
-      #       "plugins"
-      #       "tiny-inline-diagnostic-nvim"
-      #     ])
-      #     {
-      #       enable = true;
-      #     };
+      # nvim-treesitter-context.enable = true;
+      # tiny-inline-diagnostic-nvim.enable = true;
+      # visual-whitespace-nvim.enable = true
       #
       # blink-cmp =
-      #   lib.mkIf
-      #     (hasOpt [
-      #       "plugins"
-      #       "blink-cmp"
-      #     ])
       #     {
       #       enable = true;
       #       settings = {
@@ -401,45 +249,29 @@ in
       #     };
       #
       # typst-preview-nvim =
-      #   lib.mkIf
-      #     (hasOpt [
-      #       "plugins"
-      #       "typst-preview-nvim"
-      #     ])
       #     {
       #       enable = true;
       #       settings = {
       #         extra_args = [ "--input=compile-host=preview" ];
       #       };
       #     };
-      #
-      # oil-nvim =
-      #   lib.mkIf
-      #     (hasOpt [
-      #       "plugins"
-      #       "oil-nvim"
-      #     ])
-      #     {
-      #       enable = true;
-      #       settings = {
-      #         default_file_explorer = true;
-      #         columns = [ "icon" ];
-      #         view_options.show_hidden = false;
-      #         win_options = {
-      #           number = false;
-      #           relativenumber = false;
-      #           signcolumn = "no";
-      #           foldcolumn = "no";
-      #         };
-      #       };
+
+      # oil-nvim = {
+      #   enable = true;
+      #   settings = {
+      #     default_file_explorer = true;
+      #     columns = [ "icon" ];
+      #     view_options.show_hidden = false;
+      #     win_options = {
+      #       number = false;
+      #       relativenumber = false;
+      #       signcolumn = "no";
+      #       foldcolumn = "no";
       #     };
+      #   };
+      # };
     };
 
-    extraPlugins = with pkgs.vimPlugins; [
-      vim-one
-      (lib.mkIf (lib.hasAttr "visual-whitespace-nvim" pkgs.vimPlugins) visual-whitespace-nvim)
-    ];
-
-    colorscheme = "one";
+    colorschemes.one.enable = true;
   };
 }

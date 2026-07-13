@@ -3,6 +3,7 @@
 --restow
 --ignore=apply
 --ignore=nixvim
+--ignore=modules
 --ignore=.DS_Store
 --ignore=.*\.nix
 --ignore=.*\.lock
