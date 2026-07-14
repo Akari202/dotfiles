@@ -80,6 +80,7 @@ in
               {
                 __unkeyed-1 = "buffers";
                 mode = 2;
+                max_length = 0;
               }
             ];
             lualine_z = [ "tabs" ];
@@ -192,7 +193,7 @@ in
             };
           };
           clangd.enable = true;
-          # pyright.enable = true;
+          # pyrefly.enable = true;
           # tombi.enable = true;
           tinymist = {
             enable = true;
@@ -204,7 +205,7 @@ in
               semanticTokens = "enable";
               typstExtraArgs = [
                 "--features"
-                "html"
+                "bundle,html"
               ];
             };
           };
@@ -247,6 +248,7 @@ in
       #         ];
       #       };
       #     };
+
       #
       # typst-preview-nvim =
       #     {

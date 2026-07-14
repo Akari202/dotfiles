@@ -11,6 +11,7 @@
     nix-darwin-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     my-nixvim.url = "path:./nixvim";
+    my-nixvim.inputs.nixpkgs.follows = "nixpkgs-monterey";
   };
 
   outputs =
