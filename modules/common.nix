@@ -16,7 +16,6 @@
     gnupg
     pinentry_mac
     zoxide
-    # typst
     tree
     ripgrep
     uutils-coreutils
