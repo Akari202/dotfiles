@@ -4,27 +4,27 @@
   options,
   config,
   ...
-}:
-let
-  helpers = pkgs.nixvim or config.lib.nixvim or { mkRaw = r: { __raw = r; }; };
+}: let
+  helpers = pkgs.nixvim or config.lib.nixvim or {mkRaw = r: {__raw = r;};};
 
   formatterBinaries = [
     pkgs.stylua
     pkgs.clang-tools
     pkgs.jq
+    pkgs.shfmt
     pkgs.tex-fmt
     pkgs.codespell
     pkgs.python3Packages.black
     pkgs.python3Packages.usort
     # pkgs.nixfmt
-    pkgs.nixfmt-rfc-style
+    # pkgs.nixfmt-rfc-style
+    pkgs.alejandra
     # pkgs.tombi
     # pkgs.oxfmt
   ];
 
-  keybinds = import ./keybinds.nix { inherit pkgs helpers; };
-in
-{
+  keybinds = import ./keybinds.nix {inherit pkgs helpers;};
+in {
   config = {
     package = pkgs.neovim-unwrapped;
     extraPackages = formatterBinaries;
@@ -41,6 +41,7 @@ in
 
       expandtab = true;
       tabstop = 4;
+      softtabstop = 4;
       shiftwidth = 4;
       autoindent = true;
       smartindent = true;
@@ -65,6 +66,22 @@ in
       conceallevel = 0;
     };
 
+    autoCmd = [
+      {
+        event = ["FileType"];
+        pattern = ["nix"];
+        callback = {
+          __raw = ''
+            function()
+              vim.opt_local.tabstop = 2
+              vim.opt_local.shiftwidth = 2
+              vim.opt_local.softtabstop = 2
+            end
+          '';
+        };
+      }
+    ];
+
     # diagnostic.virtual_text = false;
 
     plugins = {
@@ -83,7 +100,7 @@ in
                 max_length = 0;
               }
             ];
-            lualine_z = [ "tabs" ];
+            lualine_z = ["tabs"];
           };
         };
       };
@@ -144,20 +161,22 @@ in
             # css = [ "oxfmt" ];
             # yaml = [ "oxfmt" ];
             # scss = [ "oxfmt" ];
-            rust = [ "rustfmt" ];
+            rust = ["rustfmt"];
+            sh = ["shfmt"];
             python = [
               "black"
               "usort"
             ];
-            json = [ "jq" ];
-            lua = [ "stylua" ];
-            c = [ "clang-format" ];
-            cpp = [ "clang-format" ];
-            tex = [ "tex-fmt" ];
-            nix = [ "nixfmt" ];
-            bib = [ "tex-fmt" ];
-            "*" = [ "codespell" ];
-            "_" = [ "trim_whitespace" ];
+            json = ["jq"];
+            lua = ["stylua"];
+            c = ["clang-format"];
+            cpp = ["clang-format"];
+            tex = ["tex-fmt"];
+            # nix = [ "nixfmt" ];
+            nix = ["alejandra"];
+            bib = ["tex-fmt"];
+            "*" = ["codespell"];
+            "_" = ["trim_whitespace"];
           };
           default_format_opts = {
             lsp_format = "fallback";
@@ -188,7 +207,7 @@ in
             enable = true;
             settings.Lua = {
               diagnostics = {
-                globals = [ "vim" ];
+                globals = ["vim"];
               };
             };
           };

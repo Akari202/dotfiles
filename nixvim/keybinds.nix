@@ -1,5 +1,8 @@
-{ pkgs, helpers, ... }:
-[
+{
+  pkgs,
+  helpers,
+  ...
+}: [
   {
     mode = "n";
     key = "j";
@@ -104,9 +107,9 @@
         else
           vim.cmd("topleft vsplit")
           vim.cmd("vertical resize 30")
-          
+
           require("oil").open()
-          
+
           local buf = vim.api.nvim_get_current_buf()
           local win = vim.api.nvim_get_current_win()
           vim.wo[win].winfixwidth = true
