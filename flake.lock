@@ -158,12 +158,14 @@
     },
     "my-nixvim": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs-monterey"
+        ],
         "nixvim": "nixvim"
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-eRXE+sSlqEs+2gZt8Ted9VB4LwSwNdqP1Slkx0YKQHw=",
+        "narHash": "sha256-BTz4FHKST5WH+2OAcZTgALAajaSrtZgJs44ha8MM/uk=",
         "path": "./nixvim",
         "type": "path"
       },
@@ -257,22 +259,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "nix-index-database",
-        "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1751274312,
-        "narHash": "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "50ab793786d9de88ee30ec4e4c24fb4236fc2674",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-24.11",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },

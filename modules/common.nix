@@ -3,9 +3,7 @@
   self,
   pkgs,
   ...
-}:
-{
-
+}: {
   environment.systemPackages = with pkgs; [
     kitty
     neovide
@@ -24,7 +22,7 @@
   ];
 
   programs.zsh.enable = true;
-  environment.shells = [ pkgs.zsh ];
+  environment.shells = [pkgs.zsh];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -61,7 +59,7 @@
   };
 
   networking = {
-    knownNetworkServices = [ "Wi-Fi" ];
+    knownNetworkServices = ["Wi-Fi"];
     computerName = "¯\\_(ツ)_/¯";
     dns = [
       "1.1.1.1"
