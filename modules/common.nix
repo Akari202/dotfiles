@@ -10,6 +10,7 @@
     mpv
 
     git
+    git-lfs
     inputs.my-nixvim.packages.${pkgs.system}.default
     gnupg
     pinentry_mac
