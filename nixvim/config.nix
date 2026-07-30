@@ -7,7 +7,7 @@
 }: let
   helpers = pkgs.nixvim or config.lib.nixvim or {mkRaw = r: {__raw = r;};};
 
-  formatterBinaries = [
+  neededBinaries = [
     pkgs.stylua
     pkgs.clang-tools
     pkgs.jq
@@ -16,9 +16,8 @@
     pkgs.codespell
     pkgs.python3Packages.black
     pkgs.python3Packages.usort
-    # pkgs.nixfmt
-    # pkgs.nixfmt-rfc-style
     pkgs.alejandra
+    # pkgs.sops
     # pkgs.tombi
     # pkgs.oxfmt
   ];
@@ -27,7 +26,7 @@
 in {
   config = {
     package = pkgs.neovim-unwrapped;
-    extraPackages = formatterBinaries;
+    extraPackages = neededBinaries;
     keymaps = keybinds;
 
     globals = {
@@ -172,7 +171,6 @@ in {
             c = ["clang-format"];
             cpp = ["clang-format"];
             tex = ["tex-fmt"];
-            # nix = [ "nixfmt" ];
             nix = ["alejandra"];
             bib = ["tex-fmt"];
             "*" = ["codespell"];
@@ -212,6 +210,7 @@ in {
             };
           };
           clangd.enable = true;
+          pylsp.enable = true;
           # pyrefly.enable = true;
           # tombi.enable = true;
           tinymist = {
@@ -250,12 +249,7 @@ in {
       #       };
       #     };
       #
-      # nvim-treesitter-context.enable = true;
-      # tiny-inline-diagnostic-nvim.enable = true;
-      # visual-whitespace-nvim.enable = true
-      #
-      # blink-cmp =
-      #     {
+      # blink-cmp = {
       #       enable = true;
       #       settings = {
       #         keymap.preset = "default";
@@ -267,16 +261,14 @@ in {
       #         ];
       #       };
       #     };
-
       #
-      # typst-preview-nvim =
-      #     {
+      # typst-preview-nvim = {
       #       enable = true;
       #       settings = {
       #         extra_args = [ "--input=compile-host=preview" ];
       #       };
       #     };
-
+      #
       # oil-nvim = {
       #   enable = true;
       #   settings = {
@@ -291,6 +283,70 @@ in {
       #     };
       #   };
       # };
+      #
+      # visual-whitespace-nvim.enable = true
+      #
+      # nvim-treesitter-context.enable = true;
+      # tiny-inline-diagnostic-nvim.enable = true;
+    };
+
+    extraPlugins = [
+      # (pkgs.vimUtils.buildVimPlugin {
+      #   name = "sops-nvim";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "trixnz";
+      #     repo = "sops.nvim";
+      #     rev = "4de0cb71746d7a6de6311c85bc39873e56bcefc7";
+      #     hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
+      #   };
+      # })
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "tiny-inline-diagnostic";
+        src = pkgs.fetchFromGitHub {
+          owner = "rachartier";
+          repo = "tiny-inline-diagnostic.nvim";
+          rev = "6264451f14119d63a52580e5198d6baf8518b0b2";
+          hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
+        };
+      })
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "nvim-treesitter-context";
+        src = pkgs.fetchFromGitHub {
+          owner = "nvim-treesitter";
+          repo = "nvim-treesitter-context";
+          rev = "b311b30818951d01f7b4bf650521b868b3fece16";
+          hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
+        };
+      })
+    ];
+
+    extraConfigLua = ''
+    '';
+
+    userCommands = {
+      FormatDisable = {
+        desc = "Disable autoformat on save";
+        bang = true;
+        command.__raw = ''
+          function(args)
+            if args.bang then
+              vim.b.disable_autoformat = true
+            else
+              vim.g.disable_autoformat = true
+            end
+          end
+        '';
+      };
+
+      FormatEnable = {
+        desc = "Re-enable autoformat on save";
+        command.__raw = ''
+          function()
+            vim.b.disable_autoformat = false
+            vim.g.disable_autoformat = false
+          end
+        '';
+      };
     };
 
     colorschemes.one.enable = true;

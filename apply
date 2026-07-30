@@ -4,12 +4,32 @@ set -e
 cd ~/dotfiles
 STOW_LOG_FILE="stow.log"
 CURRENT_HOST=$(hostname -s)
+FAST_MODE=false
 
+for argument in "$@"; do
+    if [ "$argument" == "--fast" ]; then
+        FAST_MODE=true
+    fi
+done
+
+if [ ! -f "$HOME/Library/Application Support/sops/age/keys.txt" ]; then
+    echo "Error: Missing master decryption key at ~/Library/Application Support/sops/age/keys.txt"
+    echo "Try running: nix shell nixpkgs#age -c age-keygen -o ~/Library/Application\ Support/sops/age/keys.txt"
+    exit 1
+fi
+
+echo "Decrypting sops files"
+mkdir -p "$HOME/.config/kindle-manager"
+nix shell nixpkgs#sops -c sops --decrypt ".config/kindle-manager/config.toml" >"$HOME/.config/kindle-manager/config.toml"
 echo "Running gnu stow"
 nix shell nixpkgs#stow -c stow . 2>&1 | tee -a $STOW_LOG_FILE
 echo "Formatting nix files"
 nix shell nixpkgs#alejandra -c alejandra --quiet **/*.nix
-echo "Updating nixvim flake"
-nix flake update my-nixvim
-echo "Rebuilding nix darwin"
-darwin-rebuild switch --flake .#"${CURRENT_HOST}"
+if [ "$FAST_MODE" = true ]; then
+    echo "Skipping flake updates and system derivation switch"
+else
+    echo "Updating nixvim flake"
+    nix flake update my-nixvim
+    echo "Rebuilding nix darwin"
+    darwin-rebuild switch --flake .#"${CURRENT_HOST}"
+fi

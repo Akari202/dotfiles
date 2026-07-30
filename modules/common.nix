@@ -16,6 +16,7 @@
     pinentry_mac
     zoxide
     tree
+    sops
     ripgrep
     uutils-coreutils
     zsh-autosuggestions
