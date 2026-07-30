@@ -6,6 +6,8 @@
 --ignore=minecraft
 --ignore=modules
 --ignore=.DS_Store
+--ignore=.sops.yaml
+--ignore=kindle-manager
 --ignore=.*\.nix
 --ignore=.*\.lock
 --ignore=.*\.log

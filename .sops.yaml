@@ -1,0 +1,4 @@
+# When adding keys run: sops updatekeys <files>
+creation_rules:
+  - path_regex: \.config/kindle-manager/config\.toml$
+    age: "age14u798lx35aztu2g85mqsslmdvq5enz3rvk9xwr2wy3an8euahfpssugz23"
