@@ -265,7 +265,7 @@ in {
       # typst-preview-nvim = {
       #       enable = true;
       #       settings = {
-      #         extra_args = [ "--input=compile-host=preview" ];
+      #         extra_args = [ "--input=compile-host=preview", "--input "now=$(date '+%Y %m %d %H %M %S')"" ];
       #       };
       #     };
       #

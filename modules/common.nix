@@ -21,6 +21,8 @@
     uutils-coreutils
     zsh-autosuggestions
     darwin.trash
+    keepassxc
+    # devenv
   ];
 
   programs.zsh.enable = true;

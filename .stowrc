@@ -3,11 +3,12 @@
 --restow
 --ignore=apply
 --ignore=nixvim
---ignore=minecraft
 --ignore=modules
 --ignore=.DS_Store
 --ignore=.sops.yaml
 --ignore=kindle-manager
+--ignore=anvil.json
+--ignore=nix.conf
 --ignore=.*\.nix
 --ignore=.*\.lock
 --ignore=.*\.log

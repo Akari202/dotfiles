@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 cd ~/dotfiles
 STOW_LOG_FILE="stow.log"
@@ -18,9 +18,19 @@ if [ ! -f "$HOME/Library/Application Support/sops/age/keys.txt" ]; then
     exit 1
 fi
 
+decrypt_sops_file() {
+    local filename="$1"
+    local output="$HOME/$filename"
+
+    echo "Decrypting $filename"
+    mkdir -p "$(dirname "$output")"
+    nix shell nixpkgs#sops -c sops --decrypt "$filename" >"$output"
+}
+
 echo "Decrypting sops files"
-mkdir -p "$HOME/.config/kindle-manager"
-nix shell nixpkgs#sops -c sops --decrypt ".config/kindle-manager/config.toml" >"$HOME/.config/kindle-manager/config.toml"
+decrypt_sops_file ".config/kindle-manager/config.toml"
+decrypt_sops_file ".config/anvil.json"
+decrypt_sops_file ".config/nix/nix.conf"
 echo "Running gnu stow"
 nix shell nixpkgs#stow -c stow . 2>&1 | tee -a $STOW_LOG_FILE
 echo "Formatting nix files"
