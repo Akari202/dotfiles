@@ -12,6 +12,7 @@
     pkgs.clang-tools
     pkgs.jq
     pkgs.shfmt
+    pkgs.fprettify
     pkgs.tex-fmt
     pkgs.codespell
     pkgs.python3Packages.black
@@ -119,6 +120,7 @@ in {
             "toml"
             "typst"
             "nix"
+            "fortran"
           ];
         };
       };
@@ -171,6 +173,7 @@ in {
             c = ["clang-format"];
             cpp = ["clang-format"];
             tex = ["tex-fmt"];
+            fortran = ["fprettify"];
             nix = ["alejandra"];
             bib = ["tex-fmt"];
             "*" = ["codespell"];
@@ -210,6 +213,7 @@ in {
             };
           };
           clangd.enable = true;
+          fortls.enable = true;
           pylsp.enable = true;
           # pyrefly.enable = true;
           # tombi.enable = true;
