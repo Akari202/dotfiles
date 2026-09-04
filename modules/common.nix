@@ -25,6 +25,10 @@
     # devenv
   ];
 
+  imports = [
+    ./colemak.nix
+  ];
+
   programs.zsh.enable = true;
   environment.shells = [pkgs.zsh];
 
@@ -94,7 +98,7 @@
       AppleShowAllFiles = true;
       CreateDesktop = false;
       FXEnableExtensionChangeWarning = false;
-      ShowPathbar = false;
+      ShowPathbar = true;
     };
     loginwindow = {
       LoginwindowText = "We're Here Because";
