@@ -120,6 +120,17 @@ clip() {
     fi
 }
 
+# Compile a typst document to pdf and html
+compile_typst() {
+    local filename="$1"
+    shift
+
+    echo "Compiling $filename PDF"
+    typst compile --input "compile-host=cli" --input "now=$(date '+%Y %m %d %H %M %S')" "$@" "$filename"
+    echo "Compiling $filename HTML"
+    typst compile --format html --features html --pretty --diagnostic-format short --input "compile-host=didactic" --input "now=$(date '+%Y %m %d %H %M %S')" "$@" "$filename"
+}
+
 
 function zle-keymap-select () {
     case $KEYMAP in
