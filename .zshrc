@@ -120,18 +120,6 @@ clip() {
     fi
 }
 
-# Compile a typst document to pdf and html
-compile_typst() {
-    local filename="$1"
-    shift
-
-    echo "Compiling $filename PDF"
-    typst compile --input "compile-host=cli" --input "now=$(date '+%Y %m %d %H %M %S')" "$@" "$filename"
-    echo "Compiling $filename HTML"
-    typst compile --format html --features html --pretty --diagnostic-format short --input "compile-host=didactic" --input "now=$(date '+%Y %m %d %H %M %S')" "$@" "$filename"
-}
-
-
 function zle-keymap-select () {
     case $KEYMAP in
         vicmd) echo -ne "\e[2l\e[1 q" ;;      # Block cursor
@@ -142,6 +130,7 @@ function zle-keymap-select () {
 alias vim="nvim"
 alias tree="tree -a -C -I '.git|venv|cmake-build-debug|.idea|.DS_Store|__pycache__'"
 alias git-tree="git log --oneline --graph --color --all --decorate"
+alias git-hash="git rev-parse --short HEAD | tee pbcopy"
 alias dotfiles="cd ~/dotfiles"
 alias ls="uutils-ls -A --color=auto --group-directories-first"
 
