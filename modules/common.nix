@@ -5,10 +5,21 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    # keepassxc
+    # mullvad-vpn
+
     kitty
     neovide
     mpv
+    firefox-bin
+    (prismlauncher.override {
+      jdks = [
+        zulu25
+      ];
+    })
+    qbittorrent
 
+    unstable.typst
     git
     git-lfs
     inputs.my-nixvim.packages.${pkgs.system}.default
@@ -21,12 +32,13 @@
     uutils-coreutils
     zsh-autosuggestions
     darwin.trash
-    keepassxc
+
+    # ext4fuse
+    # ghidra-bin
     # devenv
   ];
 
   imports = [
-    ./colemak.nix
   ];
 
   programs.zsh.enable = true;
@@ -37,6 +49,8 @@
     "flakes"
   ];
   nix.settings.build-users-group = "nixbld";
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   nix.gc = {
@@ -67,8 +81,9 @@
   };
 
   networking = {
-    knownNetworkServices = ["Wi-Fi"];
-    computerName = "¯\\_(ツ)_/¯";
+    knownNetworkServices = ["Wi-Fi" "Thunderbolt Bridge"];
+    computerName = "samakro";
+    hostName = "samakro";
     dns = [
       "1.1.1.1"
       "1.0.0.1"
@@ -76,6 +91,7 @@
       "2606:4700:4700::1001"
     ];
   };
+  system.primaryUser = "akari";
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToEscape = true;
@@ -83,6 +99,7 @@
   system.defaults = {
     NSGlobalDomain = {
       AppleShowAllFiles = true;
+      AppleICUForce24HourTime = true;
       "com.apple.swipescrolldirection" = false;
     };
     dock = {
@@ -117,6 +134,23 @@
       FirstClickThreshold = 0;
       SecondClickThreshold = 0;
       TrackpadRightClick = true;
+    };
+  };
+  nix.package = pkgs.nixVersions.latest;
+  system.stateVersion = 7;
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
+  security.pam.services.sudo_local = {
+    enable = true;
+    touchIdAuth = true;
+    watchIdAuth = false;
+  };
+  system.defaults = {
+    trackpad = {
+      ForceSuppressed = false;
+      TrackpadThreeFingerVertSwipeGesture = 2;
+      ActuateDetents = true;
+      TrackpadThreeFingerHorizSwipeGesture = 2;
     };
   };
 }

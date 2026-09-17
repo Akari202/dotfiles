@@ -1,36 +1,46 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
 cd ~/dotfiles
 STOW_LOG_FILE="stow.log"
 CURRENT_HOST=$(hostname -s)
 FAST_MODE=false
+BOOTSTRAP_MODE=false
 
 for argument in "$@"; do
-    if [ "$argument" == "--fast" ]; then
-        FAST_MODE=true
-    fi
+    case "$argument" in
+        --fast)
+            FAST_MODE=true
+            ;;
+        --bootstrap)
+            BOOTSTRAP_MODE=true
+            ;;
+    esac
 done
 
-if [ ! -f "$HOME/Library/Application Support/sops/age/keys.txt" ]; then
-    echo "Error: Missing master decryption key at ~/Library/Application Support/sops/age/keys.txt"
-    echo "Try running: nix shell nixpkgs#age -c age-keygen -o ~/Library/Application\ Support/sops/age/keys.txt"
-    exit 1
+if [ "$BOOTSTRAP_MODE" = false ]; then
+    if [ ! -f "$HOME/Library/Application Support/sops/age/keys.txt" ]; then
+        echo "Error: Missing master decryption key at ~/Library/Application Support/sops/age/keys.txt"
+        echo "Try running: nix shell nixpkgs#age -c age-keygen -o ~/Library/Application\ Support/sops/age/keys.txt"
+        exit 1
+    fi
+
+    decrypt_sops_file() {
+        local filename="$1"
+        local output="$HOME/$filename"
+
+        echo "Decrypting $filename"
+        mkdir -p "$(dirname "$output")"
+        run_cmd sops --decrypt "$filename" >"$output"
+    }
+
+    echo "Decrypting sops files"
+    # decrypt_sops_file ".config/kindle-manager/config.toml"
+    # decrypt_sops_file ".config/anvil.json"
+    decrypt_sops_file ".config/nix/nix.conf"
+    decrypt_sops_file ".config/qBittorrent/qBittorrent.ini"
 fi
 
-decrypt_sops_file() {
-    local filename="$1"
-    local output="$HOME/$filename"
-
-    echo "Decrypting $filename"
-    mkdir -p "$(dirname "$output")"
-    nix shell nixpkgs#sops -c sops --decrypt "$filename" >"$output"
-}
-
-echo "Decrypting sops files"
-decrypt_sops_file ".config/kindle-manager/config.toml"
-decrypt_sops_file ".config/anvil.json"
-decrypt_sops_file ".config/nix/nix.conf"
 echo "Running gnu stow"
 nix shell nixpkgs#stow -c stow . 2>&1 | tee -a $STOW_LOG_FILE
 echo "Formatting nix files"
@@ -41,5 +51,5 @@ else
     echo "Updating nixvim flake"
     nix flake update my-nixvim
     echo "Rebuilding nix darwin"
-    darwin-rebuild switch --flake .#"${CURRENT_HOST}"
+    sudo darwin-rebuild switch --flake .#"${CURRENT_HOST}"
 fi

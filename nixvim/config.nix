@@ -18,9 +18,9 @@
     pkgs.python3Packages.black
     pkgs.python3Packages.usort
     pkgs.alejandra
-    # pkgs.sops
-    # pkgs.tombi
-    # pkgs.oxfmt
+    pkgs.sops
+    pkgs.tombi
+    pkgs.oxfmt
   ];
 
   keybinds = import ./keybinds.nix {inherit pkgs helpers;};
@@ -82,7 +82,7 @@ in {
       }
     ];
 
-    # diagnostic.virtual_text = false;
+    #    diagnostic.virtual_text = false;
 
     plugins = {
       marks.enable = true;
@@ -157,11 +157,11 @@ in {
         enable = true;
         settings = {
           formatters_by_ft = {
-            # toml = [ "tombi" ];
-            # html = [ "oxfmt" ];
-            # css = [ "oxfmt" ];
-            # yaml = [ "oxfmt" ];
-            # scss = [ "oxfmt" ];
+            toml = ["tombi"];
+            html = ["oxfmt"];
+            css = ["oxfmt"];
+            yaml = ["oxfmt"];
+            scss = ["oxfmt"];
             rust = ["rustfmt"];
             sh = ["shfmt"];
             python = [
@@ -214,9 +214,9 @@ in {
           };
           clangd.enable = true;
           fortls.enable = true;
-          pylsp.enable = true;
-          # pyrefly.enable = true;
-          # tombi.enable = true;
+          pyrefly.enable = true;
+          ruff.enable = true;
+          tombi.enable = true;
           tinymist = {
             enable = true;
             settings = {
@@ -234,95 +234,88 @@ in {
         };
       };
 
-      # indent-blankline-nvim = {
-      #       enable = true;
-      #       settings = {
-      #         indent.char = "│";
-      #         exclude.filetypes = [ "CHADTree" ];
-      #         scope = {
-      #           enabled = true;
-      #           show_end = false;
-      #           show_start = false;
-      #           injected_languages = true;
-      #           priority = 500;
-      #           highlight = [
-      #             "Function"
-      #             "Label"
-      #           ];
-      #         };
-      #       };
-      #     };
-      #
-      # blink-cmp = {
-      #       enable = true;
-      #       settings = {
-      #         keymap.preset = "default";
-      #         sources.default = [
-      #           "lsp"
-      #           "path"
-      #           "buffer"
-      #           "snippets"
-      #         ];
-      #       };
-      #     };
-      #
-      # typst-preview-nvim = {
-      #       enable = true;
-      #       settings = {
-      #         extra_args = [ "--input=compile-host=preview", "--input "now=$(date '+%Y %m %d %H %M %S')"" ];
-      #       };
-      #     };
-      #
-      # oil-nvim = {
-      #   enable = true;
-      #   settings = {
-      #     default_file_explorer = true;
-      #     columns = [ "icon" ];
-      #     view_options.show_hidden = false;
-      #     win_options = {
-      #       number = false;
-      #       relativenumber = false;
-      #       signcolumn = "no";
-      #       foldcolumn = "no";
-      #     };
-      #   };
-      # };
-      #
-      # visual-whitespace-nvim.enable = true
-      #
-      # nvim-treesitter-context.enable = true;
-      # tiny-inline-diagnostic-nvim.enable = true;
+      indent-blankline = {
+        enable = true;
+        settings = {
+          indent.char = "│";
+          exclude.filetypes = ["CHADTree"];
+          scope = {
+            enabled = true;
+            show_end = false;
+            show_start = false;
+            injected_languages = true;
+            priority = 500;
+            highlight = [
+              "Function"
+              "Label"
+            ];
+          };
+        };
+      };
+
+      blink-cmp = {
+        enable = true;
+        settings = {
+          keymap = {
+            preset = "none";
+            "<Tab>" = ["select_next" "fallback"];
+            "<S-Tab>" = ["select_prev" "fallback"];
+            "<CR>" = ["accept" "fallback"];
+          };
+          sources.default = [
+            "lsp"
+            "path"
+            "buffer"
+            "snippets"
+          ];
+
+          signature = {
+            enabled = true;
+            window.border = "rounded";
+          };
+
+          appearance = {
+            use_nvim_cmp_as_default = true;
+            nerd_font_variant = "mono";
+          };
+
+          completion = {
+            documentation = {
+              auto_show = true;
+              auto_show_delay_ms = 500;
+              window.border = "rounded";
+            };
+
+            menu.window.border = "rounded";
+          };
+        };
+      };
+
+      typst-preview = {
+        enable = true;
+        settings = {
+          extra_args = [
+            "--input=compile-host=preview"
+            # "--input "now=$(date '+%Y %m %d %H %M %S')""
+          ];
+        };
+      };
+
+      oil = {
+        enable = true;
+        settings = {
+          columns = ["icon"];
+          view_options.show_hidden = true;
+        };
+      };
+
+      visual-whitespace.enable = true;
+
+      treesitter-context.enable = true;
+      tiny-inline-diagnostic.enable = true;
     };
 
-    extraPlugins = [
-      # (pkgs.vimUtils.buildVimPlugin {
-      #   name = "sops-nvim";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "trixnz";
-      #     repo = "sops.nvim";
-      #     rev = "4de0cb71746d7a6de6311c85bc39873e56bcefc7";
-      #     hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
-      #   };
-      # })
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "tiny-inline-diagnostic";
-        src = pkgs.fetchFromGitHub {
-          owner = "rachartier";
-          repo = "tiny-inline-diagnostic.nvim";
-          rev = "6264451f14119d63a52580e5198d6baf8518b0b2";
-          hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
-        };
-      })
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "nvim-treesitter-context";
-        src = pkgs.fetchFromGitHub {
-          owner = "nvim-treesitter";
-          repo = "nvim-treesitter-context";
-          rev = "b311b30818951d01f7b4bf650521b868b3fece16";
-          hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
-        };
-      })
-    ];
+    extraPlugins = [];
 
     extraConfigLua = ''
     '';
