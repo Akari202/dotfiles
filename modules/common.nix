@@ -17,7 +17,7 @@
         zulu25
       ];
     })
-    qbittorrent
+    unstable.qbittorrent
 
     unstable.typst
     git

@@ -261,6 +261,7 @@ in {
             "<Tab>" = ["select_next" "fallback"];
             "<S-Tab>" = ["select_prev" "fallback"];
             "<CR>" = ["accept" "fallback"];
+            "<C-h>" = ["accept" "fallback"];
           };
           sources.default = [
             "lsp"
