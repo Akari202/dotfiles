@@ -38,6 +38,7 @@ if [ "$BOOTSTRAP_MODE" = false ]; then
     # decrypt_sops_file ".config/kindle-manager/config.toml"
     # decrypt_sops_file ".config/anvil.json"
     decrypt_sops_file ".config/nix/nix.conf"
+    # sops encrypt ~/.config/qBittorrent/qBittorrent.ini > .config/qBittorrent/qBittorrent.ini
     decrypt_sops_file ".config/qBittorrent/qBittorrent.ini"
 fi
 
