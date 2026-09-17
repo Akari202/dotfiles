@@ -2,10 +2,8 @@
   description = "Akari202 standalone nixvim config";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    # nixvim.url = "github:nix-community/nixvim/nixos-26.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixvim.url = "github:nix-community/nixvim/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -16,7 +14,6 @@
     ...
   }: let
     supportedSystems = [
-      "x86_64-darwin"
       "aarch64-darwin"
       "x86_64-linux"
       "aarch64-linux"

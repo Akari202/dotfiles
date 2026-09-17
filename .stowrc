@@ -9,6 +9,7 @@
 --ignore=kindle-manager
 --ignore=anvil.json
 --ignore=nix.conf
+--ignore=qBittorrent
 --ignore=.*\.nix
 --ignore=.*\.lock
 --ignore=.*\.log

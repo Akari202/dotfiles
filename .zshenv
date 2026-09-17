@@ -4,10 +4,10 @@ run_cmd() {
     shift
 
     if command -v "$cmd" &> /dev/null; then
-        echo "Using native $cmd"
+        echo "Using native $cmd" >&2
         "$cmd" "$@"
     elif command -v nix &> /dev/null; then
-        echo "Using $cmd in a nix shell"
+        echo "Using $cmd in a nix shell" >&2
         nix shell "nixpkgs#${cmd}" -c "$cmd" "$@"
     else
         echo "Error: Required command '$cmd' is not installed, and 'nix' is unavailable." >&2
