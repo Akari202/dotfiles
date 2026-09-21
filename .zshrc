@@ -8,7 +8,7 @@ zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit
 compinit
 export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
-
+PROMPT="%F{#30612f}%n%f%F{#A626A4}@%F{#30612f}%M%f %F{#A626A4}%B%~%b%f %F{#A626A4}%# %F{#383A42}"
 
 # if [ -f "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
 #     source "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -21,32 +21,7 @@ export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
 # bindkey '^[[Z' autosuggest-accept
 # # "Right Arrow" to accept one word at a time
 # bindkey '^[[C' autosuggest-forward-word
-
-
-# macOS specific tasks
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-    # Prompt
-    # PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}akari%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
-    PROMPT="%F{#30612f}%n%f%F{#A626A4}@%F{#30612f}akari%f %F{#A626A4}%B%~%b%f %F{#A626A4}%# %F{#383A42}"
-
-    alias polaris="ssh -t -i /Users/ellie/.ssh/id_ed25519_polaris haradajm@polaris.clarkson.edu"
-fi
-
-# Linux specific tasks
-if [[ "$OSTYPE" =~ ^linux ]]; then
-    # Prompt
-    # PROMPT="%F{#50fa7b}%n%f%F{#bd93f9}@%F{#50fa7b}%M%f %F{#bd93f9}%B%~%b%f %F{#bd93f9}%# %F{#f8f8f2}"
-    PROMPT="%F{#30612f}%n%f%F{#A626A4}@%F{#30612f}%M%f %F{#A626A4}%B%~%b%f %F{#A626A4}%# %F{#383A42}"
-
-    # Aliases
-    alias trash="trash-put"
-
-    # ENV variables
-    # export GPG_TTY=$(tty)
-
-    alias polaris="ssh haradajm@polaris.clarkson.edu"
-    export LFS="/media/orisson"
-fi
+# alias polaris="ssh -t -i /Users/ellie/.ssh/id_ed25519_polaris haradajm@polaris.clarkson.edu"
 
 # Extract archive
 ex () {

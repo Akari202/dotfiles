@@ -124,12 +124,6 @@ in {
           ];
         };
       };
-      nvim-autopairs = {
-        enable = true;
-        settings = {
-          enable_check_bracket_line = true;
-        };
-      };
       rustaceanvim = {
         enable = true;
         settings = {
@@ -253,22 +247,42 @@ in {
         };
       };
 
+      blink-cmp-dictionary.enable = true;
+      blink-ripgrep.enable = true;
       blink-cmp = {
         enable = true;
         settings = {
           keymap = {
-            preset = "none";
-            "<Tab>" = ["select_next" "fallback"];
-            "<S-Tab>" = ["select_prev" "fallback"];
-            "<CR>" = ["accept" "fallback"];
-            "<C-h>" = ["accept" "fallback"];
+            preset = "super-tab";
           };
-          sources.default = [
-            "lsp"
-            "path"
-            "buffer"
-            "snippets"
-          ];
+          sources = {
+            default = [
+              "lsp"
+              "path"
+              "buffer"
+              "snippets"
+              "dictionary"
+              "ripgrep"
+            ];
+            providers = {
+              dictionary = {
+                module = "blink-cmp-dictionary";
+                name = "Dict";
+                score_offset = 100;
+                min_keyword_length = 4;
+              };
+              ripgrep = {
+                module = "blink-ripgrep";
+                name = "Ripgrep";
+                prefix_min_len = 3;
+                opts = {
+                  backend = {
+                    use = "gitgrep-or-ripgrep";
+                  };
+                };
+              };
+            };
+          };
 
           signature = {
             enabled = true;
@@ -286,8 +300,6 @@ in {
               auto_show_delay_ms = 500;
               window.border = "rounded";
             };
-
-            menu.window.border = "rounded";
           };
         };
       };
@@ -316,9 +328,14 @@ in {
       tiny-inline-diagnostic.enable = true;
     };
 
-    extraPlugins = [];
+    extraPlugins = [
+      pkgs.vimPlugins.ultimate-autopair-nvim
+    ];
 
     extraConfigLua = ''
+      require('ultimate-autopair').setup({
+        {'$','$',fly=true,dosuround=true,newline=true,space=true,ft = { 'typst', 'tex', 'plaintex' }},
+      })
     '';
 
     userCommands = {

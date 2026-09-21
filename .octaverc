@@ -1,0 +1,6 @@
+try
+    pkg load symbolic;
+    disp("System: Symbolic math package loaded successfully.");
+catch
+    warning("System: Failed to load the symbolic package. Please ensure it is installed.");
+end

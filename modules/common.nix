@@ -7,6 +7,7 @@
   environment.systemPackages = with pkgs; [
     # keepassxc
     # mullvad-vpn
+    # kicad
 
     kitty
     neovide
@@ -18,8 +19,13 @@
       ];
     })
     unstable.qbittorrent
+    (octaveFull.withPackages (octavePkgs:
+      with octavePkgs; [
+        symbolic
+      ]))
 
     unstable.typst
+
     git
     git-lfs
     inputs.my-nixvim.packages.${pkgs.system}.default
@@ -36,22 +42,32 @@
     # ext4fuse
     # ghidra-bin
     # devenv
+    # matlab
   ];
 
   imports = [
   ];
 
+  environment.shells = [
+    pkgs.zsh
+  ];
+
+  # defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
+  # defaults write com.apple.desktopservices DSDontWriteUSBStores -bool TRUE
+
   programs.zsh.enable = true;
-  environment.shells = [pkgs.zsh];
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
   nix.settings.build-users-group = "nixbld";
+  nix.package = pkgs.nixVersions.latest;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
+  nixpkgs.hostPlatform = "aarch64-darwin";
   system.configurationRevision = self.rev or self.dirtyRev or null;
+  system.stateVersion = 7;
 
   nix.gc = {
     automatic = true;
@@ -134,23 +150,16 @@
       FirstClickThreshold = 0;
       SecondClickThreshold = 0;
       TrackpadRightClick = true;
-    };
-  };
-  nix.package = pkgs.nixVersions.latest;
-  system.stateVersion = 7;
-  nixpkgs.hostPlatform = "aarch64-darwin";
-
-  security.pam.services.sudo_local = {
-    enable = true;
-    touchIdAuth = true;
-    watchIdAuth = false;
-  };
-  system.defaults = {
-    trackpad = {
       ForceSuppressed = false;
       TrackpadThreeFingerVertSwipeGesture = 2;
       ActuateDetents = true;
       TrackpadThreeFingerHorizSwipeGesture = 2;
     };
+  };
+
+  security.pam.services.sudo_local = {
+    enable = true;
+    touchIdAuth = true;
+    watchIdAuth = false;
   };
 }
