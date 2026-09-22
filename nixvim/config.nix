@@ -88,6 +88,20 @@ in {
       marks.enable = true;
       gitsigns.enable = true;
       web-devicons.enable = true;
+      visual-whitespace.enable = true;
+      treesitter-context.enable = true;
+      tiny-inline-diagnostic.enable = true;
+
+      colorizer = {
+        enable = true;
+        settings = {
+          filetypes = ["*"];
+          user_default_options = {
+            names = false;
+          };
+        };
+      };
+
       lualine = {
         enable = true;
         settings = {
@@ -314,18 +328,18 @@ in {
         };
       };
 
-      oil = {
+      mini-files = {
         enable = true;
         settings = {
-          columns = ["icon"];
-          view_options.show_hidden = true;
+          mappings = {
+            go_in_plus = "<CR>";
+            close = "<ESC>";
+          };
+          windows = {
+            preview = true;
+          };
         };
       };
-
-      visual-whitespace.enable = true;
-
-      treesitter-context.enable = true;
-      tiny-inline-diagnostic.enable = true;
     };
 
     extraPlugins = [

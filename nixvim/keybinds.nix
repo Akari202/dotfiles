@@ -90,32 +90,27 @@
   }
   {
     mode = "n";
-    key = "<F7>";
+    key = "<leader>f";
     action = helpers.mkRaw ''
       function()
-        local sidebar_win = nil
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          if vim.bo[buf].filetype == "oil" then
-            sidebar_win = win
-            break
-          end
-        end
-
-        if sidebar_win then
-          vim.api.nvim_win_close(sidebar_win, true)
-        else
-          vim.cmd("topleft vsplit")
-          vim.cmd("vertical resize 30")
-
-          require("oil").open()
-
-          local buf = vim.api.nvim_get_current_buf()
-          local win = vim.api.nvim_get_current_win()
-          vim.wo[win].winfixwidth = true
-          vim.wo[win].winfixbuf = true
+        local MiniFiles = require("mini.files")
+        if not MiniFiles.close() then
+          MiniFiles.open(vim.api.nvim_buf_get_name(0), true)
         end
       end
     '';
+  }
+  {
+    mode = "n";
+    key = "<leader>r";
+    action = helpers.mkRaw ''
+      function()
+        local MiniFiles = require("mini.files")
+        if not MiniFiles.close() then
+          MiniFiles.open(vim.fn.getcwd(), true)
+        end
+      end
+    '';
+    options.desc = "Open mini.files (project root)";
   }
 ]

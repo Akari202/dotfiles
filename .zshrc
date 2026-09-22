@@ -103,7 +103,7 @@ function zle-keymap-select () {
 }
 
 alias vim="nvim"
-alias tree="tree -a -C -I '.git|venv|cmake-build-debug|.idea|.DS_Store|__pycache__'"
+alias tree="tree -a -C -I '.git|venv|cmake-build-debug|.idea|.DS_Store|__pycache__|.devenv'"
 alias git-tree="git log --oneline --graph --color --all --decorate"
 alias git-hash="git rev-parse --short HEAD | tee pbcopy"
 alias dotfiles="cd ~/dotfiles"
@@ -113,6 +113,7 @@ export EDITOR=nvim
 export VISUAL=neovide
 
 eval "$(zoxide init zsh)"
+eval "$(devenv hook zsh)"
 
 compdef ls=ls
 setopt complete_aliases

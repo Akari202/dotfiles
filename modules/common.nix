@@ -9,7 +9,7 @@
     # mullvad-vpn
     # kicad
 
-    kitty
+    unstable.kitty
     neovide
     mpv
     firefox-bin
@@ -19,12 +19,13 @@
       ];
     })
     unstable.qbittorrent
-    (octaveFull.withPackages (octavePkgs:
+    (octave.withPackages (octavePkgs:
       with octavePkgs; [
         symbolic
       ]))
 
     unstable.typst
+    unstable.devenv
 
     git
     git-lfs
@@ -41,8 +42,8 @@
 
     # ext4fuse
     # ghidra-bin
-    # devenv
     # matlab
+    # nerd-fonts.symbols-only
   ];
 
   imports = [
