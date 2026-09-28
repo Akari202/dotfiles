@@ -3,6 +3,7 @@
   lib,
   options,
   config,
+  neovim-nightly-overlay,
   ...
 }: let
   helpers = pkgs.nixvim or config.lib.nixvim or {mkRaw = r: {__raw = r;};};
@@ -27,6 +28,7 @@
 in {
   config = {
     package = pkgs.neovim-unwrapped;
+    # package = neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
     extraPackages = neededBinaries;
     keymaps = keybinds;
 
@@ -82,8 +84,6 @@ in {
       }
     ];
 
-    #    diagnostic.virtual_text = false;
-
     plugins = {
       marks.enable = true;
       gitsigns.enable = true;
@@ -91,6 +91,9 @@ in {
       visual-whitespace.enable = true;
       treesitter-context.enable = true;
       tiny-inline-diagnostic.enable = true;
+      friendly-snippets.enable = true;
+      substitute.enable = true;
+      kitty-navigator.enable = true;
 
       colorizer = {
         enable = true;
@@ -98,6 +101,20 @@ in {
           filetypes = ["*"];
           user_default_options = {
             names = false;
+          };
+        };
+      };
+
+      mini-surround = {
+        enable = true;
+        settings = {
+          mappings = {
+            add = "ys";
+            delete = "ds";
+            find = "gs";
+            find_left = "gS";
+            highlight = "";
+            replace = "cs";
           };
         };
       };
@@ -112,6 +129,16 @@ in {
                 __unkeyed-1 = "buffers";
                 mode = 2;
                 max_length = 0;
+                buffers_color = {
+                  inactive = {
+                    fg = "#2a2b33";
+                    bg = "#d0d0d0";
+                  };
+                  active = {
+                    fg = "#f8f8f8";
+                    bg = "#3e953a";
+                  };
+                };
               }
             ];
             lualine_z = ["tabs"];
@@ -211,7 +238,15 @@ in {
       lsp = {
         enable = true;
         servers = {
+          # matlab_ls.enable = true;
           nixd.enable = true;
+          basedpyright.enable = true;
+          bashls.enable = true;
+          clangd.enable = true;
+          fortls.enable = true;
+          pyrefly.enable = true;
+          ruff.enable = true;
+          tombi.enable = true;
           lua_ls = {
             enable = true;
             settings.Lua = {
@@ -220,11 +255,6 @@ in {
               };
             };
           };
-          clangd.enable = true;
-          fortls.enable = true;
-          pyrefly.enable = true;
-          ruff.enable = true;
-          tombi.enable = true;
           tinymist = {
             enable = true;
             settings = {
@@ -267,7 +297,16 @@ in {
         enable = true;
         settings = {
           keymap = {
-            preset = "super-tab";
+            preset = "none";
+
+            "<Tab>" = ["select_next" "snippet_forward" "fallback"];
+            "<S-Tab>" = ["select_prev" "snippet_backward" "fallback"];
+            "<CR>" = ["accept" "fallback"];
+            "<Esc>" = ["hide" "fallback"];
+            "<C-e>" = ["hide" "fallback"];
+            "<C-y>" = ["accept" "fallback"];
+
+            "<C-Space>" = ["show" "show_documentation" "hide_documentation"];
           };
           sources = {
             default = [
@@ -288,8 +327,8 @@ in {
               ripgrep = {
                 module = "blink-ripgrep";
                 name = "Ripgrep";
-                prefix_min_len = 3;
                 opts = {
+                  prefix_min_len = 3;
                   backend = {
                     use = "gitgrep-or-ripgrep";
                   };

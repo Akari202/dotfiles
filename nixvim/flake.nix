@@ -5,12 +5,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = {
     self,
     nixpkgs,
     nixvim,
+    neovim-nightly-overlay,
     ...
   }: let
     supportedSystems = [
@@ -33,6 +35,7 @@
             lib = nixpkgs.lib;
             options = {};
             config = {};
+            neovim-nightly-overlay = neovim-nightly-overlay;
           }
         );
       }
@@ -52,6 +55,7 @@
         lib = nixpkgs.lib;
         options = {};
         config = {};
+        neovim-nightly-overlay = neovim-nightly-overlay;
       };
     };
 
@@ -62,6 +66,7 @@
         lib = nixpkgs.lib;
         options = {};
         config = {};
+        neovim-nightly-overlay = neovim-nightly-overlay;
       };
     };
   };

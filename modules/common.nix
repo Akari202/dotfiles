@@ -5,12 +5,8 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    # keepassxc
-    # mullvad-vpn
-    # kicad
-
+    # Graphical applications
     unstable.kitty
-    neovide
     mpv
     firefox-bin
     (prismlauncher.override {
@@ -19,19 +15,14 @@
       ];
     })
     unstable.qbittorrent
-    (octave.withPackages (octavePkgs:
-      with octavePkgs; [
-        symbolic
-      ]))
 
-    unstable.typst
-    unstable.devenv
-
+    # Git
     git
     git-lfs
-    inputs.my-nixvim.packages.${pkgs.system}.default
     gnupg
     pinentry_mac
+
+    # Cli tools
     zoxide
     tree
     sops
@@ -39,11 +30,26 @@
     uutils-coreutils
     zsh-autosuggestions
     darwin.trash
+    unstable.typst
+    unstable.devenv
 
-    # ext4fuse
+    # Neovim
+    inputs.my-nixvim.packages.${pkgs.system}.default
+
+    # Installed outside of Nix:
+    # keepassxc
+    # mullvad-vpn
+    # kicad
+    # bambu-studio
+
+    # Not installed
     # ghidra-bin
     # matlab
     # nerd-fonts.symbols-only
+    # (octave.withPackages (octavePkgs:
+    #   with octavePkgs; [
+    #     symbolic
+    #   ]))
   ];
 
   imports = [
@@ -99,7 +105,7 @@
 
   networking = {
     knownNetworkServices = ["Wi-Fi" "Thunderbolt Bridge"];
-    computerName = "samakro";
+    computerName = "Samakro";
     hostName = "samakro";
     dns = [
       "1.1.1.1"

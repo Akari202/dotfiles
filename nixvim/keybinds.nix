@@ -111,6 +111,37 @@
         end
       end
     '';
-    options.desc = "Open mini.files (project root)";
+  }
+  {
+    mode = "n";
+    key = "s";
+    action = helpers.mkRaw ''require("substitute").operator'';
+    options = {
+      noremap = true;
+    };
+  }
+  {
+    mode = "n";
+    key = "ss";
+    action = helpers.mkRaw ''require("substitute").line'';
+    options = {
+      noremap = true;
+    };
+  }
+  {
+    mode = "n";
+    key = "S";
+    action = helpers.mkRaw ''require("substitute").eol'';
+    options = {
+      noremap = true;
+    };
+  }
+  {
+    mode = "x";
+    key = "s";
+    action = helpers.mkRaw ''require("substitute").visual'';
+    options = {
+      noremap = true;
+    };
   }
 ]
