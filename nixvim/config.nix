@@ -13,6 +13,8 @@
     pkgs.clang-tools
     pkgs.jq
     pkgs.shfmt
+    pkgs.rustfmt
+    pkgs.typstyle
     pkgs.fprettify
     pkgs.tex-fmt
     pkgs.codespell
@@ -94,6 +96,7 @@ in {
       friendly-snippets.enable = true;
       substitute.enable = true;
       kitty-navigator.enable = true;
+      parinfer-rust.enable = true;
 
       colorizer = {
         enable = true;
@@ -211,6 +214,7 @@ in {
             fortran = ["fprettify"];
             nix = ["alejandra"];
             bib = ["tex-fmt"];
+            typst = ["typstyle"];
             "*" = ["codespell"];
             "_" = ["trim_whitespace"];
           };
@@ -230,6 +234,15 @@ in {
                 default_edition = "2024";
               };
             };
+            typstyle = {
+              prepend_args = [
+                "--line-width"
+                "100"
+                "--indent-width"
+                "2"
+                "--wrap-text"
+              ];
+            };
           };
           notify_no_formatters = true;
           log_level = "debug";
@@ -240,7 +253,7 @@ in {
         servers = {
           # matlab_ls.enable = true;
           nixd.enable = true;
-          basedpyright.enable = true;
+          # basedpyright.enable = true;
           bashls.enable = true;
           clangd.enable = true;
           fortls.enable = true;
@@ -258,9 +271,6 @@ in {
           tinymist = {
             enable = true;
             settings = {
-              formatterMode = "typstyle";
-              formatterPrintWidth = 100;
-              formatterProseWrap = true;
               exportPdf = "never";
               semanticTokens = "enable";
               typstExtraArgs = [
@@ -302,7 +312,7 @@ in {
             "<Tab>" = ["select_next" "snippet_forward" "fallback"];
             "<S-Tab>" = ["select_prev" "snippet_backward" "fallback"];
             "<CR>" = ["accept" "fallback"];
-            "<Esc>" = ["hide" "fallback"];
+            # "<Esc>" = ["hide" "fallback"];
             "<C-e>" = ["hide" "fallback"];
             "<C-y>" = ["accept" "fallback"];
 

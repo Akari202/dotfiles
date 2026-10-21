@@ -13,6 +13,7 @@ for argument in "$@"; do
             FAST_MODE=true
             ;;
         --bootstrap)
+            source "./.config/zsh/.zshenv"
             BOOTSTRAP_MODE=true
             ;;
     esac
@@ -40,12 +41,13 @@ if [ "$BOOTSTRAP_MODE" = false ]; then
     decrypt_sops_file ".config/nix/nix.conf"
     # sops encrypt ~/.config/qBittorrent/qBittorrent.ini > .config/qBittorrent/qBittorrent.ini
     decrypt_sops_file ".config/qBittorrent/qBittorrent.ini"
+    decrypt_sops_file "Media/Downloads/Anna.yaml"
 fi
 
 echo "Running gnu stow"
-nix shell nixpkgs#stow -c stow . 2>&1 | tee -a $STOW_LOG_FILE
+run_cmd stow . 2>&1 | tee -a $STOW_LOG_FILE
 echo "Formatting nix files"
-nix shell nixpkgs#alejandra -c alejandra --quiet **/*.nix
+run_cmd alejandra --quiet **/*.nix
 if [ "$FAST_MODE" = true ]; then
     echo "Skipping flake updates and system derivation switch"
 else

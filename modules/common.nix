@@ -14,7 +14,7 @@
         zulu25
       ];
     })
-    unstable.qbittorrent
+    # unstable.qbittorrent
 
     # Git
     git
@@ -28,10 +28,10 @@
     sops
     ripgrep
     uutils-coreutils
-    zsh-autosuggestions
     darwin.trash
     unstable.typst
     unstable.devenv
+    watch
 
     # Neovim
     inputs.my-nixvim.packages.${pkgs.system}.default
@@ -41,6 +41,10 @@
     # mullvad-vpn
     # kicad
     # bambu-studio
+    # Raspberry Pi Imager
+
+    # Installed from app store
+    # Affinity Designer
 
     # Not installed
     # ghidra-bin
@@ -62,7 +66,12 @@
   # defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
   # defaults write com.apple.desktopservices DSDontWriteUSBStores -bool TRUE
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    enableSyntaxHighlighting = true;
+  };
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -70,6 +79,7 @@
   ];
   nix.settings.build-users-group = "nixbld";
   nix.package = pkgs.nixVersions.latest;
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
   nixpkgs.hostPlatform = "aarch64-darwin";

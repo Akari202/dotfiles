@@ -1,28 +1,3 @@
-# ZSH settings
-HISTFILE=~/.histfile
-HISTSIZE=5000
-SAVEHIST=5000
-setopt correct
-bindkey -v
-zstyle :compinstall filename "$HOME/.zshrc"
-autoload -Uz compinit
-compinit
-export HISTORY_IGNORE="(ls|cd|pwd|exit|nvim|sudo reboot|history|cd -|cd ..)"
-PROMPT="%F{#30612f}%n%f%F{#A626A4}@%F{#30612f}%M%f %F{#A626A4}%B%~%b%f %F{#A626A4}%# %F{#383A42}"
-
-# if [ -f "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
-#     source "/run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-# fi
-#
-# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
-# export ZSH_AUTOSUGGEST_STRATEGY=(history)
-#
-# # "Shift + Tab" to accept the whole suggestion
-# bindkey '^[[Z' autosuggest-accept
-# # "Right Arrow" to accept one word at a time
-# bindkey '^[[C' autosuggest-forward-word
-# alias polaris="ssh -t -i /Users/ellie/.ssh/id_ed25519_polaris haradajm@polaris.clarkson.edu"
-
 # Extract archive
 ex () {
     if [ -z "$1" ]; then
@@ -95,6 +70,7 @@ clip() {
     fi
 }
 
+# Set cursor depending on mode
 function zle-keymap-select () {
     case $KEYMAP in
         vicmd) echo -ne "\e[2l\e[1 q" ;;      # Block cursor
@@ -102,21 +78,28 @@ function zle-keymap-select () {
     esac
 }
 
-alias vim="nvim"
-alias tree="tree -a -C -I '.git|venv|cmake-build-debug|.idea|.DS_Store|__pycache__|.devenv'"
-alias git-tree="git log --oneline --graph --color --all --decorate"
-alias git-hash="git rev-parse --short HEAD | tee pbcopy"
-alias dotfiles="cd ~/dotfiles"
-alias ls="uutils-ls -A --color=auto --group-directories-first"
+# Disconnect and reconnect mullvad before and after SSH
+kmssh() {
+    if [[ -z "$1" ]]; then
+        echo "Error ssh destination not specified"
+        return 1
+    fi
 
-export EDITOR=nvim
-export VISUAL=neovide
+    echo "Disconnecting Mullvad VPN for SSH connection to $1"
+    echo "Disconnecting in 3 seconds"
+    sleep 1
+    echo "Disconnecting in 2 seconds"
+    sleep 1
+    echo "Disconnecting in 1 seconds"
+    sleep 1
+    echo "Disconnecting now"
+    mullvad disconnect
+    sleep 1
 
-eval "$(zoxide init zsh)"
-eval "$(devenv hook zsh)"
-
-compdef ls=ls
-setopt complete_aliases
-zle -N zle-keymap-select
-precmd_functions+=()
-echo -ne "\e[2l\e[5 q"
+    {
+        kitten ssh "$@"
+    } always {
+        echo "Reconnecting Mullvad VPN"
+        mullvad connect
+    }
+}
