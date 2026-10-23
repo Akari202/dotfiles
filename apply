@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-cd ~/dotfiles
+cd "$HOME/dotfiles"
 STOW_LOG_FILE="stow.log"
-CURRENT_HOST=$(hostname -s)
+CURRENT_HOST="$(hostname -s)"
 FAST_MODE=false
 BOOTSTRAP_MODE=false
 
@@ -13,13 +13,20 @@ for argument in "$@"; do
             FAST_MODE=true
             ;;
         --bootstrap)
-            source "./.config/zsh/.zshenv"
             BOOTSTRAP_MODE=true
             ;;
+        *)
+          echo "Unknown argument: $1"
+          exit 2
+          ;;
     esac
 done
 
-if [ "$BOOTSTRAP_MODE" = false ]; then
+if [ "$BOOTSTRAP_MODE" = true ]; then
+    source "./.config/zsh/.zshenv"
+fi
+
+if [ "$BOOTSTRAP_MODE" = false ] && [ "$CURRENT_HOST" = "samakro" ]; then
     if [ ! -f "$HOME/Library/Application Support/sops/age/keys.txt" ]; then
         echo "Error: Missing master decryption key at ~/Library/Application Support/sops/age/keys.txt"
         echo "Try running: nix shell nixpkgs#age -c age-keygen -o ~/Library/Application\ Support/sops/age/keys.txt"
@@ -36,8 +43,6 @@ if [ "$BOOTSTRAP_MODE" = false ]; then
     }
 
     echo "Decrypting sops files"
-    # decrypt_sops_file ".config/kindle-manager/config.toml"
-    # decrypt_sops_file ".config/anvil.json"
     decrypt_sops_file ".config/nix/nix.conf"
     # sops encrypt ~/.config/qBittorrent/qBittorrent.ini > .config/qBittorrent/qBittorrent.ini
     decrypt_sops_file ".config/qBittorrent/qBittorrent.ini"
@@ -50,9 +55,13 @@ echo "Formatting nix files"
 run_cmd alejandra --quiet **/*.nix
 if [ "$FAST_MODE" = true ]; then
     echo "Skipping flake updates and system derivation switch"
-else
-    echo "Updating nixvim flake"
-    nix flake update my-nixvim
+    return
+fi
+
+if [ "$CURRENT_HOST" = "samakro" ]; then
     echo "Rebuilding nix darwin"
     sudo darwin-rebuild switch --flake .#"${CURRENT_HOST}"
 fi
+
+
+

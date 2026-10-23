@@ -8,8 +8,8 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    my-nixvim.url = "path:./nixvim";
-    my-nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
@@ -23,13 +23,13 @@
       system = "aarch64-darwin";
       specialArgs = {inherit inputs self;};
       modules = [
-        ./modules/common.nix
+        ./hosts/samakro/configuration.nix
 
         ({pkgs, ...}: {
           nixpkgs.overlays = [
             (final: prev: {
               unstable = import nixpkgs-unstable {
-                system = prev.system;
+                system = prev.stdenv.hostPlatform.system;
                 config.allowUnfree = true;
               };
             })
@@ -37,5 +37,25 @@
         })
       ];
     };
+    # nixosConfigurations."roscu" = nixpkgs.lib.nixosSystem {
+    #   system = "aarch64-linux";
+    #   specialArgs = {inherit inputs self;};
+    #
+    #   modules = [
+    #     ./hosts/roscu/hardware-configuration.nix
+    #     ./hosts/roscu/configuration.nix
+    #
+    #     ({pkgs, ...}: {
+    #       nixpkgs.overlays = [
+    #         (final: prev: {
+    #           unstable = import nixpkgs-unstable {
+    #             system = prev.stdenv.hostPlatform.system;
+    #             config.allowUnfree = true;
+    #           };
+    #         })
+    #       ];
+    #     })
+    #   ];
+    # };
   };
 }

@@ -2,12 +2,11 @@
 --target=~/
 --restow
 --ignore=apply
---ignore=nixvim
 --ignore=modules
+--ignore=hosts
 --ignore=.DS_Store
 --ignore=.sops.yaml
 --ignore=kindle-manager
---ignore=anvil.json
 --ignore=nix.conf
 --ignore=qBittorrent
 --ignore=Media
