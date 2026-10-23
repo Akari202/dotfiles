@@ -35,8 +35,12 @@ eval "$(zoxide init zsh)"
 eval "$(devenv hook zsh)"
 # Register vim cursor function
 zle -N zle-keymap-select
+# Register fancy <C-z> function
+zle -N fancy-ctrl-z
 # Set cursor to beam
 echo -ne "\e[2l\e[5 q"
+# Set fancy <C-z> keybind
+bindkey '^Z' fancy-ctrl-z
 
 # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 # export ZSH_AUTOSUGGEST_STRATEGY=(history)

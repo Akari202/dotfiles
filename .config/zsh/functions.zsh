@@ -70,14 +70,6 @@ clip() {
     fi
 }
 
-# Set cursor depending on mode
-function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne "\e[2l\e[1 q" ;;      # Block cursor
-        viins|main) echo -ne "\e[2l\e[5 q" ;; # Beam cursor
-    esac
-}
-
 # Disconnect and reconnect mullvad before and after SSH
 kmssh() {
     if [[ -z "$1" ]]; then
@@ -103,3 +95,23 @@ kmssh() {
         mullvad connect
     }
 }
+
+# Set cursor depending on mode
+zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne "\e[2l\e[1 q" ;;      # Block cursor
+        viins|main) echo -ne "\e[2l\e[5 q" ;; # Beam cursor
+    esac
+}
+
+# Make <C-z> reopen background jobs
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+
