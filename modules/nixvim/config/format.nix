@@ -7,17 +7,17 @@
 in {
   extraPackages = with pkgs; [
     alejandra
-    clang-tools # provides clang-format
+    clang-tools
     codespell
     fprettify
     jq
     python3Packages.black
     python3Packages.usort
-    rustfmt
+    rustMonthly
     shfmt
     tex-fmt
     tombi
-    typstyle
+    unstable.typstyle
     oxfmt
     stylua
   ];

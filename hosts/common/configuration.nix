@@ -22,6 +22,24 @@
   programs.nixvim = {
     enable = true;
     nixpkgs.source = inputs.nixpkgs;
+    nixpkgs.overlays = [
+      (final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          system = prev.stdenv.hostPlatform.system;
+        };
+
+        rustMonthly = inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.complete.withComponents [
+          "cargo"
+          "clippy"
+          "rustc"
+          "rustfmt"
+          "rust-src"
+        ];
+
+        rustAnalyzerMonthly =
+          inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.rust-analyzer;
+      })
+    ];
     imports = [../../modules/nixvim/module.nix];
   };
 

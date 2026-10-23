@@ -10,13 +10,15 @@
 
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    fenix.url = "github:nix-community/fenix/monthly";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
     self,
     nix-darwin,
     nixpkgs,
-    nixpkgs-unstable,
     ...
   }: {
     darwinConfigurations."samakro" = nix-darwin.lib.darwinSystem {
@@ -28,10 +30,20 @@
         ({pkgs, ...}: {
           nixpkgs.overlays = [
             (final: prev: {
-              unstable = import nixpkgs-unstable {
+              unstable = import inputs.nixpkgs-unstable {
                 system = prev.stdenv.hostPlatform.system;
-                config.allowUnfree = true;
               };
+
+              rustMonthly = inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.minimal.withComponents [
+                "cargo"
+                "clippy"
+                "rustc"
+                "rustfmt"
+                "rust-src"
+              ];
+
+              rustAnalyzerMonthly =
+                inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.rust-analyzer;
             })
           ];
         })
@@ -50,7 +62,6 @@
     #         (final: prev: {
     #           unstable = import nixpkgs-unstable {
     #             system = prev.stdenv.hostPlatform.system;
-    #             config.allowUnfree = true;
     #           };
     #         })
     #       ];

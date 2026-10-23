@@ -3,12 +3,16 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    fenix.url = "github:nix-community/fenix/monthly";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     nixvim,
@@ -25,7 +29,24 @@
     mkNvim = system: let
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        overlays = [
+          (final: prev: {
+            unstable = import inputs.nixpkgs-unstable {
+              system = prev.stdenv.hostPlatform.system;
+            };
+
+            rustMonthly = inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.minimal.withComponents [
+              "cargo"
+              "clippy"
+              "rustc"
+              "rustfmt"
+              "rust-src"
+            ];
+
+            rustAnalyzerMonthly =
+              inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.rust-analyzer;
+          })
+        ];
       };
     in
       nixvim.legacyPackages.${system}.makeNixvimWithModule {
