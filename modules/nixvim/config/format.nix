@@ -59,12 +59,6 @@ in {
         end
       '';
       formatters = {
-        rustfmt = {
-          options = {
-            nightly = true;
-            default_edition = "2024";
-          };
-        };
         typstyle = {
           prepend_args = [
             "--line-width"

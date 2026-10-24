@@ -35,7 +35,7 @@
               system = prev.stdenv.hostPlatform.system;
             };
 
-            rustMonthly = inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.minimal.withComponents [
+            rustMonthly = inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.complete.withComponents [
               "cargo"
               "clippy"
               "rustc"

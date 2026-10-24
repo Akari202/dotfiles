@@ -17,7 +17,6 @@ in {
     visual-whitespace.enable = true;
     treesitter-context.enable = true;
     tiny-inline-diagnostic.enable = true;
-    friendly-snippets.enable = true;
     substitute.enable = true;
     kitty-navigator.enable = true;
     parinfer-rust.enable = true;
@@ -90,6 +89,8 @@ in {
           on_attach = helpers.mkRaw ''
             function(client, buf)
               local opts = { silent = true, buffer = buf }
+
+              vim.lsp.inlay_hint.enable(true, { bufnr = buf })
               vim.keymap.set("n", "K", function() vim.cmd.RustLsp({ "hover", "actions" }) end, opts)
               vim.keymap.set("n", "<leader>a", function() vim.cmd.RustLsp("codeAction") end, opts)
             end
@@ -101,9 +102,20 @@ in {
                 command = "clippy";
               };
               inlayHints = {
+                typeHints.enable = true;
+                chainingHints.enable = true;
+
+                closingBraceHints = {
+                  enable = true;
+                  minLines = 25;
+                };
+
                 lifetimeElisionHints = {
                   enable = "always";
                 };
+
+                parameterHints.enable = true;
+                closureReturnTypeHints.enable = "always";
               };
               procMacro.enable = true;
               completion.autoimport.enable = true;

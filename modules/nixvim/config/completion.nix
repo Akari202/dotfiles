@@ -4,6 +4,7 @@
   ...
 }: {
   plugins = {
+    friendly-snippets.enable = true;
     blink-cmp-dictionary.enable = true;
     blink-ripgrep.enable = true;
     blink-cmp = {
@@ -12,12 +13,12 @@
         keymap = {
           preset = "none";
 
-          "<Tab>" = ["select_next" "snippet_forward" "fallback"];
-          "<S-Tab>" = ["select_prev" "snippet_backward" "fallback"];
+          "<Tab>" = ["select_next" "fallback"];
+          "<S-Tab>" = ["select_prev" "fallback"];
           "<CR>" = ["accept" "fallback"];
           # "<Esc>" = ["hide" "fallback"];
           "<C-e>" = ["hide" "fallback"];
-          "<C-y>" = ["accept" "fallback"];
+          "<C-h>" = ["accept" "snippet_forward" "fallback"];
 
           "<C-Space>" = ["show" "show_documentation" "hide_documentation"];
         };
@@ -34,14 +35,13 @@
             dictionary = {
               module = "blink-cmp-dictionary";
               name = "Dict";
-              score_offset = 100;
               min_keyword_length = 4;
             };
             ripgrep = {
               module = "blink-ripgrep";
               name = "Ripgrep";
               opts = {
-                prefix_min_len = 3;
+                prefix_min_len = 4;
                 backend = {
                   use = "gitgrep-or-ripgrep";
                 };
@@ -61,6 +61,8 @@
         };
 
         completion = {
+          list.selection.preselect = false;
+
           documentation = {
             auto_show = true;
             auto_show_delay_ms = 500;

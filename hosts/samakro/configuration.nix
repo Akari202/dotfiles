@@ -27,6 +27,7 @@
     # keepassxc
     # mullvad-vpn
     # kicad
+    # freecad
     # bambu-studio
     # Raspberry Pi Imager
 
