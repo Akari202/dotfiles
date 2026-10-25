@@ -28,7 +28,7 @@ alias git-hash="git rev-parse --short HEAD | tee pbcopy"
 alias dotfiles="cd ~/dotfiles"
 alias ls="uutils-ls -A --color=auto --group-directories-first --hyperlink=auto"
 alias polaris="kitten ssh haradajm@polaris.clarkson.edu"
-alias roscu="kmssh akari@roscu"
+alias roscu="kmssh akari@128.153.194.215"
 # Setup zoxide
 eval "$(zoxide init zsh)"
 # Setup devenv

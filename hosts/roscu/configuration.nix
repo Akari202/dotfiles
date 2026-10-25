@@ -6,6 +6,7 @@
   imports = [
     inputs.sops-nix.nixosModules.sops
     inputs.nixvim.nixosModules.nixvim
+    inputs.nixos-raspberrypi.sd-image
     inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
     ../common/configuration.nix
     ./hardware-configuration.nix
@@ -48,5 +49,6 @@
     ];
   };
 
+  nix.optimise.automatic = true;
   system.stateVersion = "26.05";
 }

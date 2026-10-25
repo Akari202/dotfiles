@@ -6,6 +6,7 @@ STOW_LOG_FILE="stow.log"
 CURRENT_HOST="$(hostname -s)"
 FAST_MODE=false
 BOOTSTRAP_MODE=false
+UPDATE_SOPS=false
 
 for argument in "$@"; do
     case "$argument" in
@@ -15,6 +16,9 @@ for argument in "$@"; do
         --bootstrap)
             BOOTSTRAP_MODE=true
             ;;
+        --update-sops)
+            UPDATE_SOPS=true
+            ;;
         *)
           echo "Unknown argument: $1"
           exit 2
@@ -23,7 +27,7 @@ for argument in "$@"; do
 done
 
 if [ "$BOOTSTRAP_MODE" = true ]; then
-    source "./.config/zsh/.zshenv"
+    source "./config/common/.config/zsh/.zshenv"
 fi
 
 if [ "$BOOTSTRAP_MODE" = false ] && [ "$CURRENT_HOST" = "samakro" ]; then
@@ -39,20 +43,44 @@ if [ "$BOOTSTRAP_MODE" = false ] && [ "$CURRENT_HOST" = "samakro" ]; then
 
         echo "Decrypting $filename"
         mkdir -p "$(dirname "$output")"
-        run_cmd sops --decrypt "$filename" >"$output"
+        run_cmd sops --decrypt "config/secret/$filename" >"$output"
     }
 
     echo "Decrypting sops files"
-    decrypt_sops_file ".config/nix/nix.conf"
     # sops encrypt ~/.config/qBittorrent/qBittorrent.ini > .config/qBittorrent/qBittorrent.ini
+    decrypt_sops_file ".config/nix/nix.conf"
     decrypt_sops_file ".config/qBittorrent/qBittorrent.ini"
-    decrypt_sops_file "Media/Downloads/Anna.yaml"
+    # decrypt_sops_file "Media/Downloads/Anna.yaml"
+    # decrypt_sops_file ".config/kindle-manager/config.toml"
+    # decrypt_sops_file ".config/anvil.json"
 fi
 
-echo "Running gnu stow"
-run_cmd stow . 2>&1 | tee -a $STOW_LOG_FILE
+if [ "$BOOTSTRAP_MODE" = false ] && [ "$UPDATE_SOPS" = true ]; then
+    update_sops_file() {
+        local filename="$1"
+        echo "Updating $filename"
+        run_cmd sops updatekeys "config/secret/$filename"
+    }
+
+    echo "Updating sops keys"
+    update_sops_file ".config/nix/nix.conf"
+    update_sops_file ".config/qBittorrent/qBittorrent.ini"
+    update_sops_file "Media/Downloads/Anna.yaml"
+    update_sops_file ".config/kindle-manager/config.toml"
+    update_sops_file ".config/anvil.json"
+    run_cmd sops updatekeys "hosts/roscu/secrets.yaml"
+fi
+
+echo "Running gnu stow common"
+run_cmd stow --ignore=.DS_Store --verbose=1 -d "config/common" --target "$HOME" . 2>&1 | tee -a "$STOW_LOG_FILE"
+if [ "$CURRENT_HOST" = "samakro" ]; then
+    echo "Running gnu stow samakro"
+    run_cmd stow --ignore=.DS_Store --verbose=1 -d "config/samakro" --target "$HOME" . 2>&1 | tee -a "$STOW_LOG_FILE"
+fi
+
 echo "Formatting nix files"
 run_cmd alejandra --quiet **/*.nix
+
 if [ "$FAST_MODE" = true ]; then
     echo "Skipping flake updates and system derivation switch"
     return

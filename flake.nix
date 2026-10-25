@@ -27,7 +27,7 @@
     nixpkgs,
     ...
   }: {
-    darwinConfigurations."samakro" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.samakro = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {inherit inputs self;};
       modules = [
@@ -55,14 +55,14 @@
         })
       ];
     };
-    nixosConfigurations."roscu" = inputs.nixos-raspberrypi.lib.nixosSystem {
+    nixosConfigurations.roscu = inputs.nixos-raspberrypi.lib.nixosSystem {
       system = "aarch64-linux";
       specialArgs = {inherit inputs self;};
 
       modules = [
         ./hosts/roscu/configuration.nix
 
-        ({pkgs, ...}: {
+        ({...}: {
           nixpkgs.overlays = [
             (final: prev: {
               unstable = import inputs.nixpkgs-unstable {
@@ -83,5 +83,6 @@
         })
       ];
     };
+    packages.aarch64-linux.roscu-sd-image = self.nixosConfigurations.roscu.config.system.build.sdImage;
   };
 }
