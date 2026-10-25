@@ -33,6 +33,7 @@
 
     # Installed from app store
     # Affinity Designer
+    # Affinity Photo
 
     # Not installed
     # ghidra-bin

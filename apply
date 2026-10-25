@@ -56,10 +56,11 @@ if [ "$BOOTSTRAP_MODE" = false ] && [ "$CURRENT_HOST" = "samakro" ]; then
 fi
 
 if [ "$BOOTSTRAP_MODE" = false ] && [ "$UPDATE_SOPS" = true ]; then
+    # nix shell nixpkgs#ssh-to-age -c ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
     update_sops_file() {
         local filename="$1"
         echo "Updating $filename"
-        run_cmd sops updatekeys "config/secret/$filename"
+        yes | run_cmd sops updatekeys "config/secret/$filename"
     }
 
     echo "Updating sops keys"
@@ -68,7 +69,7 @@ if [ "$BOOTSTRAP_MODE" = false ] && [ "$UPDATE_SOPS" = true ]; then
     update_sops_file "Media/Downloads/Anna.yaml"
     update_sops_file ".config/kindle-manager/config.toml"
     update_sops_file ".config/anvil.json"
-    run_cmd sops updatekeys "hosts/roscu/secrets.yaml"
+    yes | run_cmd sops updatekeys "hosts/roscu/secrets.yaml"
 fi
 
 echo "Running gnu stow common"

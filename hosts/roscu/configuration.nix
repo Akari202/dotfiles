@@ -36,6 +36,9 @@
 
   time.timeZone = "America/New_York";
   users.users = {
+    nixos.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ710+tXhA6lsHu44h2zhN7zgl7iFJavGjxnulXVakd0 akaritwo0two@gmail.com"
+    ];
     akari = {
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets.akari-password.path;
