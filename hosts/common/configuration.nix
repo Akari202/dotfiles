@@ -61,25 +61,4 @@
   nix.package = pkgs.nixVersions.latest;
   services.tailscale.enable = true;
   nix.settings.build-users-group = "nixbld";
-
-  nix.gc = {
-    automatic = true;
-    interval = [
-      {
-        Hour = 3;
-        Minute = 15;
-        Weekday = 7;
-      }
-    ];
-  };
-  nix.optimise = {
-    automatic = true;
-    interval = [
-      {
-        Hour = 4;
-        Minute = 15;
-        Weekday = 7;
-      }
-    ];
-  };
 }

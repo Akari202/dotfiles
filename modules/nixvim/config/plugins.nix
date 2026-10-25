@@ -1,14 +1,18 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   helpers = lib.nixvim;
 in {
-  extraPackages = with pkgs; [
-    rustMonthly
-    rustAnalyzerMonthly
-  ];
+  extraPackages =
+    lib.optionals config.akari.rust.toolchain.enable [
+      pkgs.rustMonthly
+    ]
+    ++ lib.optionals config.akari.rust.analyzer.enable [
+      pkgs.rustAnalyzerMonthly
+    ];
 
   plugins = {
     marks.enable = true;
@@ -78,7 +82,7 @@ in {
       indent.enable = true;
     };
     rustaceanvim = {
-      enable = true;
+      enable = config.akari.rust.analyzer.enable;
       settings = {
         tools.enable_clippy = true;
         server = {

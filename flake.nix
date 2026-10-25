@@ -16,7 +16,6 @@
 
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-26.05";
     nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-raspberrypi.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
   };
 
   outputs = inputs @ {
@@ -53,7 +52,7 @@
         })
       ];
     };
-    nixosConfigurations."roscu" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."roscu" = inputs.nixos-raspberrypi.lib.nixosSystem {
       system = "aarch64-linux";
       specialArgs = {inherit inputs self;};
 

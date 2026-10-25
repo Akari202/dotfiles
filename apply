@@ -63,5 +63,7 @@ if [ "$CURRENT_HOST" = "samakro" ]; then
     sudo darwin-rebuild switch --flake .#"${CURRENT_HOST}"
 fi
 
-
-
+if [ "$CURRENT_HOST" = "roscu" ]; then
+    echo "Rebuilding nixos"
+    sudo nixos-rebuild switch --flake ".#${CURRENT_HOST}"
+fi

@@ -15,88 +15,97 @@ in {
     ./config/completion.nix
   ];
 
-  package = pkgs.neovim-unwrapped;
-  extraPackages = with pkgs; [
-    sops
-  ];
+  options.akari.rust = {
+    toolchain.enable =
+      lib.mkEnableOption "the Rust toolchain";
 
-  globals = {
-    mapleader = "'";
-    maplocalleader = "\\";
+    analyzer.enable =
+      lib.mkEnableOption "rust-analyzer";
   };
+  config = {
+    package = pkgs.neovim-unwrapped;
+    extraPackages = with pkgs; [
+      sops
+    ];
 
-  opts = {
-    number = true;
-    relativenumber = true;
+    globals = {
+      mapleader = "'";
+      maplocalleader = "\\";
+    };
 
-    expandtab = true;
-    tabstop = 4;
-    softtabstop = 4;
-    shiftwidth = 4;
-    autoindent = true;
-    smartindent = true;
+    opts = {
+      number = true;
+      relativenumber = true;
 
-    fixendofline = true;
-    fileencoding = "utf-8";
-    encoding = "utf-8";
-    backup = false;
-    writebackup = false;
-    updatetime = 500;
+      expandtab = true;
+      tabstop = 4;
+      softtabstop = 4;
+      shiftwidth = 4;
+      autoindent = true;
+      smartindent = true;
 
-    wrap = true;
-    whichwrap = "b,s,<,>,[,]";
+      fixendofline = true;
+      fileencoding = "utf-8";
+      encoding = "utf-8";
+      backup = false;
+      writebackup = false;
+      updatetime = 500;
 
-    ignorecase = true;
-    hlsearch = true;
+      wrap = true;
+      whichwrap = "b,s,<,>,[,]";
 
-    termguicolors = true;
-    background = "light";
+      ignorecase = true;
+      hlsearch = true;
 
-    concealcursor = "";
-    conceallevel = 0;
-  };
+      termguicolors = true;
+      background = "light";
 
-  autoCmd = [
-    {
-      event = ["FileType"];
-      pattern = ["nix"];
-      callback = {
-        __raw = ''
-          function()
-            vim.opt_local.tabstop = 2
-            vim.opt_local.shiftwidth = 2
-            vim.opt_local.softtabstop = 2
+      concealcursor = "";
+      conceallevel = 0;
+    };
+
+    autoCmd = [
+      {
+        event = ["FileType"];
+        pattern = ["nix"];
+        callback = {
+          __raw = ''
+            function()
+              vim.opt_local.tabstop = 2
+              vim.opt_local.shiftwidth = 2
+              vim.opt_local.softtabstop = 2
+            end
+          '';
+        };
+      }
+    ];
+
+    userCommands = {
+      FormatDisable = {
+        desc = "Disable autoformat on save";
+        bang = true;
+        command.__raw = ''
+          function(args)
+            if args.bang then
+              vim.b.disable_autoformat = true
+            else
+              vim.g.disable_autoformat = true
+            end
           end
         '';
       };
-    }
-  ];
 
-  userCommands = {
-    FormatDisable = {
-      desc = "Disable autoformat on save";
-      bang = true;
-      command.__raw = ''
-        function(args)
-          if args.bang then
-            vim.b.disable_autoformat = true
-          else
-            vim.g.disable_autoformat = true
+      FormatEnable = {
+        desc = "Re-enable autoformat on save";
+        command.__raw = ''
+          function()
+            vim.b.disable_autoformat = false
+            vim.g.disable_autoformat = false
           end
-        end
-      '';
+        '';
+      };
     };
 
-    FormatEnable = {
-      desc = "Re-enable autoformat on save";
-      command.__raw = ''
-        function()
-          vim.b.disable_autoformat = false
-          vim.g.disable_autoformat = false
-        end
-      '';
-    };
+    colorschemes.one.enable = true;
   };
-
-  colorschemes.one.enable = true;
 }
