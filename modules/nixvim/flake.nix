@@ -26,7 +26,7 @@
 
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
 
-    mkNvim = system: let
+    mkNvim = system: {extraTools ? false}: let
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
@@ -51,17 +51,27 @@
     in
       nixvim.legacyPackages.${system}.makeNixvimWithModule {
         inherit pkgs;
-        module = import ./module.nix;
+        module = {
+          imports = [./module.nix];
+          config.akari.extraTools.enable = extraTools;
+          config.akari.rust.enable = extraTools;
+        };
       };
   in {
     packages = forAllSystems (system: {
-      default = mkNvim system;
+      default = mkNvim system {};
+      extra-tools = mkNvim system {extraTools = true;};
     });
 
     apps = forAllSystems (system: {
       default = {
         type = "app";
         program = "${self.packages.${system}.default}/bin/nvim";
+      };
+
+      extra-tools = {
+        type = "app";
+        program = "${self.packages.${system}.extra-tools}/bin/nvim";
       };
     });
   };

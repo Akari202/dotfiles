@@ -11,8 +11,6 @@ in {
       alejandra
       codespell
       jq
-      python3Packages.black
-      python3Packages.usort
       shfmt
       tombi
       oxfmt
@@ -23,6 +21,8 @@ in {
       fprettify
       tex-fmt
       unstable.typstyle
+      python3Packages.black
+      python3Packages.usort
     ]
     ++ lib.optionals config.akari.rust.enable [
       rustMonthly
