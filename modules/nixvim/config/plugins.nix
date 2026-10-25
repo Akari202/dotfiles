@@ -77,18 +77,18 @@ in {
       nixvimInjections = true;
       highlight.enable = true;
       indent.enable = true;
-      grammarPackages =
-        if config.akari.extraTools.enable
-        then config.plugins.treesitter.package.allGrammars
-        else
-          with pkgs.tree-sitter-grammars; [
-            tree-sitter-nix
-            tree-sitter-lua
-            tree-sitter-bash
-            tree-sitter-toml
-            tree-sitter-yaml
-            tree-sitter-json
-          ];
+      # grammarPackages =
+      #   if config.akari.extraTools.enable
+      #   then config.plugins.treesitter.package.allGrammars
+      #   else
+      #     with pkgs.tree-sitter-grammars; [
+      #       tree-sitter-nix
+      #       tree-sitter-lua
+      #       tree-sitter-bash
+      #       tree-sitter-toml
+      #       tree-sitter-yaml
+      #       tree-sitter-json
+      #     ];
     };
     rustaceanvim = {
       enable = config.akari.rust.enable;
