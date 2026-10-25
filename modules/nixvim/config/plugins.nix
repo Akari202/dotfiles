@@ -14,16 +14,16 @@ in {
   plugins = {
     marks.enable = true;
     gitsigns.enable = true;
-    web-devicons.enable = true;
+    web-devicons.enable = config.akari.extraTools.enable;
     visual-whitespace.enable = true;
-    treesitter-context.enable = true;
+    treesitter-context.enable = config.akari.extraTools.enable;
     tiny-inline-diagnostic.enable = true;
     substitute.enable = true;
-    kitty-navigator.enable = true;
+    kitty-navigator.enable = config.akari.extraTools.enable;
     parinfer-rust.enable = config.akari.extraTools.enable;
 
     colorizer = {
-      enable = true;
+      enable = config.akari.extraTools.enable;
       settings = {
         filetypes = ["*"];
         user_default_options = {
@@ -73,7 +73,7 @@ in {
       };
     };
     treesitter = {
-      enable = true;
+      enable = config.akari.extraTools.enable;
       nixvimInjections = true;
       highlight.enable = true;
       indent.enable = true;

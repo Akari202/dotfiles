@@ -13,8 +13,8 @@
       bashls.enable = true;
       clangd.enable = true;
       fortls.enable = config.akari.extraTools.enable;
-      pyrefly.enable = true;
-      ruff.enable = true;
+      pyrefly.enable = config.akari.extraTools.enable;
+      ruff.enable = config.akari.extraTools.enable;
       tombi.enable = true;
       lua_ls = {
         enable = true;
