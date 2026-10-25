@@ -16,6 +16,9 @@
 
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-26.05";
     nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {

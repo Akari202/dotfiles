@@ -15,13 +15,11 @@ in {
     ./config/completion.nix
   ];
 
-  options.akari.rust = {
-    toolchain.enable =
-      lib.mkEnableOption "the Rust toolchain";
-
-    analyzer.enable =
-      lib.mkEnableOption "rust-analyzer";
+  options.akari = {
+    rust.toolchain.enable = lib.mkEnableOption "the Rust toolchain";
+    rust.analyzer.enable = lib.mkEnableOption "rust-analyzer";
   };
+
   config = {
     package = pkgs.neovim-unwrapped;
     extraPackages = with pkgs; [
