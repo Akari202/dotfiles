@@ -52,7 +52,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
-  nixpkgs.hostPlatform = "aarch64-darwin";
   system.configurationRevision = self.rev or self.dirtyRev or null;
   system.stateVersion = 7;
+  nix.settings.trusted-users = ["root" "akari"];
 }

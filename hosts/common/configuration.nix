@@ -58,8 +58,9 @@
     "nix-command"
     "flakes"
   ];
-  nix.settings.build-users-group = "nixbld";
   nix.package = pkgs.nixVersions.latest;
+  services.tailscale.enable = true;
+  nix.settings.build-users-group = "nixbld";
 
   nix.gc = {
     automatic = true;

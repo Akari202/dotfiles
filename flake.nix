@@ -13,6 +13,10 @@
 
     fenix.url = "github:nix-community/fenix/monthly";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-26.05";
+    nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-raspberrypi.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
   };
 
   outputs = inputs @ {
@@ -49,24 +53,33 @@
         })
       ];
     };
-    # nixosConfigurations."roscu" = nixpkgs.lib.nixosSystem {
-    #   system = "aarch64-linux";
-    #   specialArgs = {inherit inputs self;};
-    #
-    #   modules = [
-    #     ./hosts/roscu/hardware-configuration.nix
-    #     ./hosts/roscu/configuration.nix
-    #
-    #     ({pkgs, ...}: {
-    #       nixpkgs.overlays = [
-    #         (final: prev: {
-    #           unstable = import nixpkgs-unstable {
-    #             system = prev.stdenv.hostPlatform.system;
-    #           };
-    #         })
-    #       ];
-    #     })
-    #   ];
-    # };
+    nixosConfigurations."roscu" = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      specialArgs = {inherit inputs self;};
+
+      modules = [
+        ./hosts/roscu/configuration.nix
+
+        ({pkgs, ...}: {
+          nixpkgs.overlays = [
+            (final: prev: {
+              unstable = import inputs.nixpkgs-unstable {
+                system = prev.stdenv.hostPlatform.system;
+              };
+              rustMonthly = inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.minimal.withComponents [
+                "cargo"
+                "clippy"
+                "rustc"
+                "rustfmt"
+                "rust-src"
+              ];
+
+              rustAnalyzerMonthly =
+                inputs.fenix.packages.${prev.stdenv.hostPlatform.system}.rust-analyzer;
+            })
+          ];
+        })
+      ];
+    };
   };
 }

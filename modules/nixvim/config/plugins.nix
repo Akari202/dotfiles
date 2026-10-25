@@ -111,7 +111,7 @@ in {
                 };
 
                 lifetimeElisionHints = {
-                  enable = "always";
+                  enable = "skiptrivial";
                 };
 
                 parameterHints.enable = true;
