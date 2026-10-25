@@ -6,13 +6,10 @@
 }: let
   helpers = lib.nixvim;
 in {
-  extraPackages =
-    lib.optionals config.akari.rust.toolchain.enable [
-      pkgs.rustMonthly
-    ]
-    ++ lib.optionals config.akari.rust.analyzer.enable [
-      pkgs.rustAnalyzerMonthly
-    ];
+  extraPackages = lib.optionals config.akari.rust.enable [
+    pkgs.rustMonthly
+    pkgs.rustAnalyzerMonthly
+  ];
 
   plugins = {
     marks.enable = true;
@@ -23,7 +20,7 @@ in {
     tiny-inline-diagnostic.enable = true;
     substitute.enable = true;
     kitty-navigator.enable = true;
-    parinfer-rust.enable = true;
+    parinfer-rust.enable = config.akari.extraTools.enable;
 
     colorizer = {
       enable = true;
@@ -82,7 +79,7 @@ in {
       indent.enable = true;
     };
     rustaceanvim = {
-      enable = config.akari.rust.analyzer.enable;
+      enable = config.akari.rust.enable;
       settings = {
         tools.enable_clippy = true;
         server = {
@@ -149,7 +146,7 @@ in {
     };
 
     typst-preview = {
-      enable = true;
+      enable = config.akari.extraTools.enable;
       settings = {
         extra_args = [
           "--input=compile-host=preview"

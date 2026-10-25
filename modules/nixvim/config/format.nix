@@ -1,26 +1,32 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   helpers = lib.nixvim;
 in {
-  extraPackages = with pkgs; [
-    alejandra
-    clang-tools
-    codespell
-    fprettify
-    jq
-    python3Packages.black
-    python3Packages.usort
-    rustMonthly
-    shfmt
-    tex-fmt
-    tombi
-    unstable.typstyle
-    oxfmt
-    stylua
-  ];
+  extraPackages = with pkgs;
+    [
+      alejandra
+      codespell
+      jq
+      python3Packages.black
+      python3Packages.usort
+      shfmt
+      tombi
+      oxfmt
+      stylua
+    ]
+    ++ lib.optionals config.akari.extraTools.enable [
+      clang-tools
+      fprettify
+      tex-fmt
+      unstable.typstyle
+    ]
+    ++ lib.optionals config.akari.rust.enable [
+      rustMonthly
+    ];
 
   plugins.conform-nvim = {
     enable = true;

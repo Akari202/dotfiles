@@ -1,10 +1,11 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   plugins = {
-    friendly-snippets.enable = true;
+    friendly-snippets.enable = config.akari.extraTools.enable;
     blink-cmp-dictionary.enable = true;
     blink-ripgrep.enable = true;
     blink-cmp = {

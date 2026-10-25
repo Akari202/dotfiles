@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   plugins.lsp = {
@@ -11,7 +12,7 @@
       # basedpyright.enable = true;
       bashls.enable = true;
       clangd.enable = true;
-      fortls.enable = true;
+      fortls.enable = config.akari.extraTools.enable;
       pyrefly.enable = true;
       ruff.enable = true;
       tombi.enable = true;
@@ -24,7 +25,7 @@
         };
       };
       tinymist = {
-        enable = true;
+        enable = config.akari.extraTools.enable;
         settings = {
           exportPdf = "never";
           semanticTokens = "enable";

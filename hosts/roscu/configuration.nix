@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    inputs.sops-nix.nixosModules.sops
     inputs.nixvim.nixosModules.nixvim
     inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
     ../common/configuration.nix
@@ -18,6 +19,13 @@
   networking = {
     hostName = "roscu";
     useDHCP = true;
+  };
+
+  programs = {
+    zsh = {
+      syntaxHighlighting.enable = true;
+      autosuggestions.enable = true;
+    };
   };
 
   services.openssh = {

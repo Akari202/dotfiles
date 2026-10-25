@@ -16,8 +16,8 @@ in {
   ];
 
   options.akari = {
-    rust.toolchain.enable = lib.mkEnableOption "the Rust toolchain";
-    rust.analyzer.enable = lib.mkEnableOption "rust-analyzer";
+    rust.enable = lib.mkEnableOption "enable rust tools";
+    extraTools.enable = lib.mkEnableOption "enable extra tools";
   };
 
   config = {

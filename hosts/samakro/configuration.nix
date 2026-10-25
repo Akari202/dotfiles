@@ -50,9 +50,15 @@
     ./settings.nix
   ];
 
-  programs.nixvim = {
-    akari.rust.toolchain.enable = true;
-    akari.rust.analyzer.enable = true;
+  programs = {
+    nixvim = {
+      akari.rust.enable = true;
+      akari.extraTools.enable = true;
+    };
+    zsh = {
+      enableAutosuggestions = true;
+      enableSyntaxHighlighting = true;
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
