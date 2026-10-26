@@ -22,13 +22,6 @@
     useDHCP = true;
   };
 
-  programs = {
-    zsh = {
-      syntaxHighlighting.enable = true;
-      autosuggestions.enable = true;
-    };
-  };
-
   services.openssh = {
     enable = true;
     settings.PermitRootLogin = "prohibit-password";

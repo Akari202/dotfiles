@@ -72,12 +72,8 @@ if [ "$BOOTSTRAP_MODE" = false ] && [ "$UPDATE_SOPS" = true ]; then
     yes | run_cmd sops updatekeys "hosts/roscu/secrets.yaml"
 fi
 
-echo "Running gnu stow common"
-run_cmd stow --ignore=.DS_Store --verbose=1 -d "config/common" --target "$HOME" . 2>&1 | tee -a "$STOW_LOG_FILE"
-if [ "$CURRENT_HOST" = "samakro" ]; then
-    echo "Running gnu stow samakro"
-    run_cmd stow --ignore=.DS_Store --verbose=1 -d "config/samakro" --target "$HOME" . 2>&1 | tee -a "$STOW_LOG_FILE"
-fi
+echo "Running gnu stow"
+run_cmd stow --ignore=.DS_Store --verbose=1 -d "config" -t "$HOME" common "$CURRENT_HOST" 2>&1 | tee -a "$STOW_LOG_FILE"
 
 echo "Formatting nix files"
 run_cmd alejandra --quiet **/*.nix

@@ -22,6 +22,7 @@
     unstable.typst
     unstable.devenv
     sops
+    zsh-patina
 
     # Installed outside of Nix:
     # keepassxc
@@ -51,41 +52,9 @@
     ./settings.nix
   ];
 
-  programs = {
-    nixvim = {
-      akari.rust.enable = true;
-      akari.extraTools.enable = true;
-    };
-    zsh = {
-      enableAutosuggestions = true;
-      enableSyntaxHighlighting = true;
-    };
-  };
-
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
   system.configurationRevision = self.rev or self.dirtyRev or null;
   system.stateVersion = 7;
   nix.settings.trusted-users = ["root" "akari"];
-
-  nix.gc = {
-    automatic = true;
-    interval = [
-      {
-        Hour = 3;
-        Minute = 15;
-        Weekday = 7;
-      }
-    ];
-  };
-  nix.optimise = {
-    automatic = true;
-    interval = [
-      {
-        Hour = 4;
-        Minute = 15;
-        Weekday = 7;
-      }
-    ];
-  };
 }

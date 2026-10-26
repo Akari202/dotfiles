@@ -4,9 +4,41 @@
   pkgs,
   ...
 }: {
+  programs = {
+    nixvim = {
+      akari.rust.enable = true;
+      akari.extraTools.enable = true;
+    };
+    zsh = {
+      enableAutosuggestions = true;
+      enableSyntaxHighlighting = true;
+    };
+  };
+
+  nix.gc = {
+    automatic = true;
+    interval = [
+      {
+        Hour = 3;
+        Minute = 15;
+        Weekday = 7;
+      }
+    ];
+  };
+
+  nix.optimise = {
+    automatic = true;
+    interval = [
+      {
+        Hour = 4;
+        Minute = 15;
+        Weekday = 7;
+      }
+    ];
+  };
+
   # defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
   # defaults write com.apple.desktopservices DSDontWriteUSBStores -bool TRUE
-
   power = {
     sleep = {
       computer = 15;
@@ -32,15 +64,15 @@
   };
   system.defaults = {
     NSGlobalDomain = {
+      AppleInterfaceStyleSwitchesAutomatically = true;
+      AppleMeasurementUnits = "Inches";
+      AppleTemperatureUnit = "Celsius";
+      AppleSpacesSwitchOnActivate = true;
       AppleShowAllFiles = true;
       AppleICUForce24HourTime = true;
       "com.apple.swipescrolldirection" = false;
     };
-    dock = {
-      autohide = true;
-      show-recents = false;
-      tilesize = 52;
-    };
+
     controlcenter = {
       BatteryShowPercentage = true;
     };
@@ -73,8 +105,21 @@
       ActuateDetents = true;
       TrackpadThreeFingerHorizSwipeGesture = 2;
     };
+    spaces.spans-displays = true;
+    SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
+    dock = {
+      autohide = true;
+      show-recents = false;
+      tilesize = 52;
+      persistent-apps = [
+        {app = "/System/Applications/System Settings.app/";}
+        {app = "/Applications/Nix Apps/Firefox.app/";}
+        {app = "/Applications/Nix Apps/PrismLauncher.app/";}
+        {app = "/Applications/Nix Apps/kitty.app/";}
+        {app = "/Applications/KeePassXC.app/";}
+      ];
+    };
   };
-
   security.pam.services.sudo_local = {
     enable = true;
     touchIdAuth = true;
